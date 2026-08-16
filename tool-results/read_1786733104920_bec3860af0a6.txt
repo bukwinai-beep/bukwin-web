@@ -1,0 +1,1720 @@
+     1→     1→# BUKWIN AI — Comprehensive Build Prompt
+     2→     2→## Full-Stack AI Receptionist SaaS Website
+     3→     3→**Generated:** 2026-08-14
+     4→     4→**Stack:** Next.js 15 (App Router) + Supabase + Vercel
+     5→     5→**Contact:** arehman09967@gmail.com
+     6→     6→**Brand:** Bukwin AI
+     7→     7→
+     8→     8→---
+     9→     9→
+    10→    10→## TABLE OF CONTENTS
+    11→    11→1. [Executive Summary & Brand Identity](#1-executive-summary--brand-identity)
+    12→    12→2. [Deep Competitive Analysis (Reference Sites)](#2-deep-competitive-analysis-reference-sites)
+    13→    13→3. [Anti-Vibe-Coded Design Manifesto](#3-anti-vibe-coded-design-manifesto)
+    14→    14→4. [Color System & Typography](#4-color-system--typography)
+    15→    15→5. [Page Architecture & Route Map](#5-page-architecture--route-map)
+    16→    16→6. [Component Design System](#6-component-design-system)
+    17→    17→7. [Animation & Interaction Specifications](#7-animation--interaction-specifications)
+    18→    18→8. [Section-by-Section Build Specs](#8-section-by-section-build-specs)
+    19→    19→9. [Backend Architecture & Placeholders](#9-backend-architecture--placeholders)
+    20→    20→10. [AI Agent Integration Roadmap](#10-ai-agent-integration-roadmap)
+    21→    21→11. [Database Schema (Supabase)](#11-database-schema-supabase)
+    22→    22→12. [Deployment & DevOps](#12-deployment--devops)
+    23→    23→13. [Missing Elements Checklist](#13-missing-elements-checklist)
+    24→    24→
+    25→    25→---
+    26→    26→
+    27→    27→## 1. EXECUTIVE SUMMARY & BRAND IDENTITY
+    28→    28→
+    29→    29→### Brand Essence
+    30→    30→Bukwin AI is a premium AI receptionist and phone agent system that answers calls 24/7, books appointments, handles orders, speaks multiple languages, and integrates with existing business tools. The brand communicates **trust, professionalism, and intelligent automation** — not "tech-bro AI startup."
+    31→    31→
+    32→    32→### Core Value Propositions
+    33→    33→- **Never miss a call again** — 24/7 voice + chat answering in any language
+    34→    34→- **Books while you sleep** — real-time calendar integration, instant confirmations
+    35→    35→- **Sounds human, not robotic** — natural conversation with interruption handling
+    36→    36→- **Universal task handler** — appointments, orders, inquiries, transfers, follow-ups
+    37→    37→- **Plugs into your stack** — CRM, calendar, WhatsApp, email, SMS sync
+    38→    38→
+    39→    39→### Target Audience
+    40→    40→- Small-to-medium service businesses (clinics, salons, restaurants, law firms, real estate, home services)
+    41→    41→- Multi-location businesses needing centralized front-desk coverage
+    42→    42→- Solo practitioners who cannot afford a full-time receptionist
+    43→    43→- Businesses with high after-hours call volume
+    44→    44→
+    45→    45→### Tone of Voice
+    46→    46→Professional but warm. Confident but not arrogant. Technical accuracy with human empathy. Avoid AI buzzwords ("leverage," "synergize," "transformative"). Use plain language that a business owner understands.
+    47→    47→
+    48→    48→---
+    49→    49→
+    50→    50→## 2. DEEP COMPETITIVE ANALYSIS (REFERENCE SITES)
+    51→    51→
+    52→    52→### 2.1 Agentlii.com Analysis
+    53→    53→**What works:**
+    54→    54→- **Live demo prominence** — "Talk to it before you talk to us" section with live voice/chat demo is the primary CTA
+    55→    55→- **Problem-first storytelling** — "The cost of a ringing phone" section with 3 missed-call scenarios builds emotional urgency
+    56→    56→- **Step-by-step trace** — "One call, start to finish" timeline (00:00 → 00:53) makes the invisible process visible
+    57→    57→- **Industry tuning** — "Tuned per industry, not a generic bot" with 10 verticals shows depth
+    58→    58→- **Integration grid** — Clean logo grid (ElevenLabs, n8n, Calendly, Google Calendar, WhatsApp, HubSpot, Gmail, Shopify)
+    59→    59→- **Flat pricing promise** — "priced flat, no per-minute surprises" addresses the #1 objection
+    60→    60→
+    61→    61→**What to improve upon:**
+    62→    62→- Hero section is somewhat generic; could use more editorial typography
+    63→    63→- No ROI calculator — missed conversion opportunity
+    64→    64→- Testimonials lack photos/verifiable identities
+    65→    65→- Dark mode toggle absent
+    66→    66→
+    67→    67→### 2.2 Rastaah-ai.com Analysis
+    68→    68→**What works:**
+    69→    69→- **Terminal/command-line aesthetic** — "operator@rastaah — /automation/core" console UI creates technical credibility
+    70→    70→- **Pipeline visualization** — "Lead Command Center" with file-tree style explorer (~/pipeline, new-leads, follow-up, booked.index)
+    71→    71→- **Workflow trigger library** — Visual automation cards (NEW LEAD → Instant Reply, NO SHOW → Auto Re-Book)
+    72→    72→- **Live system telemetry** — "sys.load 42%" with real-time log stream ("›lead: acme-corp captured ›reply sent · 38s")
+    73→    73→- **Founder story with conviction** — "Speed is the whole game" quote humanizes the brand
+    74→    74→- **Systemic/Automated/Accountable** triad as brand pillars
+    75→    75→
+    76→    76→**What to improve upon:**
+    77→    77→- Dark-only theme may feel too "hacker" for mainstream SMBs
+    78→    78→- Missing live voice demo
+    79→    79→- No pricing transparency at all
+    80→    80→- Navigation is minimal; could benefit from clearer information architecture
+    81→    81→
+    82→    82→### 2.3 GetFrontDeskHQ.com Analysis
+    83→    83→**What works:**
+    84→    84→- **Assessment-first approach** — "Most practices should not begin by building anything" — radical honesty builds trust
+    85→    85→- **Interactive ROI calculator** — "Put your own numbers in" with draggable sliders (calls/month, patient value, capture rate)
+    86→    86→- **Live demo with calendar** — Split-screen: chat with "Ava" on left, live schedule on right
+    87→    87→- **Staged rollout timeline** — "A staged rollout, with a date you can hold me to" — 4 numbered steps with realistic expectations
+    88→    88→- **Founder credibility** — Medical doctor + Professor of Physiology + Gold Medalist — authority stacking
+    89→    89→- **Compliance geography** — Australia (Privacy Act), US (HIPAA), UK/EU (GDPR) — shows regulatory maturity
+    90→    90→- **Honest FAQ** — "I am willing to tell you not to build it" — disarming objection handling
+    91→    91→
+    92→    92→**What to improve upon:**
+    93→    93→- Design is somewhat clinical/medical-focused; needs broader industry appeal
+    94→    94→- No voice demo (chat only)
+    95→    95→- Heavy text density; could use more visual breathing room
+    96→    96→- No integration logo grid
+    97→    97→
+    98→    98→### 2.4 Synthesis — What Bukwin AI Must Do Differently
+    99→    99→1. **Combine Agentlii's live demo + FrontDesk's ROI calculator** — both are conversion powerhouses
+   100→   100→2. **Adopt Rastaah's system visualization** but make it accessible, not hacker-only
+   101→   101→3. **FrontDesk's radical honesty** in pricing and expectations
+   102→   102→4. **Agentlii's industry breadth** (10+ verticals) with FrontDesk's vertical depth
+   103→   103→5. **Create a unique visual identity** that is neither "medical clinical" nor "hacker terminal" — think "premium business concierge"
+   104→   104→
+   105→   105→---
+   106→   106→
+   107→   107→## 3. ANTI-VIBE-CODED DESIGN MANIFESTO
+   108→   108→
+   109→   109→### What "Vibe-Coded" Looks Like (AVOID AT ALL COSTS)
+   110→   110→- Purple-to-blue gradient hero backgrounds with floating 3D spheres
+   111→   111→- Generic "AI sparkle" icons (✨) everywhere
+   112→   112→- Neon glow effects on every button and card
+   113→   113→- Glassmorphism cards with excessive blur and rainbow borders
+   114→   114→- ChatGPT-clone layout (sidebar + central chat, dark purple theme)
+   115→   115→- Stock illustrations of robots shaking hands with humans
+   116→   116→- "Revolutionize," "Transform," "Harness the power of AI" copy
+   117→   117→- Random particle systems that serve no purpose
+   118→   118→- Inter font + purple gradient = instant "AI startup template"
+   119→   119→- Bento grids filled with abstract shapes instead of real content
+   120→   120→
+   121→   121→### What "Skilled Developer Built" Looks Like (EMULATE)
+   122→   122→- **Editorial typography** — Serif headlines (Playfair Display, Canela, or Tiempos) paired with clean sans-serif body (Inter, Geist, or Söhne)
+   123→   123→- **Restrained color palette** — Exactly 2 colors + neutrals. No rainbow gradients.
+   124→   124→- **Purposeful whitespace** — Content breathes. 120px+ section padding. Generous line-height (1.6–1.8).
+   125→   125→- **Real product UI** — Screenshots of actual dashboard, not mockups with fake data
+   126→   126→- **Meaningful motion** — Animations that explain functionality (e.g., call flow timeline animating step-by-step)
+   127→   127→- **Tactile interactions** — Subtle hover states (scale 1.02, shadow lift, color shift) not neon glows
+   128→   128→- **Magazine-quality photography** — Real people, real offices, not 3D renders
+   129→   129→- **Grid systems that respect content** — Asymmetric layouts that serve the story, not symmetry for symmetry's sake
+   130→   130→- **Conversion-optimized, not decoration-optimized** — Every element earns its place
+   131→   131→
+   132→   132→### Design Principles for Bukwin AI
+   133→   133→1. **Hierarchy over decoration** — The eye should know exactly where to go next
+   134→   134→2. **Typography is the interface** — Let type do the visual heavy lifting
+   135→   135→3. **Motion serves meaning** — Animate to explain, not to impress
+   136→   136→4. **Two colors, infinite nuance** — Depth through opacity, weight, and scale, not more hues
+   137→   137→5. **Show the product, don't describe it** — Live demos > hero illustrations
+   138→   138→6. **Trust through transparency** — Pricing, process, and limitations are visible
+   139→   139→
+   140→   140→---
+   141→   141→
+   142→   142→## 4. COLOR SYSTEM & TYPOGRAPHY
+   143→   143→
+   144→   144→### Recommended Color Palette: "Executive Concierge"
+   145→   145→
+   146→   146→After analyzing all three reference sites and 2026 SaaS trends, Bukwin AI should use a **warm professional palette** that signals trust and premium service without being cold or clinical.
+   147→   147→
+   148→   148→| Token | Hex | Usage |
+   149→   149→|-------|-----|-------|
+   150→   150→| **Primary** | `#0F172A` | Deep navy — headings, primary buttons, footer, dark sections |
+   151→   151→| **Accent** | `#D4A853` | Warm gold — CTAs, highlights, active states, icons, underlines |
+   152→   152→| **Background** | `#FAF9F6` | Warm off-white — page background, cards |
+   153→   153→| **Surface** | `#FFFFFF` | Pure white — elevated cards, modals, input fields |
+   154→   154→| **Text Primary** | `#0F172A` | Deep navy — body text on light backgrounds |
+   155→   155→| **Text Secondary** | `#64748B` | Slate — captions, metadata, secondary text |
+   156→   156→| **Text Muted** | `#94A3B8` | Light slate — placeholders, disabled states |
+   157→   157→| **Border** | `#E2E8F0` | Light gray — dividers, card borders, input borders |
+   158→   158→| **Success** | `#10B981` | Emerald — confirmation states, live indicators |
+   159→   159→| **Error** | `#EF4444` | Red — validation errors, alert states |
+   160→   160→
+   161→   161→**Dark Mode Variant:**
+   162→   162→| Token | Hex | Usage |
+   163→   163→|-------|-----|-------|
+   164→   164→| **Background** | `#0A0F1C` | Deep charcoal — dark mode page bg |
+   165→   165→| **Surface** | `#111827` | Elevated dark — cards, modals |
+   166→   166→| **Text Primary** | `#F8FAFC` | Off-white — headings on dark |
+   167→   167→| **Text Secondary** | `#94A3B8` | Slate — body text on dark |
+   168→   168→| **Accent** | `#F0C674` | Brighter gold — maintains visibility on dark |
+   169→   169→
+   170→   170→**Why this palette:**
+   171→   171→- Deep navy + warm gold is the "luxury concierge" aesthetic — think premium hotel lobby, not tech startup
+   172→   172→- Navy is authoritative and trustworthy (financial services, legal, medical all use it)
+   173→   173→- Gold accent is energetic and premium without being aggressive like red or orange
+   174→   174→- Off-white background reduces eye strain vs pure white and feels more editorial
+   175→   175→- Passes WCAG AA contrast ratios at all levels
+   176→   176→
+   177→   177→### Typography System
+   178→   178→
+   179→   179→| Element | Font | Weight | Size (Desktop) | Size (Mobile) | Line-Height | Letter-Spacing |
+   180→   180→|---------|------|--------|----------------|---------------|-------------|----------------|
+   181→   181→| **Display** | Playfair Display | 500 | 72px | 40px | 1.1 | -0.02em |
+   182→   182→| **H1** | Playfair Display | 500 | 56px | 36px | 1.15 | -0.01em |
+   183→   183→| **H2** | Playfair Display | 500 | 42px | 28px | 1.2 | -0.01em |
+   184→   184→| **H3** | Inter | 600 | 28px | 22px | 1.3 | 0 |
+   185→   185→| **H4** | Inter | 600 | 20px | 18px | 1.4 | 0 |
+   186→   186→| **Body Large** | Inter | 400 | 20px | 18px | 1.7 | 0 |
+   187→   187→| **Body** | Inter | 400 | 16px | 16px | 1.7 | 0 |
+   188→   188→| **Body Small** | Inter | 400 | 14px | 14px | 1.6 | 0 |
+   189→   189→| **Caption** | Inter | 500 | 12px | 12px | 1.5 | 0.05em |
+   190→   190→| **Button** | Inter | 600 | 14px | 14px | 1 | 0.02em |
+   191→   191→| **Nav** | Inter | 500 | 14px | 14px | 1 | 0.01em |
+   192→   192→| **Mono** | JetBrains Mono | 400 | 14px | 13px | 1.5 | 0 |
+   193→   193→
+   194→   194→**Font loading strategy:**
+   195→   195→- Use `next/font` for optimal loading
+   196→   196→- Playfair Display: subset latin, display: swap
+   197→   197→- Inter: variable font if available, otherwise standard weights
+   198→   198→- JetBrains Mono: load only for code/terminal sections
+   199→   199→- System font stack as fallback: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
+   200→   200→
+   201→   201→---
+   202→   202→
+   203→   203→## 5. PAGE ARCHITECTURE & ROUTE MAP
+   204→   204→
+   205→   205→### Public Pages (Marketing Site)
+   206→   206→```
+   207→   207→/                    → Homepage (Hero + Features + How It Works + Industries + Live Demo + Testimonials + Pricing + FAQ + CTA)
+   208→   208→/about               → About Bukwin AI (Founder story, mission, values, team)
+   209→   209→/features            → Feature deep-dive (Voice, Chat, Calendar, CRM, Multilingual, Analytics)
+   210→   210→/how-it-works        → Step-by-step process (Setup → Train → Go Live → Optimize)
+   211→   211→/industries          → Industry solutions grid (Healthcare, Real Estate, Legal, Hospitality, etc.)
+   212→   212→/industries/[slug]   → Individual industry page (dedicated landing for SEO)
+   213→   213→/pricing             → Pricing tiers + ROI calculator + FAQ
+   214→   214→/demo                → Live interactive demo (voice + chat simulator + calendar view)
+   215→   215→/integrations        → Integration directory (Calendar, CRM, Phone, Messaging)
+   216→   216→/case-studies        → Customer success stories
+   217→   217→/blog                → Blog listing
+   218→   218→/blog/[slug]         → Individual blog post
+   219→   219→/contact             → Contact form + Book a call calendar
+   220→   220→/book-call           → Dedicated booking page (Calendly embed or custom)
+   221→   221→```
+   222→   222→
+   223→   223→### Auth Pages
+   224→   224→```
+   225→   225→/login               → Sign in (email + password + Google OAuth)
+   226→   226→/register            → Sign up (email + password + business name)
+   227→   227→/forgot-password     → Password reset flow
+   228→   228→/reset-password      → Password reset confirmation
+   229→   229→```
+   230→   230→
+   231→   231→### Dashboard (Post-Auth — Placeholder Structure)
+   232→   232→```
+   233→   233→/dashboard           → Main dashboard (overview stats, recent calls, upcoming appointments)
+   234→   234→/dashboard/calls     → Call history + transcripts + recordings
+   235→   235→/dashboard/calendar  → Calendar view + booking management
+   236→   236→/dashboard/contacts  → CRM contacts + lead pipeline
+   237→   237→/dashboard/analytics → Call metrics, conversion rates, response times
+   238→   238→/dashboard/settings  → Agent configuration, voice settings, business rules
+   239→   239→/dashboard/billing   → Subscription management, invoices, usage
+   240→   240→```
+   241→   241→
+   242→   242→### Legal Pages
+   243→   243→```
+   244→   244→/privacy             → Privacy Policy
+   245→   245→/terms               → Terms of Service
+   246→   246→/security            → Security & Compliance (SOC 2, GDPR, HIPAA info)
+   247→   247→```
+   248→   248→
+   249→   249→---
+   250→   250→
+   251→   251→## 6. COMPONENT DESIGN SYSTEM
+   252→   252→
+   253→   253→### 6.1 Layout Components
+   254→   254→
+   255→   255→**Container**
+   256→   256→- Max-width: 1280px (xl), 1024px (lg), 768px (md)
+   257→   257→- Padding: px-4 sm:px-6 lg:px-8 xl:px-12
+   258→   258→- Centered with mx-auto
+   259→   259→
+   260→   260→**Section**
+   261→   261→- Default padding: py-24 md:py-32
+   262→   262→- Alternate backgrounds: bg-background (warm white) → bg-primary (navy) → bg-background
+   263→   263→- Border-top on alternate sections: border-border/50
+   264→   264→
+   265→   265→**Grid**
+   266→   266→- 12-column responsive grid
+   267→   267→- Gap: gap-6 md:gap-8 lg:gap-12
+   268→   268→- Common patterns: 2-col (1fr 1fr), 3-col (1fr 1fr 1fr), asymmetric (1.2fr 0.8fr)
+   269→   269→
+   270→   270→### 6.2 UI Components
+   271→   271→
+   272→   272→**Primary Button**
+   273→   273→- Background: accent gold (`#D4A853`)
+   274→   274→- Text: primary navy (`#0F172A`)
+   275→   275→- Padding: px-8 py-3.5
+   276→   276→- Border-radius: 6px (slightly rounded, not pill)
+   277→   277→- Font: button weight, uppercase tracking
+   278→   278→- Hover: background darkens 10%, scale(1.02), shadow-lg
+   279→   279→- Active: scale(0.98)
+   280→   280→- Transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1)
+   281→   281→
+   282→   282→**Secondary Button**
+   283→   283→- Background: transparent
+   284→   284→- Border: 1.5px solid primary navy
+   285→   285→- Text: primary navy
+   286→   286→- Hover: background primary navy, text white
+   287→   287→- Same padding/radius as primary
+   288→   288→
+   289→   289→**Ghost Button (Dark backgrounds)**
+   290→   290→- Background: transparent
+   291→   291→- Border: 1.5px solid white/30
+   292→   292→- Text: white
+   293→   293→- Hover: background white/10, border white/50
+   294→   294→
+   295→   295→**Card**
+   296→   296→- Background: surface white
+   297→   297→- Border: 1px solid border color
+   298→   298→- Border-radius: 12px
+   299→   299→- Padding: p-6 md:p-8
+   300→   300→- Shadow: none by default, shadow-sm on hover
+   301→   301→- Hover: translateY(-2px), shadow-md, border-color accent/30
+   302→   302→- Transition: all 300ms ease
+   303→   303→
+   304→   304→**Feature Card (Bukwin-specific)**
+   305→   305→- Icon: 48x48, accent gold, contained in 56x56 rounded-lg bg-accent/10
+   306→   306→- Title: H4, primary color
+   307→   307→- Description: Body small, text-secondary
+   308→   308→- Hover: icon container bg-accent/20, card lift
+   309→   309→
+   310→   310→**Testimonial Card**
+   311→   311→- Quote: Body large, italic, primary color
+   312→   312→- Avatar: 56x56 rounded-full, object-cover
+   313→   313→- Name: Body small, font-weight 600
+   314→   314→- Role: Caption, text-secondary
+   315→   315→- Company: Caption, text-muted
+   316→   316→- Border-left: 3px solid accent on left side
+   317→   317→
+   318→   318→**Input Field**
+   319→   319→- Background: surface white
+   320→   320→- Border: 1px solid border, focus: accent/50 ring-2
+   321→   321→- Border-radius: 8px
+   322→   322→- Padding: px-4 py-3
+   323→   323→- Font: body size
+   324→   324→- Placeholder: text-muted
+   325→   325→- Error state: border-error, text-error caption below
+   326→   326→
+   327→   327→**Navigation**
+   328→   328→- Sticky top-0, z-50
+   329→   329→- Background: bg-background/80 backdrop-blur-md
+   330→   330→- Height: h-16 md:h-20
+   331→   331→- Logo left, links center, CTAs right
+   332→   332→- Links: Nav font, text-primary, hover:text-accent
+   333→   333→- Mobile: hamburger menu with slide-in drawer
+   334→   334→- Scroll behavior: add subtle shadow on scroll
+   335→   335→
+   336→   336→**Footer**
+   337→   337→- Background: primary navy
+   338→   338→- Text: white/80
+   339→   339→- 4-column grid: Brand + Description | Product Links | Company Links | Legal
+   340→   340→- Newsletter signup: input + button
+   341→   341→- Social icons: 24x24, white/60 hover:white
+   342→   342→- Bottom bar: copyright + privacy/terms links
+   343→   343→
+   344→   344→### 6.3 Animation Components
+   345→   345→
+   346→   346→**FadeIn (Scroll-triggered)**
+   347→   347→- Initial: opacity 0, translateY 30px
+   348→   348→- Animate: opacity 1, translateY 0
+   349→   349→- Duration: 600ms
+   350→   350→- Easing: cubic-bezier(0.4, 0, 0.2, 1)
+   351→   351→- Trigger: when element enters viewport (threshold 0.2)
+   352→   352→- Stagger: 100ms between sibling elements
+   353→   353→
+   354→   354→**StaggerChildren**
+   355→   355→- Parent wrapper that triggers child animations sequentially
+   356→   356→- Delay: index * 100ms
+   357→   357→- Used for: feature grids, testimonial lists, step timelines
+   358→   358→
+   359→   359→**TextReveal**
+   360→   360→- Headline words animate in individually
+   361→   361→- Initial: opacity 0, translateY 40px, rotateX(-15deg)
+   362→   362→- Animate: opacity 1, translateY 0, rotateX(0)
+   363→   363→- Duration: 800ms per word
+   364→   364→- Stagger: 50ms
+   365→   365→- Easing: cubic-bezier(0.22, 1, 0.36, 1)
+   366→   366→
+   367→   367→**CountUp**
+   368→   368→- Numbers animate from 0 to target value
+   369→   369→- Duration: 2000ms
+   370→   370→- Easing: easeOutExpo
+   371→   371→- Trigger: when scrolled into view
+   372→   372→- Used for: stats section ("62% of calls missed", "<60s response time")
+   373→   373→
+   374→   374→**LivePulse**
+   375→   375→- Small green dot with ping animation
+   376→   376→- Used for: "Live" indicators, "Answering now" status
+   377→   377→- CSS: animate-ping on pseudo-element
+   378→   378→
+   379→   379→**TerminalTypewriter**
+   380→   380→- Monospace text types out character by character
+   381→   381→- Cursor: blinking block cursor
+   382→   382→- Speed: 40ms per character
+   383→   383→- Used for: demo console, command-line aesthetic sections
+   384→   384→
+   385→   385→
+   386→   386→---
+   387→   387→
+   388→   388→## 7. ANIMATION & INTERACTION SPECIFICATIONS
+   389→   389→
+   390→   390→### Animation Philosophy
+   391→   391→- **60fps target** — All animations must be GPU-accelerated (transform, opacity only)
+   392→   392→- **Respect prefers-reduced-motion** — Disable animations for users who request it
+   393→   393→- **Purposeful, not decorative** — Every animation must guide attention or explain function
+   394→   394→- **Subtlety is sophistication** — 300ms transitions, not 1s spectacles
+   395→   395→
+   396→   396→### Library Selection
+   397→   397→
+   398→   398→**Primary: Framer Motion (Motion)**
+   399→   399→- Use for: page transitions, component enter/exit, layout animations, hover states, gesture handling
+   400→   400→- Why: React-native API, excellent for UI interactions, AnimatePresence for mount/unmount
+   401→   401→- Bundle: ~32KB, acceptable for SaaS product
+   402→   402→
+   403→   403→**Secondary: GSAP + ScrollTrigger**
+   404→   404→- Use for: hero scroll-pinned narrative, complex timeline choreography, SVG path animations
+   405→   405→- Why: Industry standard for scroll-driven storytelling, pinning, scrubbing
+   406→   406→- Bundle: ~23KB core + ~12KB ScrollTrigger — only load on pages that need it (homepage hero)
+   407→   407→
+   408→   408→**CSS Animations**
+   409→   409→- Use for: simple hover states, loading spinners, pulse indicators, infinite loops
+   410→   410→- Why: Zero JS overhead, GPU-accelerated by default
+   411→   411→
+   412→   412→### Page-Specific Animation Specs
+   413→   413→
+   414→   414→**Homepage Hero**
+   415→   415→- TextReveal on headline (word by word)
+   416→   416→- Subtitle fades in 400ms after headline completes
+   417→   417→- CTA buttons fade in + translateY(20px→0) 600ms after subtitle
+   418→   418→- Hero image/mockup: subtle float animation (translateY ±10px, 6s loop, ease-in-out)
+   419→   419→- Background: static gradient (no animation) — navy to slightly lighter navy, subtle noise texture overlay at 3% opacity
+   420→   420→
+   421→   421→**How It Works Timeline**
+   422→   422→- ScrollTrigger: pin the left side (step numbers), scroll the right side (step descriptions)
+   423→   423→- Each step: number scales up (1→1.2) when active, description fades in
+   424→   424→- Progress indicator: vertical line fills with accent gold as user scrolls
+   425→   425→- Duration: scrubbed to scroll position (1px scroll = 1px animation)
+   426→   426→
+   427→   427→**Live Demo Section**
+   428→   428→- Split-screen layout: chat interface left, calendar right
+   429→   429→- Chat messages: stagger in (100ms delay each)
+   430→   430→- Calendar events: pop in with scale(0.9→1) + opacity
+   431→   431→- "Typing" indicator: three dots bouncing
+   432→   432→- Voice waveform: CSS animation of bars scaling
+   433→   433→
+   434→   434→**Stats Section**
+   435→   435→- CountUp animation on numbers
+   436→   436→- Stagger: 200ms between each stat card
+   437→   437→- Cards: fade in + translateY(40px→0)
+   438→   438→
+   439→   439→**Testimonials**
+   440→   440→- Horizontal scroll carousel (optional) or grid fade-in
+   441→   441→- Quote marks: large decorative serif, accent gold at 20% opacity
+   442→   442→- Hover: card lifts slightly, quote mark opacity increases to 40%
+   443→   443→
+   444→   444→**Pricing Cards**
+   445→   445→- Recommended plan: accent border + subtle glow (box-shadow: 0 0 40px accent/10)
+   446→   446→- Hover: all cards lift, recommended card lifts more
+   447→   447→- Feature list: checkmarks stagger in on scroll
+   448→   448→
+   449→   449→**FAQ Accordion**
+   450→   450→- Expand/collapse: height auto animation (300ms)
+   451→   451→- Chevron: rotate 180deg on open
+   452→   452→- Content: fade in + translateY(-10px→0)
+   453→   453→
+   454→   454→### Micro-Interactions
+   455→   455→
+   456→   456→**Button Hover**
+   457→   457→- Primary: bg darkens, scale(1.02), shadow-lg appears
+   458→   458→- Secondary: bg fills with primary color, text inverts
+   459→   459→- Ghost: bg fills with white/10
+   460→   460→- All: 200ms ease-out
+   461→   461→
+   462→   462→**Link Hover**
+   463→   463→- Underline grows from left to right (scaleX 0→1, transform-origin left)
+   464→   464→- Color shifts to accent
+   465→   465→- Duration: 250ms
+   466→   466→
+   467→   467→**Card Hover**
+   468→   468→- translateY(-4px)
+   469→   469→- Shadow increases
+   470→   470→- Border color shifts to accent/30
+   471→   471→- Duration: 300ms ease-out
+   472→   472→
+   473→   473→**Input Focus**
+   474→   474→- Border color: border → accent/50
+   475→   475→- Ring: 2px accent/20
+   476→   476→- Label: translateY(-20px) + scale(0.85) if using floating labels
+   477→   477→- Duration: 200ms
+   478→   478→
+   479→   479→**Navigation Scroll**
+   480→   480→- At top: transparent background, no shadow
+   481→   481→- After 50px scroll: bg-background/80, backdrop-blur, shadow-sm
+   482→   482→- Duration: 300ms
+   483→   483→
+   484→   484→---
+   485→   485→
+   486→   486→## 8. SECTION-BY-SECTION BUILD SPECS
+   487→   487→
+   488→   488→### 8.1 HOMEPAGE — `/`
+   489→   489→
+   490→   490→#### Section 1: Hero
+   491→   491→**Layout:** Full-width, min-height 90vh, centered content with asymmetric split (55% text / 45% visual)
+   492→   492→**Background:** Primary navy (`#0F172A`) with subtle radial gradient (lighter center, darker edges) + noise texture overlay at 3%
+   493→   493→**Content:**
+   494→   494→- **Eyebrow:** "AI RECEPTIONIST FOR YOUR BUSINESS" — Caption, uppercase, accent gold, letter-spacing 0.1em
+   495→   495→- **Headline:** "Never Miss a Call. Never Lose a Customer." — Display font, white, max-width 600px
+   496→   496→- **Subheadline:** "Bukwin AI answers your phone 24/7, books appointments, takes orders, and speaks your customers' language — all while you focus on running your business." — Body large, white/70, max-width 520px
+   497→   497→- **CTA Group:**
+   498→   498→  - Primary: "Hear It Answer Live" → links to /demo
+   499→   499→  - Secondary: "See How It Works" → scrolls to #how-it-works
+   500→   500→- **Trust Bar:** "Trusted by 200+ businesses" + 5 client logos (grayscale, opacity 50%, hover: opacity 100%)
+   501→   501→- **Visual:** Right side — animated phone interface mockup showing:
+   502→   502→  - Incoming call screen
+   503→   503→  - Waveform visualization
+   504→   504→  - "Bukwin AI is answering..." status
+   505→   505→  - Live calendar booking animation
+   506→   506→  - **OR** use a high-quality product screenshot with subtle float animation
+   507→   507→
+   508→   508→**Animation:** TextReveal headline → fadeIn subtitle (delay 600ms) → fadeIn CTAs (delay 800ms) → fadeIn trust bar (delay 1000ms)
+   509→   509→
+   510→   510→#### Section 2: The Problem ("The Cost of a Ringing Phone")
+   511→   511→**Layout:** Full-width, bg-background, py-24
+   512→   512→**Content:**
+   513→   513→- **Eyebrow:** "THE PROBLEM" — Caption, accent gold
+   514→   514→- **Headline:** "Every Missed Call Is a Customer Calling Your Competitor." — H2, primary
+   515→   515→- **Subheadline:** "You're not bad at answering the phone. You're busy running the business." — Body large, text-secondary
+   516→   516→- **3-Column Grid:**
+   517→   517→  1. **"The Rush Hour"** — Icon: Clock (Lucide). Title: "The calls you can't take." Body: "The chair is full, the kitchen is slammed, you're mid-viewing. The phone rings anyway — and it rings out."
+   518→   518→  2. **"The After-Hours Gap"** — Icon: Moon. Title: "The hours you're closed but demand isn't." Body: "Evenings, weekends, holidays. Customers call when they're free, not when you're open. Voicemail catches almost none of them."
+   519→   519→  3. **"The Time Drain"** — Icon: Repeat. Title: "The same five questions, forty times a day." Body: "Opening hours. Parking. Price. Your team recites the same script instead of serving the customer in front of them."
+   520→   520→- **Stat Bar:** Full-width, bg-primary, py-16, 3 stats:
+   521→   521→  - "62%" — "of calls to small businesses go unanswered"
+   522→   522→  - "85%" — "of unanswered callers never call back"
+   523→   523→  - "62%" — "ring a competitor instead, within minutes"
+   524→   524→  (Use CountUp animation)
+   525→   525→
+   526→   526→#### Section 3: Live Demo ("Talk to Bukwin Before You Talk to Us")
+   527→   527→**Layout:** Full-width, bg-surface, py-24, border-y
+   528→   528→**Content:**
+   529→   529→- **Eyebrow:** "LIVE DEMO" — Caption, accent gold
+   530→   530→- **Headline:** "Experience It Yourself. No Signup Required." — H2, primary
+   531→   531→- **Subheadline:** "Speak to the agent or type at it. See exactly how it handles a real customer." — Body large, text-secondary
+   532→   532→- **Split-Screen (60/40):**
+   533→   533→  - **Left: Interactive Chat/Voice Demo**
+   534→   534→    - Tab switcher: "Voice Call" | "Website Chat"
+   535→   535→    - Voice mode: "Call (555) 019-2834" button + "Or simulate a call below"
+   536→   536→    - Chat interface: Message bubbles (user right, agent left)
+   537→   537→    - Pre-set scenarios: "Book a dental cleaning" | "Check restaurant hours" | "Schedule a property viewing"
+   538→   538→    - Agent avatar: small circular image with LivePulse green dot
+   539→   539→    - Typing indicator when "agent is thinking"
+   540→   540→  - **Right: Live Calendar View**
+   541→   541→    - Calendar widget showing current month
+   542→   542→    - Animated booking: when demo completes, a new event pops into the calendar
+   543→   543→    - Event card shows: "New Booking: John D. — Dental Cleaning — 2:30 PM"
+   544→   544→    - "Real-time sync" badge with LivePulse
+   545→   545→- **Below:** "This is not a recording. It's a real conversation with Bukwin AI." — Caption, text-muted, centered
+   546→   546→
+   547→   547→**Note:** This section requires backend integration. For MVP, implement a simulated demo with hardcoded responses and a mock calendar. Add a TODO comment marking where live AI integration connects.
+   548→   548→
+   549→   549→#### Section 4: How It Works ("One Call, Start to Finish")
+   550→   550→**Layout:** Full-width, bg-background, py-24
+   551→   551→**Content:**
+   552→   552→- **Eyebrow:** "HOW IT WORKS" — Caption, accent gold
+   553→   553→- **Headline:** "Your AI Receptionist. Setup in Days, Not Months." — H2, primary
+   554→   554→- **Timeline (Vertical, 4 steps):**
+   555→   555→  1. **"01 — We Learn Your Business"** — "Share your hours, services, pricing, and tone. We build a knowledge base that sounds like your best employee." + Icon: BookOpen
+   556→   556→  2. **"02 — We Connect Your Tools"** — "Calendar, CRM, phone number, WhatsApp. Bukwin integrates with what you already use — nothing changes for your customers." + Icon: Plug
+   557→   557→  3. **"03 — Go Live in 48 Hours"** — "Your existing number routes to Bukwin. The agent answers, qualifies, books, and transfers — just like a human receptionist." + Icon: Phone
+   558→   558→  4. **"04 — It Gets Smarter Every Day"** — "Call transcripts, booking patterns, and customer feedback train the agent to handle more autonomously over time." + Icon: TrendingUp
+   559→   559→- **Visual:** Each step has an accompanying illustration/mockup (phone screen, calendar sync, analytics dashboard)
+   560→   560→- **CTA:** "Book Your Setup Call" — Primary button, links to /book-call
+   561→   561→
+   562→   562→**Animation:** ScrollTrigger pinned timeline. Active step highlights with accent gold, progress line fills.
+   563→   563→
+   564→   564→#### Section 5: Features ("Everything a Great Receptionist Does")
+   565→   565→**Layout:** Full-width, bg-primary (navy), py-24, text white
+   566→   566→**Content:**
+   567→   567→- **Eyebrow:** "FEATURES" — Caption, accent gold
+   568→   568→- **Headline:** "A Premium Front Desk, Without Hiring One." — H2, white
+   569→   569→- **Subheadline:** "Everything a great receptionist does — answered instantly, priced flat, and running while you sleep." — Body large, white/70
+   570→   570→- **Bento Grid (3x3, mixed sizes):**
+   571→   571→  - **Large card (spans 2x2):** "24/7 Voice Answering" — "Nights, weekends, public holidays. Unlimited calls at once, no hold music. Every caller gets answered on the first ring." + Waveform visualization
+   572→   572→  - **Medium card:** "Instant Appointment Booking" — "Checks live availability, books the slot, sends confirmations by SMS or WhatsApp, and reminders that cut your no-shows." + Calendar icon
+   573→   573→  - **Medium card:** "Speaks Their Language" — "Natural conversation in 30+ languages. Detects the caller's language and switches automatically." + Globe icon
+   574→   574→  - **Small card:** "CRM Sync" — "Contacts, notes, call summaries, and appointments written back automatically." + Database icon
+   575→   575→  - **Small card:** "Smart Transfers" — "Urgent or high-value callers get routed to the right person, with full conversation context attached." + ArrowRight icon
+   576→   576→  - **Small card:** "WhatsApp & Chat" — "The same agent on your website and WhatsApp. Answers never contradict each other." + MessageCircle icon
+   577→   577→  - **Small card:** "Lead Qualification" — "Asks your qualifying questions, flags real buyers, and politely handles non-buyers." + Filter icon
+   578→   578→  - **Small card:** "Call Analytics" — "Every call measured: response time, resolution rate, booking conversion, and sentiment." + BarChart icon
+   579→   579→  - **Small card:** "No-Show Recovery" — "Automatically follows up with missed appointments to rebook them before they go cold." + RefreshCw icon
+   580→   580→
+   581→   581→**Animation:** Cards stagger in on scroll (100ms delay each). Hover: card lifts, icon pulses subtly.
+   582→   582→
+   583→   583→#### Section 6: Industries ("Tuned Per Industry")
+   584→   584→**Layout:** Full-width, bg-background, py-24
+   585→   585→**Content:**
+   586→   586→- **Eyebrow:** "INDUSTRIES" — Caption, accent gold
+   587→   587→- **Headline:** "Not a Generic Bot. Trained for Your Business." — H2, primary
+   588→   588→- **Grid:** 6 columns on desktop, 2 on mobile, 10 industry cards:
+   589→   589→  1. Healthcare & Dental — Stethoscope icon
+   590→   590→  2. Real Estate — Home icon
+   591→   591→  3. Restaurants & Food — UtensilsCrossed icon
+   592→   592→  4. Salons & Spas — Sparkles icon
+   593→   593→  5. Legal Services — Scale icon
+   594→   594→  6. Automotive — Car icon
+   595→   595→  7. Home Services — Wrench icon
+   596→   596→  8. Hospitality — Bed icon
+   597→   597→  9. Retail & E-commerce — ShoppingBag icon
+   598→   598→  10. Consulting — Briefcase icon
+   599→   599→- **Card design:** Icon (accent gold, 32px) + Industry name (H4) + "Learn more →" link
+   600→   600→- **Hover:** Card border shifts to accent, icon scales 1.1, "Learn more" underline animates
+   601→   601→- **CTA:** "See Your Industry" — Secondary button, links to /industries
+   602→   602→
+   603→   603→#### Section 7: Integrations ("Plugs Into Your Tools")
+   604→   604→**Layout:** Full-width, bg-surface, py-16, border-y
+   605→   605→**Content:**
+   606→   606→- **Headline:** "Works With What You Already Use." — H3, centered, primary
+   607→   607→- **Logo Grid:** 2 rows of 6 logos each (12 total), grayscale, opacity 60%, hover: opacity 100% + color
+   608→   608→  - Row 1: Google Calendar, Outlook, Calendly, HubSpot, Salesforce, GoHighLevel
+   609→   609→  - Row 2: Twilio, WhatsApp, Slack, Zapier, Stripe, Shopify
+   610→   610→- **Note:** Use official SVG logos where permitted, or high-quality PNGs. Do not distort aspect ratios.
+   611→   611→- **Caption:** "And 50+ more. Don't see your tool? We build custom integrations." — Body small, text-muted, centered
+   612→   612→
+   613→   613→#### Section 8: Testimonials ("Businesses That Stopped Letting Leads Slip")
+   614→   614→**Layout:** Full-width, bg-background, py-24
+   615→   615→**Content:**
+   616→   616→- **Eyebrow:** "TESTIMONIALS" — Caption, accent gold
+   617→   617→- **Headline:** "Real Businesses. Real Results." — H2, primary
+   618→   618→- **Grid:** 3 columns, 2 rows = 6 testimonial cards
+   619→   619→- **Card content:**
+   620→   620→  1. "We were losing leads overnight and never knew it. Now every inquiry gets a reply in seconds — our booked calls doubled without hiring anyone." — Aria Chen, COO, Meridian B2B
+   621→   621→  2. "The 60-second response is the whole game. Prospects tell us we were the only company that actually got back to them fast." — Marcus Vale, Founder, Kernel Labs
+   622→   622→  3. "The no-show recovery flow alone paid for the system in the first month. Leads I'd written off just started rebooking themselves." — Devi Ramachandran, Head of Growth
+   623→   623→  4. "One inbox, one pipeline, everything automated. It replaced four tools and finally gave us a single source of truth." — Jonas Weber, Director of Sales Ops
+   624→   624→  5. "Our review count tripled on autopilot. The local SEO lift from that alone brought in new inbound we weren't getting before." — Sana Malik, Owner, Vale Consulting
+   625→   625→  6. "I was skeptical an AI could sound natural. Then I heard it handle an angry customer with more patience than my best employee." — David Park, Owner, Park Auto Repair
+   626→   626→- **Card design:** Quote text (Body large, italic) + Avatar (56px circle) + Name + Role + Company
+   627→   627→- **Verification:** Each card has a small "Verified Business" badge with checkmark
+   628→   628→
+   629→   629→**Animation:** Stagger fade-in on scroll. Cards have subtle hover lift.
+   630→   630→
+   631→   631→#### Section 9: Pricing ("Simple, Flat Pricing")
+   632→   632→**Layout:** Full-width, bg-surface, py-24
+   633→   633→**Content:**
+   634→   634→- **Eyebrow:** "PRICING" — Caption, accent gold
+   635→   635→- **Headline:** "The Cost of a Full-Time Receptionist, Without the Salary." — H2, primary
+   636→   636→- **Toggle:** Monthly / Annual (save 20%)
+   637→   637→- **3-Tier Grid:**
+   638→   638→
+   639→   639→**Starter — $79/month**
+   640→   640→- "Perfect for solo practitioners"
+   641→   641→- Up to 200 minutes/month
+   642→   642→- 1 phone number
+   643→   643→- Website chat + WhatsApp
+   644→   644→- Google Calendar integration
+   645→   645→- Basic call transcripts
+   646→   646→- Email support
+   647→   647→- CTA: "Get Started"
+   648→   648→
+   649→   649→**Professional — $199/month** (RECOMMENDED — accent border + badge)
+   650→   650→- "For growing businesses"
+   651→   651→- Up to 800 minutes/month
+   652→   652→- 3 phone numbers
+   653→   653→- All channels (Voice, Chat, WhatsApp, SMS, Email)
+   654→   654→- Calendar + CRM integration
+   655→   655→- Advanced analytics
+   656→   656→- Multilingual support (5 languages)
+   657→   657→- Priority support
+   658→   658→- No-show recovery
+   659→   659→- CTA: "Start Free Trial"
+   660→   660→
+   661→   661→**Enterprise — Custom**
+   662→   662→- "For multi-location teams"
+   663→   663→- Unlimited minutes
+   664→   664→- Unlimited numbers
+   665→   665→- Custom integrations
+   666→   666→- Dedicated account manager
+   667→   667→- SLA guarantee
+   668→   668→- On-premise deployment option
+   669→   669→- White-label option
+   670→   670→- CTA: "Book a Call"
+   671→   671→
+   672→   672→- **Below tiers:** "All plans include: 24/7 answering, instant setup, call recording, SSL security, data encryption" — Body small, text-muted
+   673→   673→- **Guarantee:** "30-day money-back guarantee. No questions asked." — Caption, centered, with Shield icon
+   674→   674→
+   675→   675→**Animation:** Cards stagger in. Recommended card has subtle glow pulse on load.
+   676→   676→
+   677→   677→#### Section 10: ROI Calculator ("Put Your Own Numbers In")
+   678→   678→**Layout:** Full-width, bg-primary (navy), py-24, text white
+   679→   679→**Content:**
+   680→   680→- **Eyebrow:** "ROI CALCULATOR" — Caption, accent gold
+   681→   681→- **Headline:** "See What Missed Calls Are Costing You." — H2, white
+   682→   682→- **Subheadline:** "Drag the sliders. The math is done in your browser — nothing is sent to us." — Body large, white/70
+   683→   683→- **Interactive Calculator (2-column):**
+   684→   684→  - **Left: Inputs**
+   685→   685→    - "Calls per month" — Slider: 50–1000, default 200
+   686→   686→    - "Average customer value" — Slider: $50–$2000, default $250
+   687→   687→    - "Current answer rate" — Slider: 10%–90%, default 45%
+   688→   688→    - "Bukwin answer rate" — Fixed at 98% (with tooltip: "We answer every call that connects")
+   689→   689→  - **Right: Results**
+   690→   690→    - "Current monthly bookings:" [calculated]
+   691→   691→    - "With Bukwin:" [calculated]
+   692→   692→    - "Additional monthly revenue:" [calculated, accent gold, large]
+   693→   693→    - "Annual impact:" [calculated, accent gold, larger]
+   694→   694→    - "ROI:" [calculated]x your monthly investment
+   695→   695→- **Disclaimer:** "This is an illustration, not a guarantee. Your results depend on your business, call quality, and conversion rate." — Caption, white/50
+   696→   696→- **CTA:** "Book a Free Assessment" — Primary button, links to /book-call
+   697→   697→
+   698→   698→**Note:** This is a client-side calculator using React state. No backend needed for MVP.
+   699→   699→
+   700→   700→#### Section 11: FAQ ("Everything You Need to Know")
+   701→   701→**Layout:** Full-width, bg-background, py-24
+   702→   702→**Content:**
+   703→   703→- **Eyebrow:** "FAQ" — Caption, accent gold
+   704→   704→- **Headline:** "Good Questions. Honest Answers." — H2, primary
+   705→   705→- **Accordion (8 items):**
+   706→   706→  1. "How does the AI receptionist actually work?" → "We point your existing number at Bukwin. The agent answers, follows the script and rules we build with you, checks your calendar, books or transfers, then writes everything back to your systems. Nothing changes for the caller."
+   707→   707→  2. "Will it sound like a robot?" → "No. It speaks naturally, handles interruptions and pauses, and can be tuned to your brand's tone. Most callers treat it like a normal front-desk conversation. You can hear it yourself in the live demo above."
+   708→   708→  3. "Can it speak my customers' language?" → "Yes — 30+ languages supported. It can detect the caller's language and switch automatically. This matters a lot for businesses serving diverse communities."
+   709→   709→  4. "Can it transfer calls to my team?" → "Yes. You define the triggers — urgency, deal size, a specific service, an angry caller — and the agent routes to the right person, with full conversation context attached."
+   710→   710→  5. "Does it work with my calendar and CRM?" → "Google Calendar, Outlook, Calendly, HubSpot, Salesforce, GoHighLevel, and more. If you don't have a system yet, we'll set up a simple one for you."
+   711→   711→  6. "Does it handle WhatsApp and website chat too?" → "Yes. The same agent, the same knowledge, across phone, WhatsApp, and your website — so answers never contradict each other."
+   712→   712→  7. "How long does setup take?" → "Most businesses go live within 48 hours. Complex integrations or multi-location setups take a few days longer, and we'll tell you honestly on the first call."
+   713→   713→  8. "What does it cost?" → "Flat monthly pricing based on call volume and integrations — no per-minute surprises. We quote it after a 15-minute call, once we know what your phone actually does on a busy day."
+   714→   714→
+   715→   715→**Animation:** Accordion expand/collapse with height animation + chevron rotation.
+   716→   716→
+   717→   717→#### Section 12: Final CTA ("Your Next Customer Is Already Calling")
+   718→   718→**Layout:** Full-width, bg-primary (navy), py-24, text white, centered
+   719→   719→**Content:**
+   720→   720→- **Headline:** "Your Next Customer Is Already Calling." — H1, white
+   721→   721→- **Subheadline:** "Fifteen minutes, no pitch deck. We'll ask what your phone does on a busy day, then show you Bukwin handling it." — Body large, white/70, max-width 600px, mx-auto
+   722→   722→- **CTA:** "Book Your Free Demo" — Large primary button (px-10 py-4, text-lg)
+   723→   723→- **Secondary:** "Or call us: (555) 019-2834" — Body, white/50, with Phone icon
+   724→   724→- **Trust:** "No credit card required. Cancel anytime." — Caption, white/40
+   725→   725→
+   726→   726→#### Section 13: Footer
+   727→   727→**Layout:** Full-width, bg-primary (navy), border-t border-white/10, pt-16 pb-8
+   728→   728→**Content:**
+   729→   729→- **Top Row (4 columns):**
+   730→   730→  1. **Brand:** Bukwin AI logo (white) + "AI receptionists that answer your phone 24/7, handle enquiries, qualify leads, book appointments, and transfer the calls that matter." — Body small, white/60
+   731→   731→  2. **Product:** Features, How It Works, Industries, Integrations, Pricing, Demo
+   732→   732→  3. **Company:** About, Blog, Case Studies, Careers, Contact
+   733→   733→  4. **Legal:** Privacy Policy, Terms of Service, Security, Cookie Policy
+   734→   734→- **Newsletter:** "Get updates on AI receptionist technology" — Input + Button (accent gold)
+   735→   735→- **Bottom Row:**
+   736→   736→  - Left: "© 2026 Bukwin AI. All rights reserved."
+   737→   737→  - Center: Social icons (LinkedIn, Twitter/X, YouTube, GitHub) — 24px, white/40 hover:white
+   738→   738→  - Right: "Built with care by skilled developers." — Caption, white/30
+   739→   739→
+   740→   740→
+   741→   741→---
+   742→   742→
+   743→   743→### 8.2 ABOUT PAGE — `/about`
+   744→   744→
+   745→   745→**Purpose:** Build trust through founder story, mission, and team credibility.
+   746→   746→
+   747→   747→**Sections:**
+   748→   748→1. **Hero:** "Built by People Who Hate Missed Calls Too" — Founder photo + mission statement
+   749→   749→2. **Our Story:** Why Bukwin AI was founded — the problem experienced firsthand
+   750→   750→3. **Values:** 4 pillars — Human-First, Radical Honesty, Systemic Thinking, Continuous Improvement
+   751→   751→4. **Team:** 3–4 team members with photos, names, roles, and 1-line bios
+   752→   752→5. **Stats:** "200+ businesses served", "1M+ calls answered", "48h avg setup time", "30+ languages"
+   753→   753→6. **CTA:** "Join us in building the future of business communication"
+   754→   754→
+   755→   755→---
+   756→   756→
+   757→   757→### 8.3 FEATURES PAGE — `/features`
+   758→   758→
+   759→   759→**Purpose:** Deep-dive into each feature for SEO and conversion.
+   760→   760→
+   761→   761→**Sections:**
+   762→   762→1. **Hero:** "Everything Your Front Desk Does. Automated."
+   763→   763→2. **Feature Grid (6 features, each with detailed section):**
+   764→   764→   - 24/7 Voice Answering — with waveform demo
+   765→   765→   - Smart Appointment Booking — with calendar integration diagram
+   766→   766→   - Multilingual Support — with language flags/detection flow
+   767→   767→   - CRM & Calendar Sync — with integration architecture diagram
+   768→   768→   - Call Transfer & Escalation — with routing logic flowchart
+   769→   769→   - Analytics & Insights — with dashboard screenshot
+   770→   770→3. **Comparison Table:** Bukwin vs Human Receptionist vs Voicemail vs Traditional IVR
+   771→   771→4. **CTA:** "See It In Action" → /demo
+   772→   772→
+   773→   773→---
+   774→   774→
+   775→   775→### 8.4 HOW IT WORKS PAGE — `/how-it-works`
+   776→   776→
+   777→   777→**Purpose:** Reduce anxiety about setup complexity.
+   778→   778→
+   779→   779→**Sections:**
+   780→   780→1. **Hero:** "Live in 48 Hours. Here's Exactly How."
+   781→   781→2. **4-Step Timeline (detailed):**
+   782→   782→   - Step 1: Discovery Call (15 min) — "We learn your business, call volume, and tools."
+   783→   783→   - Step 2: Knowledge Build (24h) — "We script your agent, connect your calendar, and train it on your business."
+   784→   784→   - Step 3: Testing (24h) — "You test it with real scenarios. We refine until it's perfect."
+   785→   785→   - Step 4: Go Live — "Your number routes to Bukwin. You watch bookings land in real time."
+   786→   786→3. **Timeline Visualization:** Horizontal on desktop, vertical on mobile. Each step has:
+   787→   787→   - Number badge (accent gold circle)
+   788→   788→   - Title + description
+   789→   789→   - Expected duration
+   790→   790→   - "What you need to do" vs "What we handle"
+   791→   791→4. **FAQ:** "What if I don't have a CRM?", "Can I keep my existing number?", "What happens during setup?"
+   792→   792→5. **CTA:** "Book Your Discovery Call"
+   793→   793→
+   794→   794→---
+   795→   795→
+   796→   796→### 8.5 INDUSTRIES PAGE — `/industries`
+   797→   797→
+   798→   798→**Purpose:** SEO landing pages for vertical-specific keywords.
+   799→   799→
+   800→   800→**Main Page:**
+   801→   801→- Grid of 10 industry cards
+   802→   802→- Each card links to `/industries/[slug]`
+   803→   803→
+   804→   804→**Individual Industry Page (`/industries/[slug]`):**
+   805→   805→- **Hero:** Industry-specific headline (e.g., "AI Receptionist for Dental Practices")
+   806→   806→- **Problem:** Industry-specific pain points (e.g., "Missed patient calls = lost lifetime value")
+   807→   807→- **Solution:** How Bukwin solves it for this industry
+   808→   808→- **Features:** Relevant features highlighted (e.g., HIPAA compliance for healthcare)
+   809→   809→- **Case Study:** Industry-specific testimonial
+   810→   810→- **Integrations:** Relevant tools (e.g., Open Dental, Dentrix for dental)
+   811→   811→- **CTA:** "Get a Custom Quote for [Industry]"
+   812→   812→
+   813→   813→---
+   814→   814→
+   815→   815→### 8.6 PRICING PAGE — `/pricing`
+   816→   816→
+   817→   817→**Purpose:** Transparent pricing + conversion.
+   818→   818→
+   819→   819→**Sections:**
+   820→   820→1. **Hero:** "Simple Pricing. No Hidden Fees."
+   821→   821→2. **Pricing Tiers:** Same as homepage but with MORE detail:
+   822→   822→   - Full feature comparison table
+   823→   823→   - "What's included" vs "Add-ons"
+   824→   824→   - Annual discount calculator
+   825→   825→3. **ROI Calculator:** Full interactive version (same as homepage)
+   826→   826→4. **FAQ:** Pricing-specific questions
+   827→   827→5. **CTA:** "Still have questions? Book a 15-min call."
+   828→   828→
+   829→   829→---
+   830→   830→
+   831→   831→### 8.7 DEMO PAGE — `/demo`
+   832→   832→
+   833→   833→**Purpose:** Primary conversion page — let visitors experience the product.
+   834→   834→
+   835→   835→**Sections:**
+   836→   836→1. **Hero:** "Talk to Bukwin AI Right Now."
+   837→   837→2. **Live Demo Interface:**
+   838→   838→   - **Left Panel:** Chat/voice interface
+   839→   839→     - Scenario selector dropdown
+   840→   840→     - Message history
+   841→   841→     - Input field (text or "Hold to talk" button for voice)
+   842→   842→     - Agent status indicator ("Bukwin is typing..." / "Listening..." / "Speaking...")
+   843→   843→   - **Right Panel:** Calendar view
+   844→   844→     - Current month view
+   845→   845→     - Business hours highlighted
+   846→   846→     - Booked slots shown
+   847→   847→     - When demo booking completes: new event animates in
+   848→   848→   - **Bottom Panel:** Call transcript + summary
+   849→   849→3. **Scenario Presets:**
+   850→   850→   - "Book a dental cleaning"
+   851→   851→   - "Check restaurant availability"
+   852→   852→   - "Schedule a property viewing"
+   853→   853→   - "Ask about legal consultation fees"
+   854→   854→4. **How It Works (mini):** "This demo simulates a real conversation. In production, Bukwin connects to your actual phone number and calendar."
+   855→   855→5. **CTA:** "Ready for your own agent? Book a setup call."
+   856→   856→
+   857→   857→**Backend Note:** This page requires the most backend work. For MVP, implement a rule-based chatbot with predefined responses. Mark all integration points with `// TODO: Connect to LiveKit/Twilio/OpenAI`.
+   858→   858→
+   859→   859→---
+   860→   860→
+   861→   861→### 8.8 CONTACT / BOOK CALL PAGE — `/contact` & `/book-call`
+   862→   862→
+   863→   863→**Purpose:** Lead capture + consultation booking.
+   864→   864→
+   865→   865→**Sections:**
+   866→   866→1. **Hero:** "Let's Talk About Your Phone."
+   867→   867→2. **Two-Column Layout:**
+   868→   868→   - **Left: Contact Form**
+   869→   869→     - Name, Email, Business Name, Phone Number
+   870→   870→     - Industry dropdown
+   871→   871→     - "How many calls do you get per month?" dropdown
+   872→   872→     - "What tool do you use for scheduling?" dropdown
+   873→   873→     - Message textarea
+   874→   874→     - Submit button
+   875→   875→   - **Right: Direct Booking**
+   876→   876→     - "Prefer to book directly?" headline
+   877→   877→     - Calendly embed (or custom calendar)
+   878→   878→     - "Or call us: (555) 019-2834"
+   879→   879→     - "Response time: < 2 hours during business days"
+   880→   880→3. **Trust Signals:** "Free 15-minute consultation. No pitch deck. No pressure."
+   881→   881→
+   882→   882→---
+   883→   883→
+   884→   884→### 8.9 DASHBOARD (POST-AUTH) — `/dashboard/*`
+   885→   885→
+   886→   886→**Purpose:** Customer portal for managing their AI agent.
+   887→   887→
+   888→   888→**⚠️ PLACEHOLDER SECTION — Full backend required**
+   889→   889→
+   890→   890→**Pages:**
+   891→   891→- `/dashboard` — Overview: call volume graph, recent calls list, upcoming appointments, agent status
+   892→   892→- `/dashboard/calls` — Call log table with filters (date, status, duration, outcome). Play recording button. View transcript.
+   893→   893→- `/dashboard/calendar` — Full calendar view (month/week/day). Manage bookings. Block time slots.
+   894→   894→- `/dashboard/contacts` — CRM-style contact list. Lead pipeline (New → Qualified → Booked → Completed).
+   895→   895→- `/dashboard/analytics` — Charts: calls over time, answer rate, booking conversion, peak hours, language breakdown, sentiment analysis.
+   896→   896→- `/dashboard/settings` — Agent configuration: business hours, greeting script, services & pricing, transfer rules, voice selection, language preferences, integration connections.
+   897→   897→- `/dashboard/billing` — Subscription details, usage metrics, invoices, payment method, upgrade/downgrade.
+   898→   898→
+   899→   899→**Design:**
+   900→   900→- Sidebar navigation (collapsible on mobile)
+   901→   901→- Top bar: search, notifications bell, profile dropdown
+   902→   902→- Color scheme: same as marketing site but with more data-density
+   903→   903→- Cards with charts using Recharts or Tremor
+   904→   904→- Tables using TanStack Table
+   905→   905→- Forms using React Hook Form + Zod
+   906→   906→
+   907→   907→**Backend Requirements:**
+   908→   908→- Supabase Auth (session management)
+   909→   909→- Supabase DB (calls, appointments, contacts, settings tables)
+   910→   910→- Supabase Realtime (live call notifications, calendar updates)
+   911→   911→- Supabase Storage (call recordings, transcripts)
+   912→   912→- Supabase Edge Functions (webhook handlers for Twilio, calendar APIs)
+   913→   913→
+   914→   914→---
+   915→   915→
+   916→   916→## 9. BACKEND ARCHITECTURE & PLACEHOLDERS
+   917→   917→
+   918→   918→### 9.1 Tech Stack
+   919→   919→
+   920→   920→| Layer | Technology | Purpose |
+   921→   921→|-------|------------|---------|
+   922→   922→| **Frontend** | Next.js 15 (App Router) | SSR/SSG, routing, API routes |
+   923→   923→| **Styling** | Tailwind CSS v4 | Utility-first CSS |
+   924→   924→| **UI Components** | shadcn/ui | Base component library |
+   925→   925→| **Animations** | Framer Motion + GSAP | UI transitions + scroll animations |
+   926→   926→| **Backend** | Supabase | Auth, PostgreSQL, Realtime, Storage, Edge Functions |
+   927→   927→| **Deployment** | Vercel | Hosting, CI/CD, edge network |
+   928→   928→| **Forms** | React Hook Form + Zod | Validation and form handling |
+   929→   929→| **Charts** | Recharts / Tremor | Dashboard analytics |
+   930→   930→| **Tables** | TanStack Table | Dashboard data tables |
+   931→   931→| **State** | Zustand | Client-side state management |
+   932→   932→| **Query** | TanStack Query | Server state, caching, sync |
+   933→   933→
+   934→   934→### 9.2 Supabase Configuration
+   935→   935→
+   936→   936→**Auth:**
+   937→   937→- Email/password auth
+   938→   938→- Google OAuth provider
+   939→   939→- Anonymous auth for demo users
+   940→   940→- Row Level Security (RLS) on ALL tables
+   941→   941→- JWT session handling with refresh tokens
+   942→   942→
+   943→   943→**Database:**
+   944→   944→- PostgreSQL 15+
+   945→   945→- pgvector extension for AI memory/semantic search
+   946→   946→- Realtime enabled for calls, appointments, notifications
+   947→   947→- Connection pooling via Supabase pooler
+   948→   948→
+   949→   949→**Storage:**
+   950→   950→- Buckets: `call-recordings`, `avatars`, `documents`, `exports`
+   951→   951→- RLS policies per bucket
+   952→   952→- Signed URLs for private content
+   953→   953→
+   954→   954→**Edge Functions:**
+   955→   955→- `embed` — Generate text embeddings using `gte-small` model
+   956→   956→- `webhook-twilio` — Handle Twilio voice/SMS webhooks
+   957→   957→- `webhook-calendar` — Handle Google/Outlook calendar push notifications
+   958→   958→- `agent-orchestrator` — Main AI agent logic (LLM + tool calling)
+   959→   959→- `transcribe` — Speech-to-text processing
+   960→   960→- `synthesize` — Text-to-speech generation
+   961→   961→
+   962→   962→### 9.3 Environment Variables
+   963→   963→
+   964→   964→```env
+   965→   965→# Supabase
+   966→   966→NEXT_PUBLIC_SUPABASE_URL=
+   967→   967→NEXT_PUBLIC_SUPABASE_ANON_KEY=
+   968→   968→SUPABASE_SERVICE_ROLE_KEY=
+   969→   969→SUPABASE_JWT_SECRET=
+   970→   970→
+   971→   971→# AI / Voice
+   972→   972→OPENAI_API_KEY=
+   973→   973→ANTHROPIC_API_KEY=
+   974→   974→ELEVENLABS_API_KEY=
+   975→   975→DEEPGRAM_API_KEY=
+   976→   976→LIVEKIT_API_KEY=
+   977→   977→LIVEKIT_API_SECRET=
+   978→   978→LIVEKIT_WS_URL=
+   979→   979→
+   980→   980→# Telephony
+   981→   981→TWILIO_ACCOUNT_SID=
+   982→   982→TWILIO_AUTH_TOKEN=
+   983→   983→TWILIO_PHONE_NUMBER=
+   984→   984→
+   985→   985→# Calendar
+   986→   986→GOOGLE_CLIENT_ID=
+   987→   987→GOOGLE_CLIENT_SECRET=
+   988→   988→GOOGLE_CALENDAR_API_KEY=
+   989→   989→MICROSOFT_CLIENT_ID=
+   990→   990→MICROSOFT_CLIENT_SECRET=
+   991→   991→
+   992→   992→# CRM
+   993→   993→HUBSPOT_API_KEY=
+   994→   994→SALESFORCE_CLIENT_ID=
+   995→   995→SALESFORCE_CLIENT_SECRET=
+   996→   996→
+   997→   997→# App
+   998→   998→NEXT_PUBLIC_APP_URL=https://bukwin-ai.vercel.app
+   999→   999→NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+  1000→  1000→STRIPE_SECRET_KEY=
+  1001→  1001→STRIPE_WEBHOOK_SECRET=
+  1002→  1002→```
+  1003→  1003→
+  1004→  1004→### 9.4 Placeholder Architecture Map
+  1005→  1005→
+  1006→  1006→The following features require significant backend/AI work and should be implemented as **placeholder components** with clear TODO markers:
+  1007→  1007→
+  1008→  1008→```
+  1009→  1009→┌─────────────────────────────────────────────────────────────┐
+  1010→  1010→│  MARKETING SITE (Next.js pages — NO backend needed)         │
+  1011→  1011→│  ├── Homepage (static + client-side ROI calculator)         │
+  1012→  1012→│  ├── About, Features, How It Works, Industries              │
+  1013→  1013→│  ├── Pricing (static tiers + client-side toggle)            │
+  1014→  1014→│  ├── Contact form (sends to Supabase/Email)                 │
+  1015→  1015→│  └── Blog (static/markdown or Supabase CMS)                 │
+  1016→  1016→├─────────────────────────────────────────────────────────────┤
+  1017→  1017→│  DEMO PAGE (Partial backend — simulated for MVP)            │
+  1018→  1018→│  ├── Chat interface (rule-based responses)                  │
+  1019→  1019→│  ├── Voice simulation (pre-recorded audio)                  │
+  1020→  1020→│  └── Calendar mock (client-side state only)                 │
+  1021→  1021→│  TODO: Replace with LiveKit + OpenAI Realtime API           │
+  1022→  1022→├─────────────────────────────────────────────────────────────┤
+  1023→  1023→│  AUTH PAGES (Supabase Auth)                                 │
+  1024→  1024→│  ├── Login/Register (Supabase Auth UI or custom)            │
+  1025→  1025→│  └── Password reset                                         │
+  1026→  1026→├─────────────────────────────────────────────────────────────┤
+  1027→  1027→│  DASHBOARD (Full backend required)                          │
+  1028→  1028→│  ├── Overview → TODO: Aggregate queries from calls table    │
+  1029→  1029→│  ├── Calls → TODO: Twilio integration + recording storage   │
+  1030→  1030→│  ├── Calendar → TODO: Google/Outlook API integration        │
+  1031→  1031→│  ├── Contacts → TODO: CRM sync + lead pipeline logic        │
+  1032→  1032→│  ├── Analytics → TODO: Aggregation + chart data             │
+  1033→  1033→│  ├── Settings → TODO: Agent config + voice selection        │
+  1034→  1034→│  └── Billing → TODO: Stripe integration + usage tracking    │
+  1035→  1035→├─────────────────────────────────────────────────────────────┤
+  1036→  1036→│  AI AGENT ENGINE (Core backend — most complex)              │
+  1037→  1037→│  ├── Voice Pipeline: Twilio → LiveKit → STT → LLM → TTS   │
+  1038→  1038→│  ├── Chat Pipeline: WebSocket → LLM → Response              │
+  1039→  1039→│  ├── Tool Calling: Calendar check, Book slot, CRM write     │
+  1040→  1040→│  ├── Memory: Short-term (session) + Long-term (vector DB)   │
+  1041→  1041→│  ├── Multilingual: Language detection + response generation │
+  1042→  1042→│  └── Analytics: Call logging, transcription, sentiment      │
+  1043→  1043→└─────────────────────────────────────────────────────────────┘
+  1044→  1044→```
+  1045→  1045→
+  1046→  1046→
+  1047→  1047→---
+  1048→  1048→
+  1049→  1049→## 10. AI AGENT INTEGRATION ROADMAP
+  1050→  1050→
+  1051→  1051→### Phase 1: Marketing Site (Week 1–2)
+  1052→  1052→**Goal:** Launch professional landing site with demo placeholder
+  1053→  1053→- Build all marketing pages
+  1054→  1054→- Implement simulated demo (hardcoded responses)
+  1055→  1055→- Set up Supabase project, auth, basic schema
+  1056→  1056→- Deploy to Vercel
+  1057→  1057→
+  1058→  1058→### Phase 2: Auth + Dashboard Shell (Week 3)
+  1059→  1059→**Goal:** Working auth and dashboard navigation
+  1060→  1060→- Supabase Auth integration
+  1061→  1061→- Dashboard layout with sidebar
+  1062→  1062→- Protected routes middleware
+  1063→  1063→- User profile management
+  1064→  1064→
+  1065→  1065→### Phase 3: Live Chat Demo (Week 4)
+  1066→  1066→**Goal:** Working text-based AI demo
+  1067→  1067→- OpenAI GPT-4o integration
+  1068→  1068→- Basic tool calling (mock calendar check/book)
+  1069→  1069→- Conversation memory (session-based)
+  1070→  1070→- Demo page connects to real AI
+  1071→  1071→
+  1072→  1072→### Phase 4: Voice Integration (Week 5–6)
+  1073→  1073→**Goal:** Working voice call demo
+  1074→  1074→- Twilio phone number setup
+  1075→  1075→- LiveKit room integration
+  1076→  1076→- Deepgram STT integration
+  1077→  1077→- ElevenLabs/Cartesia TTS integration
+  1078→  1078→- Basic voice conversation flow
+  1079→  1079→
+  1080→  1080→### Phase 5: Calendar + CRM (Week 7–8)
+  1081→  1081→**Goal:** Real appointment booking
+  1082→  1082→- Google Calendar OAuth + API
+  1083→  1083→- Outlook Calendar integration
+  1084→  1084→- Calendly API integration
+  1085→  1085→- HubSpot/Salesforce basic sync
+  1086→  1086→- Real booking in demo
+  1087→  1087→
+  1088→  1088→### Phase 6: Full Dashboard (Week 9–10)
+  1089→  1089→**Goal:** Production customer portal
+  1090→  1090→- Call history with real data
+  1091→  1091→- Analytics with real metrics
+  1092→  1092→- Settings management
+  1093→  1093→- Billing with Stripe
+  1094→  1094→
+  1095→  1095→### Phase 7: Scale & Optimize (Week 11+)
+  1096→  1096→**Goal:** Production-ready system
+  1097→  1097→- Multi-tenant architecture
+  1098→  1098→- Advanced RAG memory (pgvector)
+  1099→  1099→- Multi-language support
+  1100→  1100→- Call transfer logic
+  1101→  1101→- No-show recovery workflows
+  1102→  1102→- Performance optimization
+  1103→  1103→
+  1104→  1104→---
+  1105→  1105→
+  1106→  1106→## 11. DATABASE SCHEMA (SUPABASE)
+  1107→  1107→
+  1108→  1108→### 11.1 Auth & Users
+  1109→  1109→```sql
+  1110→  1110→-- Supabase Auth handles: auth.users table
+  1111→  1111→-- Extend with profiles:
+  1112→  1112→CREATE TABLE profiles (
+  1113→  1113→  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  1114→  1114→  full_name TEXT,
+  1115→  1115→  business_name TEXT,
+  1116→  1116→  industry TEXT,
+  1117→  1117→  phone TEXT,
+  1118→  1118→  avatar_url TEXT,
+  1119→  1119→  subscription_tier TEXT DEFAULT 'starter',
+  1120→  1120→  subscription_status TEXT DEFAULT 'inactive',
+  1121→  1121→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1122→  1122→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1123→  1123→);
+  1124→  1124→
+  1125→  1125→-- RLS: Users can only read/update their own profile
+  1126→  1126→CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
+  1127→  1127→CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
+  1128→  1128→```
+  1129→  1129→
+  1130→  1130→### 11.2 Businesses (Multi-tenancy prep)
+  1131→  1131→```sql
+  1132→  1132→CREATE TABLE businesses (
+  1133→  1133→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1134→  1134→  owner_id UUID REFERENCES profiles(id),
+  1135→  1135→  name TEXT NOT NULL,
+  1136→  1136→  slug TEXT UNIQUE,
+  1137→  1137→  industry TEXT,
+  1138→  1138→  timezone TEXT DEFAULT 'UTC',
+  1139→  1139→  phone_number TEXT,
+  1140→  1140→  website TEXT,
+  1141→  1141→  settings JSONB DEFAULT '{}',
+  1142→  1142→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1143→  1143→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1144→  1144→);
+  1145→  1145→```
+  1146→  1146→
+  1147→  1147→### 11.3 Agent Configuration
+  1148→  1148→```sql
+  1149→  1149→CREATE TABLE agent_configs (
+  1150→  1150→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1151→  1151→  business_id UUID REFERENCES businesses(id),
+  1152→  1152→  name TEXT DEFAULT 'Bukwin AI Receptionist',
+  1153→  1153→  greeting_script TEXT,
+  1154→  1154→  business_hours JSONB,
+  1155→  1155→  services JSONB,
+  1156→  1156→  faq_knowledge JSONB,
+  1157→  1157→  voice_settings JSONB,
+  1158→  1158→  language_preferences TEXT[] DEFAULT '{"en"}',
+  1159→  1159→  transfer_rules JSONB,
+  1160→  1160→  integrations JSONB,
+  1161→  1161→  is_active BOOLEAN DEFAULT true,
+  1162→  1162→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1163→  1163→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1164→  1164→);
+  1165→  1165→```
+  1166→  1166→
+  1167→  1167→### 11.4 Calls
+  1168→  1168→```sql
+  1169→  1169→CREATE TABLE calls (
+  1170→  1170→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1171→  1171→  business_id UUID REFERENCES businesses(id),
+  1172→  1172→  caller_number TEXT,
+  1173→  1173→  caller_name TEXT,
+  1174→  1174→  direction TEXT CHECK (direction IN ('inbound', 'outbound')),
+  1175→  1175→  status TEXT CHECK (status IN ('queued', 'ringing', 'in_progress', 'completed', 'missed', 'voicemail', 'transferred')),
+  1176→  1176→  duration_seconds INTEGER,
+  1177→  1177→  recording_url TEXT,
+  1178→  1178→  transcript TEXT,
+  1179→  1179→  summary TEXT,
+  1180→  1180→  sentiment TEXT CHECK (sentiment IN ('positive', 'neutral', 'negative')),
+  1181→  1181→  outcome TEXT CHECK (outcome IN ('booked', 'qualified', 'transferred', 'resolved', 'no_answer', 'spam')),
+  1182→  1182→  appointment_id UUID,
+  1183→  1183→  notes TEXT,
+  1184→  1184→  metadata JSONB,
+  1185→  1185→  started_at TIMESTAMPTZ,
+  1186→  1186→  ended_at TIMESTAMPTZ,
+  1187→  1187→  created_at TIMESTAMPTZ DEFAULT NOW()
+  1188→  1188→);
+  1189→  1189→
+  1190→  1190→-- RLS: Business members can view their calls
+  1191→  1191→CREATE POLICY "Business members can view calls" ON calls FOR SELECT USING (
+  1192→  1192→  EXISTS (SELECT 1 FROM businesses WHERE businesses.id = calls.business_id AND businesses.owner_id = auth.uid())
+  1193→  1193→);
+  1194→  1194→```
+  1195→  1195→
+  1196→  1196→### 11.5 Appointments
+  1197→  1197→```sql
+  1198→  1198→CREATE TABLE appointments (
+  1199→  1199→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1200→  1200→  business_id UUID REFERENCES businesses(id),
+  1201→  1201→  call_id UUID REFERENCES calls(id),
+  1202→  1202→  contact_id UUID,
+  1203→  1203→  service_name TEXT,
+  1204→  1204→  scheduled_at TIMESTAMPTZ NOT NULL,
+  1205→  1205→  duration_minutes INTEGER,
+  1206→  1206→  status TEXT CHECK (status IN ('pending', 'confirmed', 'completed', 'cancelled', 'no_show')),
+  1207→  1207→  calendar_event_id TEXT,
+  1208→  1208→  reminder_sent BOOLEAN DEFAULT false,
+  1209→  1209→  notes TEXT,
+  1210→  1210→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1211→  1211→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1212→  1212→);
+  1213→  1213→```
+  1214→  1214→
+  1215→  1215→### 11.6 Contacts (CRM)
+  1216→  1216→```sql
+  1217→  1217→CREATE TABLE contacts (
+  1218→  1218→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1219→  1219→  business_id UUID REFERENCES businesses(id),
+  1220→  1220→  name TEXT,
+  1221→  1221→  phone TEXT,
+  1222→  1222→  email TEXT,
+  1223→  1223→  source TEXT,
+  1224→  1224→  status TEXT CHECK (status IN ('new', 'qualified', 'booked', 'completed', 'archived')),
+  1225→  1225→  lifetime_value DECIMAL(10,2),
+  1226→  1226→  last_contact_at TIMESTAMPTZ,
+  1227→  1227→  notes TEXT,
+  1228→  1228→  metadata JSONB,
+  1229→  1229→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1230→  1230→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1231→  1231→);
+  1232→  1232→```
+  1233→  1233→
+  1234→  1234→### 11.7 Conversations (Chat)
+  1235→  1235→```sql
+  1236→  1236→CREATE TABLE conversations (
+  1237→  1237→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1238→  1238→  business_id UUID REFERENCES businesses(id),
+  1239→  1239→  channel TEXT CHECK (channel IN ('web', 'whatsapp', 'sms', 'email', 'instagram', 'facebook')),
+  1240→  1240→  contact_id UUID REFERENCES contacts(id),
+  1241→  1241→  status TEXT DEFAULT 'active',
+  1242→  1242→  summary TEXT,
+  1243→  1243→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1244→  1244→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1245→  1245→);
+  1246→  1246→
+  1247→  1247→CREATE TABLE messages (
+  1248→  1248→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1249→  1249→  conversation_id UUID REFERENCES conversations(id),
+  1250→  1250→  role TEXT CHECK (role IN ('user', 'assistant', 'system')),
+  1251→  1251→  content TEXT NOT NULL,
+  1252→  1252→  metadata JSONB,
+  1253→  1253→  created_at TIMESTAMPTZ DEFAULT NOW()
+  1254→  1254→);
+  1255→  1255→```
+  1256→  1256→
+  1257→  1257→### 11.8 AI Memory (Vector Search)
+  1258→  1258→```sql
+  1259→  1259→-- Enable pgvector
+  1260→  1260→CREATE EXTENSION IF NOT EXISTS vector;
+  1261→  1261→
+  1262→  1262→CREATE TABLE agent_memory (
+  1263→  1263→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1264→  1264→  business_id UUID REFERENCES businesses(id),
+  1265→  1265→  contact_id UUID REFERENCES contacts(id),
+  1266→  1266→  memory_type TEXT CHECK (memory_type IN ('fact', 'preference', 'interaction', 'appointment', 'complaint')),
+  1267→  1267→  content TEXT NOT NULL,
+  1268→  1268→  embedding VECTOR(384),
+  1269→  1269→  metadata JSONB,
+  1270→  1270→  created_at TIMESTAMPTZ DEFAULT NOW()
+  1271→  1271→);
+  1272→  1272→
+  1273→  1273→-- Index for vector search
+  1274→  1274→CREATE INDEX ON agent_memory USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+  1275→  1275→
+  1276→  1276→-- Hybrid search function
+  1277→  1277→CREATE OR REPLACE FUNCTION match_memories_hybrid(
+  1278→  1278→  query_embedding VECTOR(384),
+  1279→  1279→  query_text TEXT,
+  1280→  1280→  p_business_id UUID,
+  1281→  1281→  match_count INT DEFAULT 5
+  1282→  1282→)
+  1283→  1283→RETURNS TABLE (memory_type TEXT, content TEXT, similarity FLOAT) AS $$
+  1284→  1284→  WITH vector_ranked AS (
+  1285→  1285→    SELECT id, row_number() OVER (ORDER BY embedding <=> query_embedding) as rank
+  1286→  1286→    FROM agent_memory
+  1287→  1287→    WHERE business_id = p_business_id AND embedding IS NOT NULL
+  1288→  1288→    ORDER BY embedding <=> query_embedding
+  1289→  1289→    LIMIT LEAST(GREATEST(match_count, 1) * 4, 50)
+  1290→  1290→  ),
+  1291→  1291→  text_ranked AS (
+  1292→  1292→    SELECT id, row_number() OVER (ORDER BY ts_rank_cd(fts, websearch_to_tsquery('english', query_text)) DESC) as rank
+  1293→  1293→    FROM agent_memory
+  1294→  1294→    WHERE business_id = p_business_id AND fts @@ websearch_to_tsquery('english', query_text)
+  1295→  1295→    ORDER BY ts_rank_cd(fts, websearch_to_tsquery('english', query_text)) DESC
+  1296→  1296→    LIMIT LEAST(GREATEST(match_count, 1) * 4, 50)
+  1297→  1297→  ),
+  1298→  1298→  fused AS (
+  1299→  1299→    SELECT COALESCE(v.id, t.id) as id,
+  1300→  1300→      COALESCE(0.7 / (60 + v.rank), 0.0) + COALESCE(0.3 / (60 + t.rank), 0.0) as score
+  1301→  1301→    FROM vector_ranked v
+  1302→  1302→    FULL OUTER JOIN text_ranked t ON v.id = t.id
+  1303→  1303→  )
+  1304→  1304→  SELECT m.memory_type, m.content, f.score as similarity
+  1305→  1305→  FROM fused f
+  1306→  1306→  JOIN agent_memory m ON m.id = f.id
+  1307→  1307→  ORDER BY f.score DESC
+  1308→  1308→  LIMIT GREATEST(match_count, 1);
+  1309→  1309→$$ LANGUAGE SQL;
+  1310→  1310→```
+  1311→  1311→
+  1312→  1312→### 11.9 Subscriptions & Billing
+  1313→  1313→```sql
+  1314→  1314→CREATE TABLE subscriptions (
+  1315→  1315→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1316→  1316→  business_id UUID REFERENCES businesses(id),
+  1317→  1317→  stripe_subscription_id TEXT UNIQUE,
+  1318→  1318→  stripe_customer_id TEXT,
+  1319→  1319→  tier TEXT,
+  1320→  1320→  status TEXT,
+  1321→  1321→  current_period_start TIMESTAMPTZ,
+  1322→  1322→  current_period_end TIMESTAMPTZ,
+  1323→  1323→  cancel_at_period_end BOOLEAN DEFAULT false,
+  1324→  1324→  created_at TIMESTAMPTZ DEFAULT NOW(),
+  1325→  1325→  updated_at TIMESTAMPTZ DEFAULT NOW()
+  1326→  1326→);
+  1327→  1327→
+  1328→  1328→CREATE TABLE usage_logs (
+  1329→  1329→  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  1330→  1330→  business_id UUID REFERENCES businesses(id),
+  1331→  1331→  metric TEXT,
+  1332→  1332→  quantity INTEGER,
+  1333→  1333→  period_start TIMESTAMPTZ,
+  1334→  1334→  period_end TIMESTAMPTZ,
+  1335→  1335→  created_at TIMESTAMPTZ DEFAULT NOW()
+  1336→  1336→);
+  1337→  1337→```
+  1338→  1338→
+  1339→  1339→
+  1340→  1340→---
+  1341→  1341→
+  1342→  1342→## 12. DEPLOYMENT & DEVOPS
+  1343→  1343→
+  1344→  1344→### 12.1 Project Structure
+  1345→  1345→```
+  1346→  1346→bukwin-ai/
+  1347→  1347→├── app/                          # Next.js 15 App Router
+  1348→  1348→│   ├── (marketing)/              # Marketing site route group
+  1349→  1349→│   │   ├── page.tsx              # Homepage
+  1350→  1350→│   │   ├── about/page.tsx
+  1351→  1351→│   │   ├── features/page.tsx
+  1352→  1352→│   │   ├── how-it-works/page.tsx
+  1353→  1353→│   │   ├── industries/
+  1354→  1354→│   │   │   ├── page.tsx
+  1355→  1355→│   │   │   └── [slug]/page.tsx
+  1356→  1356→│   │   ├── pricing/page.tsx
+  1357→  1357→│   │   ├── demo/page.tsx
+  1358→  1358→│   │   ├── integrations/page.tsx
+  1359→  1359→│   │   ├── case-studies/page.tsx
+  1360→  1360→│   │   ├── blog/
+  1361→  1361→│   │   │   ├── page.tsx
+  1362→  1362→│   │   │   └── [slug]/page.tsx
+  1363→  1363→│   │   ├── contact/page.tsx
+  1364→  1364→│   │   ├── book-call/page.tsx
+  1365→  1365→│   │   ├── layout.tsx            # Marketing layout (nav + footer)
+  1366→  1366→│   │   └── globals.css           # Marketing styles
+  1367→  1367→│   ├── (auth)/                   # Auth route group
+  1368→  1368→│   │   ├── login/page.tsx
+  1369→  1369→│   │   ├── register/page.tsx
+  1370→  1370→│   │   ├── forgot-password/page.tsx
+  1371→  1371→│   │   └── reset-password/page.tsx
+  1372→  1372→│   ├── (dashboard)/              # Dashboard route group
+  1373→  1373→│   │   ├── layout.tsx            # Dashboard layout (sidebar + topbar)
+  1374→  1374→│   │   ├── page.tsx              # Dashboard overview
+  1375→  1375→│   │   ├── calls/page.tsx
+  1376→  1376→│   │   ├── calendar/page.tsx
+  1377→  1377→│   │   ├── contacts/page.tsx
+  1378→  1378→│   │   ├── analytics/page.tsx
+  1379→  1379→│   │   ├── settings/page.tsx
+  1380→  1380→│   │   └── billing/page.tsx
+  1381→  1381→│   ├── api/                      # API routes
+  1382→  1382→│   │   ├── auth/
+  1383→  1383→│   │   ├── webhooks/
+  1384→  1384→│   │   │   ├── twilio/route.ts
+  1385→  1385→│   │   │   ├── stripe/route.ts
+  1386→  1386→│   │   │   └── calendar/route.ts
+  1387→  1387→│   │   ├── demo/
+  1388→  1388→│   │   │   └── chat/route.ts
+  1389→  1389→│   │   └── agent/
+  1390→  1390→│   │       └── orchestrate/route.ts
+  1391→  1391→│   ├── layout.tsx                # Root layout
+  1392→  1392→│   └── loading.tsx               # Global loading state
+  1393→  1393→├── components/
+  1394→  1394→│   ├── ui/                       # shadcn/ui components
+  1395→  1395→│   ├── marketing/                # Marketing-specific components
+  1396→  1396→│   │   ├── navigation.tsx
+  1397→  1397→│   │   ├── footer.tsx
+  1398→  1398→│   │   ├── hero-section.tsx
+  1399→  1399→│   │   ├── feature-card.tsx
+  1400→  1400→│   │   ├── testimonial-card.tsx
+  1401→  1401→│   │   ├── pricing-card.tsx
+  1402→  1402→│   │   ├── faq-accordion.tsx
+  1403→  1403→│   │   ├── roi-calculator.tsx
+  1404→  1404→│   │   ├── live-demo.tsx
+  1405→  1405→│   │   ├── industry-card.tsx
+  1406→  1406→│   │   └── integration-logo.tsx
+  1407→  1407→│   ├── dashboard/                # Dashboard components
+  1408→  1408→│   │   ├── sidebar.tsx
+  1409→  1409→│   │   ├── topbar.tsx
+  1410→  1410→│   │   ├── stat-card.tsx
+  1411→  1411→│   │   ├── call-table.tsx
+  1412→  1412→│   │   ├── calendar-view.tsx
+  1413→  1413→│   │   ├── contact-list.tsx
+  1414→  1414→│   │   ├── analytics-chart.tsx
+  1415→  1415→│   │   └── settings-form.tsx
+  1416→  1416→│   └── shared/                   # Shared components
+  1417→  1417→│       ├── fade-in.tsx
+  1418→  1418→│       ├── text-reveal.tsx
+  1419→  1419→│       ├── count-up.tsx
+  1420→  1420→│       ├── live-pulse.tsx
+  1421→  1421→│       └── terminal-typewriter.tsx
+  1422→  1422→├── hooks/
+  1423→  1423→│   ├── use-scroll-animation.ts
+  1424→  1424→│   ├── use-intersection-observer.ts
+  1425→  1425→│   ├── use-supabase.ts
+  1426→  1426→│   └── use-auth.ts
+  1427→  1427→├── lib/
+  1428→  1428→│   ├── supabase/                 # Supabase clients
+  1429→  1429→│   │   ├── client.ts
+  1430→  1430→│   │   ├── server.ts
+  1431→  1431→│   │   └── admin.ts
+  1432→  1432→│   ├── utils.ts
+  1433→  1433→│   ├── constants.ts
+  1434→  1434→│   └── types.ts                  # TypeScript types
+  1435→  1435→├── styles/
+  1436→  1436→│   └── animations.css
+  1437→  1437→├── public/
+  1438→  1438→│   ├── images/
+  1439→  1439→│   │   ├── hero-mockup.png
+  1440→  1440→│   │   ├── dashboard-preview.png
+  1441→  1441→│   │   ├── team/
+  1442→  1442→│   │   └── testimonials/
+  1443→  1443→│   └── logos/                    # Integration partner logos
+  1444→  1444→├── supabase/
+  1445→  1445→│   ├── migrations/               # SQL migrations
+  1446→  1446→│   ├── functions/                # Edge Functions
+  1447→  1447→│   │   ├── embed/
+  1448→  1448→│   │   ├── webhook-twilio/
+  1449→  1449→│   │   ├── webhook-calendar/
+  1450→  1450→│   │   ├── agent-orchestrator/
+  1451→  1451→│   │   ├── transcribe/
+  1452→  1452→│   │   └── synthesize/
+  1453→  1453→│   └── seed.sql
+  1454→  1454→├── next.config.js
+  1455→  1455→├── tailwind.config.ts
+  1456→  1456→├── tsconfig.json
+  1457→  1457→├── package.json
+  1458→  1458→└── .env.local
+  1459→  1459→```
+  1460→  1460→
+  1461→  1461→### 12.2 Vercel Configuration
+  1462→  1462→```javascript
+  1463→  1463→// next.config.js
+  1464→  1464→const nextConfig = {
+  1465→  1465→  images: {
+  1466→  1466→    domains: ['images.unsplash.com', 'cdn.sanity.io'],
+  1467→  1467→    formats: ['image/avif', 'image/webp'],
+  1468→  1468→  },
+  1469→  1469→  experimental: {
+  1470→  1470→    partialPrerendering: true,
+  1471→  1471→  },
+  1472→  1472→  async headers() {
+  1473→  1473→    return [
+  1474→  1474→      {
+  1475→  1475→        source: '/:path*',
+  1476→  1476→        headers: [
+  1477→  1477→          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+  1478→  1478→          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  1479→  1479→          { key: 'X-Content-Type-Options', value: 'nosniff' },
+  1480→  1480→          { key: 'X-Frame-Options', value: 'DENY' },
+  1481→  1481→          { key: 'X-XSS-Protection', value: '1; mode=block' },
+  1482→  1482→        ],
+  1483→  1483→      },
+  1484→  1484→    ];
+  1485→  1485→  },
+  1486→  1486→};
+  1487→  1487→
+  1488→  1488→module.exports = nextConfig;
+  1489→  1489→```
+  1490→  1490→
+  1491→  1491→### 12.3 Performance Requirements
+  1492→  1492→- **Lighthouse Score:** 90+ on all metrics (Performance, Accessibility, Best Practices, SEO)
+  1493→  1493→- **Core Web Vitals:**
+  1494→  1494→  - LCP < 2.5s
+  1495→  1495→  - FID < 100ms
+  1496→  1496→  - CLS < 0.1
+  1497→  1497→  - INP < 200ms
+  1498→  1498→- **Bundle Size:** Initial JS < 200KB (gzipped)
+  1499→  1499→- **Image Optimization:** All images served via Next.js Image component with WebP/AVIF
+  1500→  1500→- **Font Loading:** `next/font` with `display: swap`
+  1501→  1501→- **Code Splitting:** Dynamic imports for heavy components (GSAP, charts, demo)
+  1502→  1502→
+  1503→  1503→### 12.4 CI/CD Pipeline
+  1504→  1504→1. **GitHub → Vercel** automatic deployments
+  1505→  1505→2. **Branch previews** for PRs
+  1506→  1506→3. **Environment variables** managed in Vercel dashboard
+  1507→  1507→4. **Supabase migrations** applied via CLI before deploy
+  1508→  1508→5. **Edge Functions** deployed via Supabase CLI
+  1509→  1509→
+  1510→  1510→---
+  1511→  1511→
+  1512→  1512→## 13. MISSING ELEMENTS CHECKLIST
+  1513→  1513→
+  1514→  1514→The following are elements you may have missed or should consider adding. Review each and decide if it belongs in your build:
+  1515→  1515→
+  1516→  1516→### Content & Copy
+  1517→  1517→- [ ] **Blog content strategy** — Do you have a content calendar? SEO keywords? Who writes?
+  1518→  1518→- [ ] **Case studies** — Real customer stories with metrics. Do you have customers yet?
+  1519→  1519→- [ ] **Video content** — Product demo video, founder intro, customer testimonials
+  1520→  1520→- [ ] **Help center / Documentation** — Self-service support for dashboard users
+  1521→  1521→- [ ] **Changelog** — Product updates page for transparency
+  1522→  1522→
+  1523→  1523→### Legal & Compliance
+  1524→  1524→- [ ] **Privacy Policy** — GDPR, CCPA compliant
+  1525→  1525→- [ ] **Terms of Service** — Subscription terms, liability, data ownership
+  1526→  1526→- [ ] **Cookie Consent** — EU cookie banner with granular controls
+  1527→  1527→- [ ] **HIPAA Compliance page** — If targeting US healthcare
+  1528→  1528→- [ ] **SOC 2 / ISO 27001** — If claiming enterprise security
+  1529→  1529→- [ ] **Data Processing Agreement (DPA)** — For EU customers
+  1530→  1530→
+  1531→  1531→### Business Operations
+  1532→  1532→- [ ] **Payment processing** — Stripe setup, tax configuration, invoicing
+  1533→  1533→- [ ] **Email infrastructure** — Transactional emails (SendGrid, Resend, Postmark)
+  1534→  1534→- [ ] **Analytics** — Google Analytics 4, Mixpanel, or PostHog
+  1535→  1535→- [ ] **CRM for sales** — HubSpot, Pipedrive, or Salesforce for your own leads
+  1536→  1536→- [ ] **Support system** — Intercom, Crisp, or Zendesk for customer support
+  1537→  1537→- [ ] **Status page** — Uptime monitoring and incident communication
+  1538→  1538→
+  1539→  1539→### Technical Infrastructure
+  1540→  1540→- [ ] **Error tracking** — Sentry for frontend/backend errors
+  1541→  1541→- [ ] **Logging** — Structured logging for debugging (Datadog, Logtail)
+  1542→  1542→- [ ] **Monitoring** — Uptime checks, performance alerts
+  1543→  1543→- [ ] **Rate limiting** — API rate limits to prevent abuse
+  1544→  1544→- [ ] **Backup strategy** — Database backups, disaster recovery plan
+  1545→  1545→- [ ] **CDN** — Vercel Edge Network + Supabase Storage CDN
+  1546→  1546→
+  1547→  1547→### Marketing & Growth
+  1548→  1548→- [ ] **SEO meta tags** — Dynamic OG images, structured data (JSON-LD)
+  1549→  1549→- [ ] **Social media presence** — LinkedIn, Twitter/X, YouTube channel
+  1550→  1550→- [ ] **Email capture** — Newsletter signup with lead magnets
+  1551→  1551→- [ ] **Referral program** — Customer referral incentives
+  1552→  1552→- [ ] **Affiliate program** — Partner/reseller program for agencies
+  1553→  1553→- [ ] **Webinars / Demo recordings** — Automated demo for async viewing
+  1554→  1554→
+  1555→  1555→### Product Features (Future Roadmap)
+  1556→  1556→- [ ] **Mobile app** — iOS/Android companion for dashboard
+  1557→  1557→- [ ] **API for developers** — Public API for custom integrations
+  1558→  1558→- [ ] **White-label option** — Custom branding for agencies
+  1559→  1559→- [ ] **AI agent marketplace** — Pre-built agents for specific industries
+  1560→  1560→- [ ] **Call quality monitoring** — Real-time call quality metrics
+  1561→  1561→- [ ] **Advanced analytics** — Cohort analysis, revenue attribution
+  1562→  1562→- [ ] **AI training interface** — Let users train the agent with examples
+  1563→  1563→- [ ] **Multi-location support** — Different agents per location
+  1564→  1564→- [ ] **Call recording & QA** — Review calls, score agent performance
+  1565→  1565→- [ ] **SMS campaigns** — Outbound SMS marketing from the platform
+  1566→  1566→
+  1567→  1567→### Design Polish
+  1568→  1568→- [ ] **Loading states** — Skeleton screens for dashboard data
+  1569→  1569→- [ ] **Empty states** — Friendly illustrations when no data exists
+  1570→  1570→- [ ] **Error states** — 404 page, 500 page, offline indicator
+  1571→  1571→- [ ] **Onboarding flow** — First-time user tutorial for dashboard
+  1572→  1572→- [ ] **Dark mode toggle** — System preference + manual toggle
+  1573→  1573→- [ ] **Print styles** — For invoices, reports, call transcripts
+  1574→  1574→- [ ] **Accessibility audit** — Keyboard navigation, screen reader testing, color contrast
+  1575→  1575→
+  1576→  1576→---
+  1577→  1577→
+  1578→  1578→## APPENDIX A: REFERENCE SITE SCREENSHOT ANALYSIS
+  1579→  1579→
+  1580→  1580→### Agentlii.com — Key Screenshots to Reference
+  1581→  1581→1. **Hero section:** Clean headline + subheadline + CTA + product mockup
+  1582→  1582→2. **Live demo section:** Split chat/voice interface with "Live" badge
+  1583→  1583→3. **Problem section:** 3-column cards with icons + stat bar below
+  1584→  1584→4. **How it works:** Numbered timeline with step descriptions
+  1585→  1585→5. **Features grid:** 2x2 or 3x3 cards with icons
+  1586→  1586→6. **Industry grid:** Horizontal scroll or grid of industry cards
+  1587→  1587→7. **Integration logos:** Clean monochrome logo grid
+  1588→  1588→8. **Testimonials:** Quote cards with avatars
+  1589→  1589→9. **FAQ accordion:** Simple expand/collapse
+  1590→  1590→10. **Footer:** 4-column layout with newsletter
+  1591→  1591→
+  1592→  1592→### Rastaah-ai.com — Key Screenshots to Reference
+  1593→  1593→1. **Hero:** Bold monospace headline with stat callouts
+  1594→  1594→2. **Pipeline visualization:** File-tree style explorer UI
+  1595→  1595→3. **Workflow triggers:** Card-based automation triggers
+  1596→  1596→4. **Live telemetry:** System status with real-time logs
+  1597→  1597→5. **Product matrix:** 5-product grid with descriptions
+  1598→  1598→6. **Testimonials:** Quote cards with initials
+  1599→  1599→7. **Founder section:** Photo + bio + quote
+  1600→  1600→8. **CTA section:** Bold headline + form
+  1601→  1601→
+  1602→  1602→### GetFrontDeskHQ.com — Key Screenshots to Reference
+  1603→  1603→1. **Hero:** Problem-first headline + assessment CTA
+  1604→  1604→2. **Assessment section:** Detailed value proposition list
+  1605→  1605→3. **ROI calculator:** Interactive sliders with real-time math
+  1606→  1606→4. **Live demo:** Split-screen chat + calendar
+  1607→  1607→5. **What it does:** Icon grid of features
+  1608→  1608→6. **Every channel:** Channel list with descriptions
+  1609→  1609→7. **How it works:** Numbered timeline with realistic expectations
+  1610→  1610→8. **Founder story:** Credibility stacking (credentials + photo)
+  1611→  1611→9. **Compliance:** Geographic compliance badges
+  1612→  1612→10. **FAQ:** Honest, objection-handling answers
+  1613→  1613→
+  1614→  1614→---
+  1615→  1615→
+  1616→  1616→## APPENDIX B: ANIMATION TIMING REFERENCE
+  1617→  1617→
+  1618→  1618→| Animation | Duration | Easing | Delay |
+  1619→  1619→|-----------|----------|--------|-------|
+  1620→  1620→| Page transition | 400ms | ease-in-out | 0 |
+  1621→  1621→| Section fade-in | 600ms | cubic-bezier(0.4, 0, 0.2, 1) | 0 |
+  1622→  1622→| Stagger children | 100ms each | ease-out | index * 100ms |
+  1623→  1623→| Text reveal (per word) | 800ms | cubic-bezier(0.22, 1, 0.36, 1) | index * 50ms |
+  1624→  1624→| Button hover | 200ms | ease-out | 0 |
+  1625→  1625→| Card hover | 300ms | ease-out | 0 |
+  1626→  1626→| Modal open | 300ms | cubic-bezier(0.4, 0, 0.2, 1) | 0 |
+  1627→  1627→| Accordion expand | 300ms | ease-in-out | 0 |
+  1628→  1628→| CountUp | 2000ms | easeOutExpo | 0 |
+  1629→  1629→| Live pulse | 2000ms | ease-in-out | infinite |
+  1630→  1630→| Float animation | 6000ms | ease-in-out | infinite |
+  1631→  1631→| Scroll progress | scrubbed | linear | 0 |
+  1632→  1632→
+  1633→  1633→---
+  1634→  1634→
+  1635→  1635→## APPENDIX C: RESPONSIVE BREAKPOINTS
+  1636→  1636→
+  1637→  1637→| Breakpoint | Width | Usage |
+  1638→  1638→|------------|-------|-------|
+  1639→  1639→| **sm** | 640px | Mobile landscape |
+  1640→  1640→| **md** | 768px | Tablet portrait |
+  1641→  1641→| **lg** | 1024px | Tablet landscape / small desktop |
+  1642→  1642→| **xl** | 1280px | Desktop |
+  1643→  1643→| **2xl** | 1536px | Large desktop |
+  1644→  1644→
+  1645→  1645→**Mobile-first approach:** Base styles for mobile, override at `sm`, `md`, `lg`, `xl`.
+  1646→  1646→
+  1647→  1647→**Key responsive behaviors:**
+  1648→  1648→- Navigation: Hamburger menu below `md`
+  1649→  1649→- Hero: Stack vertically below `lg`
+  1650→  1650→- Grids: 1 col mobile → 2 col tablet → 3-4 col desktop
+  1651→  1651→- Typography: Scale down 30-40% on mobile
+  1652→  1652→- Section padding: Reduce by 30% on mobile
+  1653→  1653→- Demo section: Stack chat above calendar on mobile
+  1654→  1654→
+  1655→  1655→---
+  1656→  1656→
+  1657→  1657→## APPENDIX D: THIRD-PARTY SERVICES INTEGRATION LIST
+  1658→  1658→
+  1659→  1659→### Required for MVP
+  1660→  1660→- **Supabase** — Auth, DB, Storage, Realtime, Edge Functions
+  1661→  1661→- **Vercel** — Hosting, CI/CD, Edge Network
+  1662→  1662→- **Resend or SendGrid** — Transactional emails
+  1663→  1663→- **Stripe** — Payments and subscriptions
+  1664→  1664→
+  1665→  1665→### Required for AI Agent (Phase 3+)
+  1666→  1666→- **Twilio** — Phone numbers, SIP trunking, SMS
+  1667→  1667→- **LiveKit** — Real-time audio streaming, WebRTC rooms
+  1668→  1668→- **Deepgram** — Speech-to-text (STT)
+  1669→  1669→- **ElevenLabs or Cartesia** — Text-to-speech (TTS)
+  1670→  1670→- **OpenAI** — GPT-4o for conversation logic
+  1671→  1671→- **Anthropic** — Claude for complex reasoning (backup/fallback)
+  1672→  1672→
+  1673→  1673→### Required for Calendar (Phase 5)
+  1674→  1674→- **Google Calendar API** — OAuth2 + event management
+  1675→  1675→- **Microsoft Graph API** — Outlook calendar integration
+  1676→  1676→- **Calendly API** — Scheduling link integration
+  1677→  1677→
+  1678→  1678→### Required for CRM (Phase 5)
+  1679→  1679→- **HubSpot API** — Contact and deal sync
+  1680→  1680→- **Salesforce API** — Enterprise CRM integration
+  1681→  1681→- **Zapier** — Workflow automation for non-native integrations
+  1682→  1682→
+  1683→  1683→### Analytics & Monitoring
+  1684→  1684→- **Google Analytics 4** — Web analytics
+  1685→  1685→- **PostHog or Mixpanel** — Product analytics
+  1686→  1686→- **Sentry** — Error tracking
+  1687→  1687→- **UptimeRobot or Pingdom** — Uptime monitoring
+  1688→  1688→
+  1689→  1689→---
+  1690→  1690→
+  1691→  1691→## FINAL NOTES FOR DEVELOPERS
+  1692→  1692→
+  1693→  1693→1. **Start with the marketing site.** Build all public pages first with placeholder data. This gives you a professional presence while you develop the backend.
+  1694→  1694→
+  1695→  1695→2. **Use shadcn/ui as the foundation.** It provides accessible, well-designed components that you can customize with your theme. Do NOT build every component from scratch.
+  1696→  1696→
+  1697→  1697→3. **Implement the design system first.** Define your colors, typography, spacing, and components in Tailwind config BEFORE building pages. This ensures consistency.
+  1698→  1698→
+  1699→  1699→4. **Animate with purpose.** Every animation must serve a function. If removing an animation doesn't hurt the user experience, remove it.
+  1700→  1700→
+  1701→  1701→5. **Write TypeScript strictly.** Use `strict: true` in tsconfig. Define interfaces for all data shapes. No `any` types.
+  1702→  1702→
+  1703→  1703→6. **Test on real devices.** The site must look and feel premium on iPhone, Android, iPad, and desktop. Use BrowserStack or physical devices.
+  1704→  1704→
+  1705→  1705→7. **Optimize images.** Use Next.js Image component with proper sizing. Lazy load below-fold images. Use WebP/AVIF formats.
+  1706→  1706→
+  1707→  1707→8. **Handle errors gracefully.** Every API call needs error handling. Every form needs validation. Every async operation needs loading and error states.
+  1708→  1708→
+  1709→  1709→9. **Document as you build.** Write README files, component documentation, and API docs. Future you (and your team) will thank you.
+  1710→  1710→
+  1711→  1711→10. **Ship incrementally.** Don't wait for perfection. Launch the marketing site, then add auth, then the demo, then the dashboard. Each phase provides value.
+  1712→  1712→
+  1713→  1713→---
+  1714→  1714→
+  1715→  1715→**END OF PROMPT**
+  1716→  1716→
+  1717→  1717→*This document was generated through deep research of competitive landscape, design trends, and technical architecture. It is designed to be handed directly to a development team or AI coding agent for implementation.*
+  1718→  1718→
+  1719→  1719→*For questions or clarifications, contact: arehman09967@gmail.com*
+  1720→  1720→

@@ -1,0 +1,602 @@
+     1→     1→     1→# BUKWIN AI — Comprehensive Build Prompt
+     2→     2→     2→## Full-Stack AI Receptionist SaaS Website
+     3→     3→     3→**Generated:** 2026-08-14
+     4→     4→     4→**Stack:** Next.js 15 (App Router) + Supabase + Vercel
+     5→     5→     5→**Contact:** arehman09967@gmail.com
+     6→     6→     6→**Brand:** Bukwin AI
+     7→     7→     7→
+     8→     8→     8→---
+     9→     9→     9→
+    10→    10→    10→## TABLE OF CONTENTS
+    11→    11→    11→1. [Executive Summary & Brand Identity](#1-executive-summary--brand-identity)
+    12→    12→    12→2. [Deep Competitive Analysis (Reference Sites)](#2-deep-competitive-analysis-reference-sites)
+    13→    13→    13→3. [Anti-Vibe-Coded Design Manifesto](#3-anti-vibe-coded-design-manifesto)
+    14→    14→    14→4. [Color System & Typography](#4-color-system--typography)
+    15→    15→    15→5. [Page Architecture & Route Map](#5-page-architecture--route-map)
+    16→    16→    16→6. [Component Design System](#6-component-design-system)
+    17→    17→    17→7. [Animation & Interaction Specifications](#7-animation--interaction-specifications)
+    18→    18→    18→8. [Section-by-Section Build Specs](#8-section-by-section-build-specs)
+    19→    19→    19→9. [Backend Architecture & Placeholders](#9-backend-architecture--placeholders)
+    20→    20→    20→10. [AI Agent Integration Roadmap](#10-ai-agent-integration-roadmap)
+    21→    21→    21→11. [Database Schema (Supabase)](#11-database-schema-supabase)
+    22→    22→    22→12. [Deployment & DevOps](#12-deployment--devops)
+    23→    23→    23→13. [Missing Elements Checklist](#13-missing-elements-checklist)
+    24→    24→    24→
+    25→    25→    25→---
+    26→    26→    26→
+    27→    27→    27→## 1. EXECUTIVE SUMMARY & BRAND IDENTITY
+    28→    28→    28→
+    29→    29→    29→### Brand Essence
+    30→    30→    30→Bukwin AI is a premium AI receptionist and phone agent system that answers calls 24/7, books appointments, handles orders, speaks multiple languages, and integrates with existing business tools. The brand communicates **trust, professionalism, and intelligent automation** — not "tech-bro AI startup."
+    31→    31→    31→
+    32→    32→    32→### Core Value Propositions
+    33→    33→    33→- **Never miss a call again** — 24/7 voice + chat answering in any language
+    34→    34→    34→- **Books while you sleep** — real-time calendar integration, instant confirmations
+    35→    35→    35→- **Sounds human, not robotic** — natural conversation with interruption handling
+    36→    36→    36→- **Universal task handler** — appointments, orders, inquiries, transfers, follow-ups
+    37→    37→    37→- **Plugs into your stack** — CRM, calendar, WhatsApp, email, SMS sync
+    38→    38→    38→
+    39→    39→    39→### Target Audience
+    40→    40→    40→- Small-to-medium service businesses (clinics, salons, restaurants, law firms, real estate, home services)
+    41→    41→    41→- Multi-location businesses needing centralized front-desk coverage
+    42→    42→    42→- Solo practitioners who cannot afford a full-time receptionist
+    43→    43→    43→- Businesses with high after-hours call volume
+    44→    44→    44→
+    45→    45→    45→### Tone of Voice
+    46→    46→    46→Professional but warm. Confident but not arrogant. Technical accuracy with human empathy. Avoid AI buzzwords ("leverage," "synergize," "transformative"). Use plain language that a business owner understands.
+    47→    47→    47→
+    48→    48→    48→---
+    49→    49→    49→
+    50→    50→    50→## 2. DEEP COMPETITIVE ANALYSIS (REFERENCE SITES)
+    51→    51→    51→
+    52→    52→    52→### 2.1 Agentlii.com Analysis
+    53→    53→    53→**What works:**
+    54→    54→    54→- **Live demo prominence** — "Talk to it before you talk to us" section with live voice/chat demo is the primary CTA
+    55→    55→    55→- **Problem-first storytelling** — "The cost of a ringing phone" section with 3 missed-call scenarios builds emotional urgency
+    56→    56→    56→- **Step-by-step trace** — "One call, start to finish" timeline (00:00 → 00:53) makes the invisible process visible
+    57→    57→    57→- **Industry tuning** — "Tuned per industry, not a generic bot" with 10 verticals shows depth
+    58→    58→    58→- **Integration grid** — Clean logo grid (ElevenLabs, n8n, Calendly, Google Calendar, WhatsApp, HubSpot, Gmail, Shopify)
+    59→    59→    59→- **Flat pricing promise** — "priced flat, no per-minute surprises" addresses the #1 objection
+    60→    60→    60→
+    61→    61→    61→**What to improve upon:**
+    62→    62→    62→- Hero section is somewhat generic; could use more editorial typography
+    63→    63→    63→- No ROI calculator — missed conversion opportunity
+    64→    64→    64→- Testimonials lack photos/verifiable identities
+    65→    65→    65→- Dark mode toggle absent
+    66→    66→    66→
+    67→    67→    67→### 2.2 Rastaah-ai.com Analysis
+    68→    68→    68→**What works:**
+    69→    69→    69→- **Terminal/command-line aesthetic** — "operator@rastaah — /automation/core" console UI creates technical credibility
+    70→    70→    70→- **Pipeline visualization** — "Lead Command Center" with file-tree style explorer (~/pipeline, new-leads, follow-up, booked.index)
+    71→    71→    71→- **Workflow trigger library** — Visual automation cards (NEW LEAD → Instant Reply, NO SHOW → Auto Re-Book)
+    72→    72→    72→- **Live system telemetry** — "sys.load 42%" with real-time log stream ("›lead: acme-corp captured ›reply sent · 38s")
+    73→    73→    73→- **Founder story with conviction** — "Speed is the whole game" quote humanizes the brand
+    74→    74→    74→- **Systemic/Automated/Accountable** triad as brand pillars
+    75→    75→    75→
+    76→    76→    76→**What to improve upon:**
+    77→    77→    77→- Dark-only theme may feel too "hacker" for mainstream SMBs
+    78→    78→    78→- Missing live voice demo
+    79→    79→    79→- No pricing transparency at all
+    80→    80→    80→- Navigation is minimal; could benefit from clearer information architecture
+    81→    81→    81→
+    82→    82→    82→### 2.3 GetFrontDeskHQ.com Analysis
+    83→    83→    83→**What works:**
+    84→    84→    84→- **Assessment-first approach** — "Most practices should not begin by building anything" — radical honesty builds trust
+    85→    85→    85→- **Interactive ROI calculator** — "Put your own numbers in" with draggable sliders (calls/month, patient value, capture rate)
+    86→    86→    86→- **Live demo with calendar** — Split-screen: chat with "Ava" on left, live schedule on right
+    87→    87→    87→- **Staged rollout timeline** — "A staged rollout, with a date you can hold me to" — 4 numbered steps with realistic expectations
+    88→    88→    88→- **Founder credibility** — Medical doctor + Professor of Physiology + Gold Medalist — authority stacking
+    89→    89→    89→- **Compliance geography** — Australia (Privacy Act), US (HIPAA), UK/EU (GDPR) — shows regulatory maturity
+    90→    90→    90→- **Honest FAQ** — "I am willing to tell you not to build it" — disarming objection handling
+    91→    91→    91→
+    92→    92→    92→**What to improve upon:**
+    93→    93→    93→- Design is somewhat clinical/medical-focused; needs broader industry appeal
+    94→    94→    94→- No voice demo (chat only)
+    95→    95→    95→- Heavy text density; could use more visual breathing room
+    96→    96→    96→- No integration logo grid
+    97→    97→    97→
+    98→    98→    98→### 2.4 Synthesis — What Bukwin AI Must Do Differently
+    99→    99→    99→1. **Combine Agentlii's live demo + FrontDesk's ROI calculator** — both are conversion powerhouses
+   100→   100→   100→2. **Adopt Rastaah's system visualization** but make it accessible, not hacker-only
+   101→   101→   101→3. **FrontDesk's radical honesty** in pricing and expectations
+   102→   102→   102→4. **Agentlii's industry breadth** (10+ verticals) with FrontDesk's vertical depth
+   103→   103→   103→5. **Create a unique visual identity** that is neither "medical clinical" nor "hacker terminal" — think "premium business concierge"
+   104→   104→   104→
+   105→   105→   105→---
+   106→   106→   106→
+   107→   107→   107→## 3. ANTI-VIBE-CODED DESIGN MANIFESTO
+   108→   108→   108→
+   109→   109→   109→### What "Vibe-Coded" Looks Like (AVOID AT ALL COSTS)
+   110→   110→   110→- Purple-to-blue gradient hero backgrounds with floating 3D spheres
+   111→   111→   111→- Generic "AI sparkle" icons (✨) everywhere
+   112→   112→   112→- Neon glow effects on every button and card
+   113→   113→   113→- Glassmorphism cards with excessive blur and rainbow borders
+   114→   114→   114→- ChatGPT-clone layout (sidebar + central chat, dark purple theme)
+   115→   115→   115→- Stock illustrations of robots shaking hands with humans
+   116→   116→   116→- "Revolutionize," "Transform," "Harness the power of AI" copy
+   117→   117→   117→- Random particle systems that serve no purpose
+   118→   118→   118→- Inter font + purple gradient = instant "AI startup template"
+   119→   119→   119→- Bento grids filled with abstract shapes instead of real content
+   120→   120→   120→
+   121→   121→   121→### What "Skilled Developer Built" Looks Like (EMULATE)
+   122→   122→   122→- **Editorial typography** — Serif headlines (Playfair Display, Canela, or Tiempos) paired with clean sans-serif body (Inter, Geist, or Söhne)
+   123→   123→   123→- **Restrained color palette** — Exactly 2 colors + neutrals. No rainbow gradients.
+   124→   124→   124→- **Purposeful whitespace** — Content breathes. 120px+ section padding. Generous line-height (1.6–1.8).
+   125→   125→   125→- **Real product UI** — Screenshots of actual dashboard, not mockups with fake data
+   126→   126→   126→- **Meaningful motion** — Animations that explain functionality (e.g., call flow timeline animating step-by-step)
+   127→   127→   127→- **Tactile interactions** — Subtle hover states (scale 1.02, shadow lift, color shift) not neon glows
+   128→   128→   128→- **Magazine-quality photography** — Real people, real offices, not 3D renders
+   129→   129→   129→- **Grid systems that respect content** — Asymmetric layouts that serve the story, not symmetry for symmetry's sake
+   130→   130→   130→- **Conversion-optimized, not decoration-optimized** — Every element earns its place
+   131→   131→   131→
+   132→   132→   132→### Design Principles for Bukwin AI
+   133→   133→   133→1. **Hierarchy over decoration** — The eye should know exactly where to go next
+   134→   134→   134→2. **Typography is the interface** — Let type do the visual heavy lifting
+   135→   135→   135→3. **Motion serves meaning** — Animate to explain, not to impress
+   136→   136→   136→4. **Two colors, infinite nuance** — Depth through opacity, weight, and scale, not more hues
+   137→   137→   137→5. **Show the product, don't describe it** — Live demos > hero illustrations
+   138→   138→   138→6. **Trust through transparency** — Pricing, process, and limitations are visible
+   139→   139→   139→
+   140→   140→   140→---
+   141→   141→   141→
+   142→   142→   142→## 4. COLOR SYSTEM & TYPOGRAPHY
+   143→   143→   143→
+   144→   144→   144→### Recommended Color Palette: "Executive Concierge"
+   145→   145→   145→
+   146→   146→   146→After analyzing all three reference sites and 2026 SaaS trends, Bukwin AI should use a **warm professional palette** that signals trust and premium service without being cold or clinical.
+   147→   147→   147→
+   148→   148→   148→| Token | Hex | Usage |
+   149→   149→   149→|-------|-----|-------|
+   150→   150→   150→| **Primary** | `#0F172A` | Deep navy — headings, primary buttons, footer, dark sections |
+   151→   151→   151→| **Accent** | `#D4A853` | Warm gold — CTAs, highlights, active states, icons, underlines |
+   152→   152→   152→| **Background** | `#FAF9F6` | Warm off-white — page background, cards |
+   153→   153→   153→| **Surface** | `#FFFFFF` | Pure white — elevated cards, modals, input fields |
+   154→   154→   154→| **Text Primary** | `#0F172A` | Deep navy — body text on light backgrounds |
+   155→   155→   155→| **Text Secondary** | `#64748B` | Slate — captions, metadata, secondary text |
+   156→   156→   156→| **Text Muted** | `#94A3B8` | Light slate — placeholders, disabled states |
+   157→   157→   157→| **Border** | `#E2E8F0` | Light gray — dividers, card borders, input borders |
+   158→   158→   158→| **Success** | `#10B981` | Emerald — confirmation states, live indicators |
+   159→   159→   159→| **Error** | `#EF4444` | Red — validation errors, alert states |
+   160→   160→   160→
+   161→   161→   161→**Dark Mode Variant:**
+   162→   162→   162→| Token | Hex | Usage |
+   163→   163→   163→|-------|-----|-------|
+   164→   164→   164→| **Background** | `#0A0F1C` | Deep charcoal — dark mode page bg |
+   165→   165→   165→| **Surface** | `#111827` | Elevated dark — cards, modals |
+   166→   166→   166→| **Text Primary** | `#F8FAFC` | Off-white — headings on dark |
+   167→   167→   167→| **Text Secondary** | `#94A3B8` | Slate — body text on dark |
+   168→   168→   168→| **Accent** | `#F0C674` | Brighter gold — maintains visibility on dark |
+   169→   169→   169→
+   170→   170→   170→**Why this palette:**
+   171→   171→   171→- Deep navy + warm gold is the "luxury concierge" aesthetic — think premium hotel lobby, not tech startup
+   172→   172→   172→- Navy is authoritative and trustworthy (financial services, legal, medical all use it)
+   173→   173→   173→- Gold accent is energetic and premium without being aggressive like red or orange
+   174→   174→   174→- Off-white background reduces eye strain vs pure white and feels more editorial
+   175→   175→   175→- Passes WCAG AA contrast ratios at all levels
+   176→   176→   176→
+   177→   177→   177→### Typography System
+   178→   178→   178→
+   179→   179→   179→| Element | Font | Weight | Size (Desktop) | Size (Mobile) | Line-Height | Letter-Spacing |
+   180→   180→   180→|---------|------|--------|----------------|---------------|-------------|----------------|
+   181→   181→   181→| **Display** | Playfair Display | 500 | 72px | 40px | 1.1 | -0.02em |
+   182→   182→   182→| **H1** | Playfair Display | 500 | 56px | 36px | 1.15 | -0.01em |
+   183→   183→   183→| **H2** | Playfair Display | 500 | 42px | 28px | 1.2 | -0.01em |
+   184→   184→   184→| **H3** | Inter | 600 | 28px | 22px | 1.3 | 0 |
+   185→   185→   185→| **H4** | Inter | 600 | 20px | 18px | 1.4 | 0 |
+   186→   186→   186→| **Body Large** | Inter | 400 | 20px | 18px | 1.7 | 0 |
+   187→   187→   187→| **Body** | Inter | 400 | 16px | 16px | 1.7 | 0 |
+   188→   188→   188→| **Body Small** | Inter | 400 | 14px | 14px | 1.6 | 0 |
+   189→   189→   189→| **Caption** | Inter | 500 | 12px | 12px | 1.5 | 0.05em |
+   190→   190→   190→| **Button** | Inter | 600 | 14px | 14px | 1 | 0.02em |
+   191→   191→   191→| **Nav** | Inter | 500 | 14px | 14px | 1 | 0.01em |
+   192→   192→   192→| **Mono** | JetBrains Mono | 400 | 14px | 13px | 1.5 | 0 |
+   193→   193→   193→
+   194→   194→   194→**Font loading strategy:**
+   195→   195→   195→- Use `next/font` for optimal loading
+   196→   196→   196→- Playfair Display: subset latin, display: swap
+   197→   197→   197→- Inter: variable font if available, otherwise standard weights
+   198→   198→   198→- JetBrains Mono: load only for code/terminal sections
+   199→   199→   199→- System font stack as fallback: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
+   200→   200→   200→
+   201→   201→   201→---
+   202→   202→   202→
+   203→   203→   203→## 5. PAGE ARCHITECTURE & ROUTE MAP
+   204→   204→   204→
+   205→   205→   205→### Public Pages (Marketing Site)
+   206→   206→   206→```
+   207→   207→   207→/                    → Homepage (Hero + Features + How It Works + Industries + Live Demo + Testimonials + Pricing + FAQ + CTA)
+   208→   208→   208→/about               → About Bukwin AI (Founder story, mission, values, team)
+   209→   209→   209→/features            → Feature deep-dive (Voice, Chat, Calendar, CRM, Multilingual, Analytics)
+   210→   210→   210→/how-it-works        → Step-by-step process (Setup → Train → Go Live → Optimize)
+   211→   211→   211→/industries          → Industry solutions grid (Healthcare, Real Estate, Legal, Hospitality, etc.)
+   212→   212→   212→/industries/[slug]   → Individual industry page (dedicated landing for SEO)
+   213→   213→   213→/pricing             → Pricing tiers + ROI calculator + FAQ
+   214→   214→   214→/demo                → Live interactive demo (voice + chat simulator + calendar view)
+   215→   215→   215→/integrations        → Integration directory (Calendar, CRM, Phone, Messaging)
+   216→   216→   216→/case-studies        → Customer success stories
+   217→   217→   217→/blog                → Blog listing
+   218→   218→   218→/blog/[slug]         → Individual blog post
+   219→   219→   219→/contact             → Contact form + Book a call calendar
+   220→   220→   220→/book-call           → Dedicated booking page (Calendly embed or custom)
+   221→   221→   221→```
+   222→   222→   222→
+   223→   223→   223→### Auth Pages
+   224→   224→   224→```
+   225→   225→   225→/login               → Sign in (email + password + Google OAuth)
+   226→   226→   226→/register            → Sign up (email + password + business name)
+   227→   227→   227→/forgot-password     → Password reset flow
+   228→   228→   228→/reset-password      → Password reset confirmation
+   229→   229→   229→```
+   230→   230→   230→
+   231→   231→   231→### Dashboard (Post-Auth — Placeholder Structure)
+   232→   232→   232→```
+   233→   233→   233→/dashboard           → Main dashboard (overview stats, recent calls, upcoming appointments)
+   234→   234→   234→/dashboard/calls     → Call history + transcripts + recordings
+   235→   235→   235→/dashboard/calendar  → Calendar view + booking management
+   236→   236→   236→/dashboard/contacts  → CRM contacts + lead pipeline
+   237→   237→   237→/dashboard/analytics → Call metrics, conversion rates, response times
+   238→   238→   238→/dashboard/settings  → Agent configuration, voice settings, business rules
+   239→   239→   239→/dashboard/billing   → Subscription management, invoices, usage
+   240→   240→   240→```
+   241→   241→   241→
+   242→   242→   242→### Legal Pages
+   243→   243→   243→```
+   244→   244→   244→/privacy             → Privacy Policy
+   245→   245→   245→/terms               → Terms of Service
+   246→   246→   246→/security            → Security & Compliance (SOC 2, GDPR, HIPAA info)
+   247→   247→   247→```
+   248→   248→   248→
+   249→   249→   249→---
+   250→   250→   250→
+   251→   251→   251→## 6. COMPONENT DESIGN SYSTEM
+   252→   252→   252→
+   253→   253→   253→### 6.1 Layout Components
+   254→   254→   254→
+   255→   255→   255→**Container**
+   256→   256→   256→- Max-width: 1280px (xl), 1024px (lg), 768px (md)
+   257→   257→   257→- Padding: px-4 sm:px-6 lg:px-8 xl:px-12
+   258→   258→   258→- Centered with mx-auto
+   259→   259→   259→
+   260→   260→   260→**Section**
+   261→   261→   261→- Default padding: py-24 md:py-32
+   262→   262→   262→- Alternate backgrounds: bg-background (warm white) → bg-primary (navy) → bg-background
+   263→   263→   263→- Border-top on alternate sections: border-border/50
+   264→   264→   264→
+   265→   265→   265→**Grid**
+   266→   266→   266→- 12-column responsive grid
+   267→   267→   267→- Gap: gap-6 md:gap-8 lg:gap-12
+   268→   268→   268→- Common patterns: 2-col (1fr 1fr), 3-col (1fr 1fr 1fr), asymmetric (1.2fr 0.8fr)
+   269→   269→   269→
+   270→   270→   270→### 6.2 UI Components
+   271→   271→   271→
+   272→   272→   272→**Primary Button**
+   273→   273→   273→- Background: accent gold (`#D4A853`)
+   274→   274→   274→- Text: primary navy (`#0F172A`)
+   275→   275→   275→- Padding: px-8 py-3.5
+   276→   276→   276→- Border-radius: 6px (slightly rounded, not pill)
+   277→   277→   277→- Font: button weight, uppercase tracking
+   278→   278→   278→- Hover: background darkens 10%, scale(1.02), shadow-lg
+   279→   279→   279→- Active: scale(0.98)
+   280→   280→   280→- Transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1)
+   281→   281→   281→
+   282→   282→   282→**Secondary Button**
+   283→   283→   283→- Background: transparent
+   284→   284→   284→- Border: 1.5px solid primary navy
+   285→   285→   285→- Text: primary navy
+   286→   286→   286→- Hover: background primary navy, text white
+   287→   287→   287→- Same padding/radius as primary
+   288→   288→   288→
+   289→   289→   289→**Ghost Button (Dark backgrounds)**
+   290→   290→   290→- Background: transparent
+   291→   291→   291→- Border: 1.5px solid white/30
+   292→   292→   292→- Text: white
+   293→   293→   293→- Hover: background white/10, border white/50
+   294→   294→   294→
+   295→   295→   295→**Card**
+   296→   296→   296→- Background: surface white
+   297→   297→   297→- Border: 1px solid border color
+   298→   298→   298→- Border-radius: 12px
+   299→   299→   299→- Padding: p-6 md:p-8
+   300→   300→   300→- Shadow: none by default, shadow-sm on hover
+   301→   301→   301→- Hover: translateY(-2px), shadow-md, border-color accent/30
+   302→   302→   302→- Transition: all 300ms ease
+   303→   303→   303→
+   304→   304→   304→**Feature Card (Bukwin-specific)**
+   305→   305→   305→- Icon: 48x48, accent gold, contained in 56x56 rounded-lg bg-accent/10
+   306→   306→   306→- Title: H4, primary color
+   307→   307→   307→- Description: Body small, text-secondary
+   308→   308→   308→- Hover: icon container bg-accent/20, card lift
+   309→   309→   309→
+   310→   310→   310→**Testimonial Card**
+   311→   311→   311→- Quote: Body large, italic, primary color
+   312→   312→   312→- Avatar: 56x56 rounded-full, object-cover
+   313→   313→   313→- Name: Body small, font-weight 600
+   314→   314→   314→- Role: Caption, text-secondary
+   315→   315→   315→- Company: Caption, text-muted
+   316→   316→   316→- Border-left: 3px solid accent on left side
+   317→   317→   317→
+   318→   318→   318→**Input Field**
+   319→   319→   319→- Background: surface white
+   320→   320→   320→- Border: 1px solid border, focus: accent/50 ring-2
+   321→   321→   321→- Border-radius: 8px
+   322→   322→   322→- Padding: px-4 py-3
+   323→   323→   323→- Font: body size
+   324→   324→   324→- Placeholder: text-muted
+   325→   325→   325→- Error state: border-error, text-error caption below
+   326→   326→   326→
+   327→   327→   327→**Navigation**
+   328→   328→   328→- Sticky top-0, z-50
+   329→   329→   329→- Background: bg-background/80 backdrop-blur-md
+   330→   330→   330→- Height: h-16 md:h-20
+   331→   331→   331→- Logo left, links center, CTAs right
+   332→   332→   332→- Links: Nav font, text-primary, hover:text-accent
+   333→   333→   333→- Mobile: hamburger menu with slide-in drawer
+   334→   334→   334→- Scroll behavior: add subtle shadow on scroll
+   335→   335→   335→
+   336→   336→   336→**Footer**
+   337→   337→   337→- Background: primary navy
+   338→   338→   338→- Text: white/80
+   339→   339→   339→- 4-column grid: Brand + Description | Product Links | Company Links | Legal
+   340→   340→   340→- Newsletter signup: input + button
+   341→   341→   341→- Social icons: 24x24, white/60 hover:white
+   342→   342→   342→- Bottom bar: copyright + privacy/terms links
+   343→   343→   343→
+   344→   344→   344→### 6.3 Animation Components
+   345→   345→   345→
+   346→   346→   346→**FadeIn (Scroll-triggered)**
+   347→   347→   347→- Initial: opacity 0, translateY 30px
+   348→   348→   348→- Animate: opacity 1, translateY 0
+   349→   349→   349→- Duration: 600ms
+   350→   350→   350→- Easing: cubic-bezier(0.4, 0, 0.2, 1)
+   351→   351→   351→- Trigger: when element enters viewport (threshold 0.2)
+   352→   352→   352→- Stagger: 100ms between sibling elements
+   353→   353→   353→
+   354→   354→   354→**StaggerChildren**
+   355→   355→   355→- Parent wrapper that triggers child animations sequentially
+   356→   356→   356→- Delay: index * 100ms
+   357→   357→   357→- Used for: feature grids, testimonial lists, step timelines
+   358→   358→   358→
+   359→   359→   359→**TextReveal**
+   360→   360→   360→- Headline words animate in individually
+   361→   361→   361→- Initial: opacity 0, translateY 40px, rotateX(-15deg)
+   362→   362→   362→- Animate: opacity 1, translateY 0, rotateX(0)
+   363→   363→   363→- Duration: 800ms per word
+   364→   364→   364→- Stagger: 50ms
+   365→   365→   365→- Easing: cubic-bezier(0.22, 1, 0.36, 1)
+   366→   366→   366→
+   367→   367→   367→**CountUp**
+   368→   368→   368→- Numbers animate from 0 to target value
+   369→   369→   369→- Duration: 2000ms
+   370→   370→   370→- Easing: easeOutExpo
+   371→   371→   371→- Trigger: when scrolled into view
+   372→   372→   372→- Used for: stats section ("62% of calls missed", "<60s response time")
+   373→   373→   373→
+   374→   374→   374→**LivePulse**
+   375→   375→   375→- Small green dot with ping animation
+   376→   376→   376→- Used for: "Live" indicators, "Answering now" status
+   377→   377→   377→- CSS: animate-ping on pseudo-element
+   378→   378→   378→
+   379→   379→   379→**TerminalTypewriter**
+   380→   380→   380→- Monospace text types out character by character
+   381→   381→   381→- Cursor: blinking block cursor
+   382→   382→   382→- Speed: 40ms per character
+   383→   383→   383→- Used for: demo console, command-line aesthetic sections
+   384→   384→   384→
+   385→   385→   385→
+   386→   386→   386→---
+   387→   387→   387→
+   388→   388→   388→## 7. ANIMATION & INTERACTION SPECIFICATIONS
+   389→   389→   389→
+   390→   390→   390→### Animation Philosophy
+   391→   391→   391→- **60fps target** — All animations must be GPU-accelerated (transform, opacity only)
+   392→   392→   392→- **Respect prefers-reduced-motion** — Disable animations for users who request it
+   393→   393→   393→- **Purposeful, not decorative** — Every animation must guide attention or explain function
+   394→   394→   394→- **Subtlety is sophistication** — 300ms transitions, not 1s spectacles
+   395→   395→   395→
+   396→   396→   396→### Library Selection
+   397→   397→   397→
+   398→   398→   398→**Primary: Framer Motion (Motion)**
+   399→   399→   399→- Use for: page transitions, component enter/exit, layout animations, hover states, gesture handling
+   400→   400→   400→- Why: React-native API, excellent for UI interactions, AnimatePresence for mount/unmount
+   401→   401→   401→- Bundle: ~32KB, acceptable for SaaS product
+   402→   402→   402→
+   403→   403→   403→**Secondary: GSAP + ScrollTrigger**
+   404→   404→   404→- Use for: hero scroll-pinned narrative, complex timeline choreography, SVG path animations
+   405→   405→   405→- Why: Industry standard for scroll-driven storytelling, pinning, scrubbing
+   406→   406→   406→- Bundle: ~23KB core + ~12KB ScrollTrigger — only load on pages that need it (homepage hero)
+   407→   407→   407→
+   408→   408→   408→**CSS Animations**
+   409→   409→   409→- Use for: simple hover states, loading spinners, pulse indicators, infinite loops
+   410→   410→   410→- Why: Zero JS overhead, GPU-accelerated by default
+   411→   411→   411→
+   412→   412→   412→### Page-Specific Animation Specs
+   413→   413→   413→
+   414→   414→   414→**Homepage Hero**
+   415→   415→   415→- TextReveal on headline (word by word)
+   416→   416→   416→- Subtitle fades in 400ms after headline completes
+   417→   417→   417→- CTA buttons fade in + translateY(20px→0) 600ms after subtitle
+   418→   418→   418→- Hero image/mockup: subtle float animation (translateY ±10px, 6s loop, ease-in-out)
+   419→   419→   419→- Background: static gradient (no animation) — navy to slightly lighter navy, subtle noise texture overlay at 3% opacity
+   420→   420→   420→
+   421→   421→   421→**How It Works Timeline**
+   422→   422→   422→- ScrollTrigger: pin the left side (step numbers), scroll the right side (step descriptions)
+   423→   423→   423→- Each step: number scales up (1→1.2) when active, description fades in
+   424→   424→   424→- Progress indicator: vertical line fills with accent gold as user scrolls
+   425→   425→   425→- Duration: scrubbed to scroll position (1px scroll = 1px animation)
+   426→   426→   426→
+   427→   427→   427→**Live Demo Section**
+   428→   428→   428→- Split-screen layout: chat interface left, calendar right
+   429→   429→   429→- Chat messages: stagger in (100ms delay each)
+   430→   430→   430→- Calendar events: pop in with scale(0.9→1) + opacity
+   431→   431→   431→- "Typing" indicator: three dots bouncing
+   432→   432→   432→- Voice waveform: CSS animation of bars scaling
+   433→   433→   433→
+   434→   434→   434→**Stats Section**
+   435→   435→   435→- CountUp animation on numbers
+   436→   436→   436→- Stagger: 200ms between each stat card
+   437→   437→   437→- Cards: fade in + translateY(40px→0)
+   438→   438→   438→
+   439→   439→   439→**Testimonials**
+   440→   440→   440→- Horizontal scroll carousel (optional) or grid fade-in
+   441→   441→   441→- Quote marks: large decorative serif, accent gold at 20% opacity
+   442→   442→   442→- Hover: card lifts slightly, quote mark opacity increases to 40%
+   443→   443→   443→
+   444→   444→   444→**Pricing Cards**
+   445→   445→   445→- Recommended plan: accent border + subtle glow (box-shadow: 0 0 40px accent/10)
+   446→   446→   446→- Hover: all cards lift, recommended card lifts more
+   447→   447→   447→- Feature list: checkmarks stagger in on scroll
+   448→   448→   448→
+   449→   449→   449→**FAQ Accordion**
+   450→   450→   450→- Expand/collapse: height auto animation (300ms)
+   451→   451→   451→- Chevron: rotate 180deg on open
+   452→   452→   452→- Content: fade in + translateY(-10px→0)
+   453→   453→   453→
+   454→   454→   454→### Micro-Interactions
+   455→   455→   455→
+   456→   456→   456→**Button Hover**
+   457→   457→   457→- Primary: bg darkens, scale(1.02), shadow-lg appears
+   458→   458→   458→- Secondary: bg fills with primary color, text inverts
+   459→   459→   459→- Ghost: bg fills with white/10
+   460→   460→   460→- All: 200ms ease-out
+   461→   461→   461→
+   462→   462→   462→**Link Hover**
+   463→   463→   463→- Underline grows from left to right (scaleX 0→1, transform-origin left)
+   464→   464→   464→- Color shifts to accent
+   465→   465→   465→- Duration: 250ms
+   466→   466→   466→
+   467→   467→   467→**Card Hover**
+   468→   468→   468→- translateY(-4px)
+   469→   469→   469→- Shadow increases
+   470→   470→   470→- Border color shifts to accent/30
+   471→   471→   471→- Duration: 300ms ease-out
+   472→   472→   472→
+   473→   473→   473→**Input Focus**
+   474→   474→   474→- Border color: border → accent/50
+   475→   475→   475→- Ring: 2px accent/20
+   476→   476→   476→- Label: translateY(-20px) + scale(0.85) if using floating labels
+   477→   477→   477→- Duration: 200ms
+   478→   478→   478→
+   479→   479→   479→**Navigation Scroll**
+   480→   480→   480→- At top: transparent background, no shadow
+   481→   481→   481→- After 50px scroll: bg-background/80, backdrop-blur, shadow-sm
+   482→   482→   482→- Duration: 300ms
+   483→   483→   483→
+   484→   484→   484→---
+   485→   485→   485→
+   486→   486→   486→## 8. SECTION-BY-SECTION BUILD SPECS
+   487→   487→   487→
+   488→   488→   488→### 8.1 HOMEPAGE — `/`
+   489→   489→   489→
+   490→   490→   490→#### Section 1: Hero
+   491→   491→   491→**Layout:** Full-width, min-height 90vh, centered content with asymmetric split (55% text / 45% visual)
+   492→   492→   492→**Background:** Primary navy (`#0F172A`) with subtle radial gradient (lighter center, darker edges) + noise texture overlay at 3%
+   493→   493→   493→**Content:**
+   494→   494→   494→- **Eyebrow:** "AI RECEPTIONIST FOR YOUR BUSINESS" — Caption, uppercase, accent gold, letter-spacing 0.1em
+   495→   495→   495→- **Headline:** "Never Miss a Call. Never Lose a Customer." — Display font, white, max-width 600px
+   496→   496→   496→- **Subheadline:** "Bukwin AI answers your phone 24/7, books appointments, takes orders, and speaks your customers' language — all while you focus on running your business." — Body large, white/70, max-width 520px
+   497→   497→   497→- **CTA Group:**
+   498→   498→   498→  - Primary: "Hear It Answer Live" → links to /demo
+   499→   499→   499→  - Secondary: "See How It Works" → scrolls to #how-it-works
+   500→   500→   500→- **Trust Bar:** "Trusted by 200+ businesses" + 5 client logos (grayscale, opacity 50%, hover: opacity 100%)
+   501→   501→   501→- **Visual:** Right side — animated phone interface mockup showing:
+   502→   502→   502→  - Incoming call screen
+   503→   503→   503→  - Waveform visualization
+   504→   504→   504→  - "Bukwin AI is answering..." status
+   505→   505→   505→  - Live calendar booking animation
+   506→   506→   506→  - **OR** use a high-quality product screenshot with subtle float animation
+   507→   507→   507→
+   508→   508→   508→**Animation:** TextReveal headline → fadeIn subtitle (delay 600ms) → fadeIn CTAs (delay 800ms) → fadeIn trust bar (delay 1000ms)
+   509→   509→   509→
+   510→   510→   510→#### Section 2: The Problem ("The Cost of a Ringing Phone")
+   511→   511→   511→**Layout:** Full-width, bg-background, py-24
+   512→   512→   512→**Content:**
+   513→   513→   513→- **Eyebrow:** "THE PROBLEM" — Caption, accent gold
+   514→   514→   514→- **Headline:** "Every Missed Call Is a Customer Calling Your Competitor." — H2, primary
+   515→   515→   515→- **Subheadline:** "You're not bad at answering the phone. You're busy running the business." — Body large, text-secondary
+   516→   516→   516→- **3-Column Grid:**
+   517→   517→   517→  1. **"The Rush Hour"** — Icon: Clock (Lucide). Title: "The calls you can't take." Body: "The chair is full, the kitchen is slammed, you're mid-viewing. The phone rings anyway — and it rings out."
+   518→   518→   518→  2. **"The After-Hours Gap"** — Icon: Moon. Title: "The hours you're closed but demand isn't." Body: "Evenings, weekends, holidays. Customers call when they're free, not when you're open. Voicemail catches almost none of them."
+   519→   519→   519→  3. **"The Time Drain"** — Icon: Repeat. Title: "The same five questions, forty times a day." Body: "Opening hours. Parking. Price. Your team recites the same script instead of serving the customer in front of them."
+   520→   520→   520→- **Stat Bar:** Full-width, bg-primary, py-16, 3 stats:
+   521→   521→   521→  - "62%" — "of calls to small businesses go unanswered"
+   522→   522→   522→  - "85%" — "of unanswered callers never call back"
+   523→   523→   523→  - "62%" — "ring a competitor instead, within minutes"
+   524→   524→   524→  (Use CountUp animation)
+   525→   525→   525→
+   526→   526→   526→#### Section 3: Live Demo ("Talk to Bukwin Before You Talk to Us")
+   527→   527→   527→**Layout:** Full-width, bg-surface, py-24, border-y
+   528→   528→   528→**Content:**
+   529→   529→   529→- **Eyebrow:** "LIVE DEMO" — Caption, accent gold
+   530→   530→   530→- **Headline:** "Experience It Yourself. No Signup Required." — H2, primary
+   531→   531→   531→- **Subheadline:** "Speak to the agent or type at it. See exactly how it handles a real customer." — Body large, text-secondary
+   532→   532→   532→- **Split-Screen (60/40):**
+   533→   533→   533→  - **Left: Interactive Chat/Voice Demo**
+   534→   534→   534→    - Tab switcher: "Voice Call" | "Website Chat"
+   535→   535→   535→    - Voice mode: "Call (555) 019-2834" button + "Or simulate a call below"
+   536→   536→   536→    - Chat interface: Message bubbles (user right, agent left)
+   537→   537→   537→    - Pre-set scenarios: "Book a dental cleaning" | "Check restaurant hours" | "Schedule a property viewing"
+   538→   538→   538→    - Agent avatar: small circular image with LivePulse green dot
+   539→   539→   539→    - Typing indicator when "agent is thinking"
+   540→   540→   540→  - **Right: Live Calendar View**
+   541→   541→   541→    - Calendar widget showing current month
+   542→   542→   542→    - Animated booking: when demo completes, a new event pops into the calendar
+   543→   543→   543→    - Event card shows: "New Booking: John D. — Dental Cleaning — 2:30 PM"
+   544→   544→   544→    - "Real-time sync" badge with LivePulse
+   545→   545→   545→- **Below:** "This is not a recording. It's a real conversation with Bukwin AI." — Caption, text-muted, centered
+   546→   546→   546→
+   547→   547→   547→**Note:** This section requires backend integration. For MVP, implement a simulated demo with hardcoded responses and a mock calendar. Add a TODO comment marking where live AI integration connects.
+   548→   548→   548→
+   549→   549→   549→#### Section 4: How It Works ("One Call, Start to Finish")
+   550→   550→   550→**Layout:** Full-width, bg-background, py-24
+   551→   551→   551→**Content:**
+   552→   552→   552→- **Eyebrow:** "HOW IT WORKS" — Caption, accent gold
+   553→   553→   553→- **Headline:** "Your AI Receptionist. Setup in Days, Not Months." — H2, primary
+   554→   554→   554→- **Timeline (Vertical, 4 steps):**
+   555→   555→   555→  1. **"01 — We Learn Your Business"** — "Share your hours, services, pricing, and tone. We build a knowledge base that sounds like your best employee." + Icon: BookOpen
+   556→   556→   556→  2. **"02 — We Connect Your Tools"** — "Calendar, CRM, phone number, WhatsApp. Bukwin integrates with what you already use — nothing changes for your customers." + Icon: Plug
+   557→   557→   557→  3. **"03 — Go Live in 48 Hours"** — "Your existing number routes to Bukwin. The agent answers, qualifies, books, and transfers — just like a human receptionist." + Icon: Phone
+   558→   558→   558→  4. **"04 — It Gets Smarter Every Day"** — "Call transcripts, booking patterns, and customer feedback train the agent to handle more autonomously over time." + Icon: TrendingUp
+   559→   559→   559→- **Visual:** Each step has an accompanying illustration/mockup (phone screen, calendar sync, analytics dashboard)
+   560→   560→   560→- **CTA:** "Book Your Setup Call" — Primary button, links to /book-call
+   561→   561→   561→
+   562→   562→   562→**Animation:** ScrollTrigger pinned timeline. Active step highlights with accent gold, progress line fills.
+   563→   563→   563→
+   564→   564→   564→#### Section 5: Features ("Everything a Great Receptionist Does")
+   565→   565→   565→**Layout:** Full-width, bg-primary (navy), py-24, text white
+   566→   566→   566→**Content:**
+   567→   567→   567→- **Eyebrow:** "FEATURES" — Caption, accent gold
+   568→   568→   568→- **Headline:** "A Premium Front Desk, Without Hiring One." — H2, white
+   569→   569→   569→- **Subheadline:** "Everything a great receptionist does — answered instantly, priced flat, and running while you sleep." — Body large, white/70
+   570→   570→   570→- **Bento Grid (3x3, mixed sizes):**
+   571→   571→   571→  - **Large card (spans 2x2):** "24/7 Voice Answering" — "Nights, weekends, public holidays. Unlimited calls at once, no hold music. Every caller gets answered on the first ring." + Waveform visualization
+   572→   572→   572→  - **Medium card:** "Instant Appointment Booking" — "Checks live availability, books the slot, sends confirmations by SMS or WhatsApp, and reminders that cut your no-shows." + Calendar icon
+   573→   573→   573→  - **Medium card:** "Speaks Their Language" — "Natural conversation in 30+ languages. Detects the caller's language and switches automatically." + Globe icon
+   574→   574→   574→  - **Small card:** "CRM Sync" — "Contacts, notes, call summaries, and appointments written back automatically." + Database icon
+   575→   575→   575→  - **Small card:** "Smart Transfers" — "Urgent or high-value callers get routed to the right person, with full conversation context attached." + ArrowRight icon
+   576→   576→   576→  - **Small card:** "WhatsApp & Chat" — "The same agent on your website and WhatsApp. Answers never contradict each other." + MessageCircle icon
+   577→   577→   577→  - **Small card:** "Lead Qualification" — "Asks your qualifying questions, flags real buyers, and politely handles non-buyers." + Filter icon
+   578→   578→   578→  - **Small card:** "Call Analytics" — "Every call measured: response time, resolution rate, booking conversion, and sentiment." + BarChart icon
+   579→   579→   579→  - **Small card:** "No-Show Recovery" — "Automatically follows up with missed appointments to rebook them before they go cold." + RefreshCw icon
+   580→   580→   580→
+   581→   581→   581→**Animation:** Cards stagger in on scroll (100ms delay each). Hover: card lifts, icon pulses subtly.
+   582→   582→   582→
+   583→   583→   583→#### Section 6: Industries ("Tuned Per Industry")
+   584→   584→   584→**Layout:** Full-width, bg-background, py-24
+   585→   585→   585→**Content:**
+   586→   586→   586→- **Eyebrow:** "INDUSTRIES" — Caption, accent gold
+   587→   587→   587→- **Headline:** "Not a Generic Bot. Trained for Your Business." — H2, primary
+   588→   588→   588→- **Grid:** 6 columns on desktop, 2 on mobile, 10 industry cards:
+   589→   589→   589→  1. Healthcare & Dental — Stethoscope icon
+   590→   590→   590→  2. Real Estate — Home icon
+   591→   591→   591→  3. Restaurants & Food — UtensilsCrossed icon
+   592→   592→   592→  4. Salons & Spas — Sparkles icon
+   593→   593→   593→  5. Legal Services — Scale icon
+   594→   594→   594→  6. Automotive — Car icon
+   595→   595→   595→  7. Home Services — Wrench icon
+   596→   596→   596→  8. Hospitality — Bed icon
+   597→   597→   597→  9. Retail & E-commerce — ShoppingBag icon
+   598→   598→   598→  10. Consulting — Briefcase icon
+   599→   599→   599→- **Card design:** Icon (accent gold, 32px) + Industry name (H4) + "Learn more →" link
+   600→   600→   600→- **Hover:** Card border shifts to accent, icon scales 1.1, "Learn more" underline animates
+
+[showing lines 1-600 of 1720; use offset=601 with limit to continue reading]

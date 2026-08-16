@@ -1,0 +1,333 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================================
+   DESIGN TOKENS
+   In Tailwind v4, tokens defined inside `@theme` are emitted as CSS variables
+   AND generate utility classes (bg-surface, text-navy, etc.).
+   We define themeable tokens with var() references so the same utility class
+   resolves differently under .dark.
+   ============================================================================ */
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-display: var(--font-space-grotesk);
+
+  /* Color tokens — these generate utilities AND emit CSS variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand-specific tokens (Bukwin) */
+  --color-navy: var(--navy);
+  --color-gold: var(--gold);
+  --color-surface: var(--surface);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Chart palette */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ============================================================================
+   LIGHT THEME (default)
+   All variables live here so they're emitted to :root on every render.
+   ============================================================================ */
+:root {
+  --radius: 0.625rem;
+
+  /* Core palette */
+  --background: #FAF9F6;       /* warm off-white */
+  --foreground: #0F172A;       /* deep navy text */
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #0F172A;          /* deep navy */
+  --primary-foreground: #FAF9F6;
+  --secondary: #F1F0EB;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F0EB;
+  --muted-foreground: #64748B;
+  --accent: #D4A853;           /* warm gold */
+  --accent-foreground: #0F172A;
+  --destructive: #EF4444;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #D4A853;
+
+  /* Brand aliases */
+  --navy: #0F172A;
+  --gold: #D4A853;
+  --surface: #FFFFFF;
+  --success: #10B981;
+  --error: #EF4444;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+
+  /* Charts */
+  --chart-1: #0F172A;
+  --chart-2: #D4A853;
+  --chart-3: #64748B;
+  --chart-4: #10B981;
+  --chart-5: #EF4444;
+
+  /* Sidebar (dashboard) */
+  --sidebar: #0F172A;
+  --sidebar-foreground: #FAF9F6;
+  --sidebar-primary: #D4A853;
+  --sidebar-primary-foreground: #0F172A;
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #FAF9F6;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #D4A853;
+
+  /* Custom scrollbar colors (used by scroll-bukwin utility) */
+  --scrollbar-thumb: rgba(15, 23, 42, 0.18);
+  --scrollbar-thumb-hover: rgba(15, 23, 42, 0.32);
+
+  color-scheme: light;
+}
+
+/* ============================================================================
+   DARK THEME
+   Override only the tokens that change in dark mode.
+   ============================================================================ */
+.dark {
+  --background: #0A0F1C;
+  --foreground: #F8FAFC;
+  --card: #111827;
+  --card-foreground: #F8FAFC;
+  --popover: #111827;
+  --popover-foreground: #F8FAFC;
+  --primary: #F8FAFC;
+  --primary-foreground: #0A0F1C;
+  --secondary: #1E293B;
+  --secondary-foreground: #F8FAFC;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: #F0C674;
+  --accent-foreground: #0A0F1C;
+  --destructive: #EF4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #F0C674;
+
+  --navy: #0A0F1C;
+  --gold: #F0C674;
+  --surface: #111827;
+  --success: #34D399;
+  --error: #F87171;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --chart-1: #F0C674;
+  --chart-2: #F8FAFC;
+  --chart-3: #94A3B8;
+  --chart-4: #34D399;
+  --chart-5: #F87171;
+
+  --sidebar: #111827;
+  --sidebar-foreground: #F8FAFC;
+  --sidebar-primary: #F0C674;
+  --sidebar-primary-foreground: #0A0F1C;
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #F0C674;
+
+  --scrollbar-thumb: rgba(248, 250, 252, 0.18);
+  --scrollbar-thumb-hover: rgba(248, 250, 252, 0.32);
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-accent) 25%, transparent);
+    color: inherit;
+  }
+}
+
+/* ============================================================================
+   UTILITY HELPERS
+   ============================================================================ */
+@utility container-bukwin {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1280px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@utility container-bukwin-lg {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1024px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@utility font-display {
+  font-family: var(--font-space-grotesk), "Space Grotesk", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@utility scroll-bukwin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+.scroll-bukwin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-bukwin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-bukwin::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+.scroll-bukwin::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+@utility noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.85'/></svg>");
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-accent) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-accent) 4%, transparent) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+@keyframes ping-bukwin {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.live-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: currentColor;
+  animation: ping-bukwin 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes wave-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.wave-bar {
+  transform-origin: center;
+  animation: wave-bar 1.2s ease-in-out infinite;
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.typing-dot {
+  animation: typing-bounce 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.08), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2.5s infinite linear;
+}
+
+@utility link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
