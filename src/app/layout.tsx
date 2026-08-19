@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/bukwin/shared/theme-provider";
 import { ChatKitScript } from "@/components/bukwin/shared/chatkit-script";
+import { FloatingChatKit } from "@/components/bukwin/chat/floating-chatkit";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -83,6 +84,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
+        <FloatingChatKit />
       </body>
     </html>
   );
