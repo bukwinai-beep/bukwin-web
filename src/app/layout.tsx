@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/bukwin/shared/theme-provider";
+import { ChatKitScript } from "@/components/bukwin/shared/chatkit-script";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -26,7 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bukwin-ai.vercel.app"),
+  metadataBase: new URL("https://bukwin.com"),
   title: "Bukwin AI — Never Miss a Call. Never Lose a Customer.",
   description:
     "Bukwin AI is a premium AI receptionist that answers your phone 24/7, books appointments, takes orders, and speaks your customers' language — priced flat, set up in 48 hours.",
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     title: "Bukwin AI — Never Miss a Call. Never Lose a Customer.",
     description:
       "Premium AI receptionist that answers 24/7, books appointments, and speaks 30+ languages. Flat pricing, live in 48 hours.",
-    url: "https://bukwin-ai.vercel.app",
+    url: "https://bukwin.com",
     siteName: "Bukwin AI",
     type: "website",
     images: [
@@ -74,6 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <ChatKitScript />
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans`}
       >
