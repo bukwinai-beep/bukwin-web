@@ -172,9 +172,8 @@ async function executeTool(
   name: string,
   args: Record<string, any>
 ): Promise<any> {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL
+    || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
   switch (name) {
     case "check_availability": {
@@ -226,7 +225,7 @@ async function executeTool(
   }
 }
 
-// ─── POST Handler (Streaming) ───────────────────────────────────────────────
+// ─── POST Handler ───────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -256,13 +255,8 @@ export async function POST(req: NextRequest) {
       max_tokens: 512,
     });
 
-    // We need to handle tool calls in a loop for streaming
-    // Since streaming + tool calls is complex, we'll collect the stream,
-    // check for tool_calls, execute them, then stream the final response.
-
-    const encoder = new TextEncoder();
     let assistantMessage = "";
-    let toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[] = [];
+    const toolCalls: any[] = [];
     let finishReason: string | null = null;
 
     for await (const chunk of stream) {
@@ -292,7 +286,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // If no tool calls, return the simple text response
+    // If no tool calls, return simple text response
     if (toolCalls.length === 0 || finishReason !== "tool_calls") {
       return NextResponse.json({
         reply: assistantMessage,
@@ -304,7 +298,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ─── Execute tool calls ────────────────────────────────────────────────
-    const toolResults: OpenAI.Chat.ChatCompletionToolMessageParam[] = [];
+    const toolResults: any[] = [];
 
     for (const tc of toolCalls) {
       if (!tc.function?.name) continue;
@@ -333,7 +327,7 @@ export async function POST(req: NextRequest) {
         {
           role: "assistant",
           content: assistantMessage,
-          tool_calls: toolCalls.map((tc) => ({
+          tool_calls: toolCalls.map((tc: any) => ({
             id: tc.id,
             type: "function" as const,
             function: {

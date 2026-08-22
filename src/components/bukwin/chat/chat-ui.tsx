@@ -1,19 +1,19 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Send, Loader2, User, Bot, Calendar, Clock, RefreshCw, XIcon } from "lucide-react";
+import { Send, Loader2, User, Bot, Calendar, Clock, RefreshCw, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type ChatMessage = {
-  role: "user" | "assistant" | "tool";
+  role: "user" | "assistant";
   content: string;
 };
 
 const PROMPTS = [
-  { label: "Book an appointment", prompt: "I want to book an appointment" },
-  { label: "Check availability", prompt: "What times are available tomorrow?" },
-  { label: "Reschedule", prompt: "I need to reschedule my appointment" },
-  { label: "Cancel", prompt: "I want to cancel my appointment" },
+  { label: "Book an appointment", prompt: "I want to book an appointment", icon: "calendar" },
+  { label: "Check availability", prompt: "What times are available tomorrow?", icon: "clock" },
+  { label: "Reschedule", prompt: "I need to reschedule my appointment", icon: "refresh" },
+  { label: "Cancel", prompt: "I want to cancel my appointment", icon: "x" },
 ];
 
 function getDeviceId(): string {
@@ -57,17 +57,14 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  // Persist history
   useEffect(() => {
     saveHistory(messages);
   }, [messages]);
 
-  // Auto-resize textarea
   useEffect(() => {
     const el = inputRef.current;
     if (el) {
@@ -104,11 +101,9 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
           throw new Error(data.error);
         }
 
-        // The API returns the full message history including assistant reply
         if (data.messages && Array.isArray(data.messages)) {
-          // Convert to our format (filter out tool messages for display)
           const displayMessages: ChatMessage[] = data.messages
-            .filter((m: any) => m.role !== "tool" && m.role !== "system")
+            .filter((m: any) => m.role === "user" || m.role === "assistant")
             .map((m: any) => ({
               role: m.role === "user" ? "user" : "assistant",
               content: m.content || "",
@@ -155,7 +150,6 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
 
   return (
     <div className={cn("flex flex-col h-full bg-white", className)}>
-      {/* Messages area */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
         {!hasMessages && showPrompts && (
           <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
@@ -180,10 +174,10 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
                     "transition-colors disabled:opacity-50"
                   )}
                 >
-                  {p.label === "Book an appointment" && <Calendar className="h-4 w-4 text-[#4F46E5] shrink-0" />}
-                  {p.label === "Check availability" && <Clock className="h-4 w-4 text-[#4F46E5] shrink-0" />}
-                  {p.label === "Reschedule" && <RefreshCw className="h-4 w-4 text-[#4F46E5] shrink-0" />}
-                  {p.label === "Cancel" && <XIcon className="h-4 w-4 text-[#4F46E5] shrink-0" />}
+                  {p.icon === "calendar" && <Calendar className="h-4 w-4 text-[#4F46E5] shrink-0" />}
+                  {p.icon === "clock" && <Clock className="h-4 w-4 text-[#4F46E5] shrink-0" />}
+                  {p.icon === "refresh" && <RefreshCw className="h-4 w-4 text-[#4F46E5] shrink-0" />}
+                  {p.icon === "x" && <X className="h-4 w-4 text-[#4F46E5] shrink-0" />}
                   <span className="truncate">{p.label}</span>
                 </button>
               ))}
@@ -194,10 +188,7 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={cn(
-              "flex gap-3",
-              msg.role === "user" ? "justify-end" : "justify-start"
-            )}
+            className={cn("flex gap-3", msg.role === "user" ? "justify-end" : "justify-start")}
           >
             {msg.role === "assistant" && (
               <div className="w-8 h-8 rounded-full bg-[#4F46E5] flex items-center justify-center shrink-0 mt-1">
@@ -241,12 +232,7 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
           <div className="flex justify-center">
             <div className="bg-red-50 border border-red-200 text-red-700 text-xs px-4 py-2 rounded-xl max-w-[90%]">
               {error}
-              <button
-                onClick={() => setError("")}
-                className="ml-2 underline hover:no-underline"
-              >
-                Dismiss
-              </button>
+              <button onClick={() => setError("")} className="ml-2 underline hover:no-underline">Dismiss</button>
             </div>
           </div>
         )}
@@ -254,14 +240,10 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
         <div ref={bottomRef} />
       </div>
 
-      {/* Input area */}
       <div className="border-t border-gray-200 px-4 py-3">
         {hasMessages && (
           <div className="flex justify-end mb-2">
-            <button
-              onClick={clearChat}
-              className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
-            >
+            <button onClick={clearChat} className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
               Clear conversation
             </button>
           </div>
@@ -288,17 +270,11 @@ export function ChatUI({ className, showPrompts = true, placeholder = "Ask me ab
             disabled={loading || !input.trim()}
             className={cn(
               "h-11 w-11 rounded-xl flex items-center justify-center shrink-0",
-              "bg-[#4F46E5] text-white",
-              "hover:bg-[#4338ca] transition-colors",
+              "bg-[#4F46E5] text-white hover:bg-[#4338ca] transition-colors",
               "disabled:opacity-40 disabled:cursor-not-allowed"
             )}
-            aria-label="Send message"
           >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
           </button>
         </form>
         <p className="text-[10px] text-gray-400 text-center mt-2">

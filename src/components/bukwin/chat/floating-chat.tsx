@@ -10,7 +10,6 @@ export function FloatingChat() {
 
   return (
     <>
-      {/* Floating toggle button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
@@ -25,15 +24,12 @@ export function FloatingChat() {
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
-      {/* Chat popup panel */}
       <div
         className={cn(
           "fixed bottom-24 right-6 z-[9998] w-[400px] max-w-[calc(100vw-48px)] h-[600px] max-h-[calc(100vh-120px)]",
           "rounded-2xl shadow-2xl overflow-hidden bg-white border border-gray-200",
           "transition-all duration-300 origin-bottom-right",
-          isOpen
-            ? "opacity-100 scale-100 pointer-events-auto"
-            : "opacity-0 scale-95 pointer-events-none"
+          isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
         )}
       >
         <ChatUI className="w-full h-full" />

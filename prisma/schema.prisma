@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -60,8 +57,8 @@ model NewsletterSubscriber {
 model ChatSession {
   id        String   @id @default(cuid())
   scenario  String?
-  mode      String   @default("live") // "live" | "scripted"
-  messages  String   // JSON-encoded array of {role, content}
+  mode      String   @default("live")
+  messages  String
   createdAt DateTime @default(now())
 
   @@index([createdAt])
@@ -76,7 +73,7 @@ model Appointment {
   startTime       DateTime
   endTime         DateTime
   timezone        String   @default("Asia/Karachi")
-  status          String   @default("PENDING") // PENDING | CONFIRMED | CANCELLED | RESCHEDULED
+  status          String   @default("PENDING")
   notes           String?
   calendarEventId String?
   createdAt       DateTime @default(now())
