@@ -24,7 +24,8 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// ─── PATCH: Reschedule ──────────────────────────────────────────────────────
+// ─── PATCH: Reschedule an existing appointment ───────────────────────────────
+
 const RescheduleSchema = z.object({
   start: z.string().datetime({ offset: true }),
   service: z.string().optional(),
@@ -53,6 +54,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid start time." }, { status: 400 });
     }
 
+    // Fetch the existing appointment
     const existing = await db.appointment.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json({ error: "Appointment not found." }, { status: 404 });
@@ -73,6 +75,7 @@ export async function PATCH(
 
     const endDate = new Date(startDate.getTime() + durationMinutes * 60000);
 
+    // --- Defense-in-depth checks ---
     const now = new Date();
     const earliestBookable = new Date(now.getTime() + MIN_BOOKING_NOTICE_MINUTES * 60000);
     if (startDate.getTime() < earliestBookable.getTime()) {
@@ -89,6 +92,7 @@ export async function PATCH(
       );
     }
 
+    // --- Check new slot is free (exclude the current appointment itself) ---
     let free: boolean;
     try {
       free = await isSlotFree(startDate.toISOString(), endDate.toISOString());
@@ -100,6 +104,7 @@ export async function PATCH(
       );
     }
 
+    // Also check DB conflicts excluding this appointment
     const dbConflict = await db.appointment.findFirst({
       where: {
         id: { not: id },
@@ -117,14 +122,17 @@ export async function PATCH(
       );
     }
 
+    // --- Delete old calendar event ---
     if (existing.calendarEventId) {
       try {
         await deleteCalendarEvent(existing.calendarEventId);
       } catch (err) {
         console.error("[/api/appointments/:id] failed to delete old calendar event:", err);
+        // Continue anyway — we don't want to block the reschedule
       }
     }
 
+    // --- Create new calendar event ---
     let calendarEventId: string | null = null;
     let calendarLink: string | null = null;
     try {
@@ -153,6 +161,7 @@ export async function PATCH(
       );
     }
 
+    // --- Update DB ---
     const updated = await db.appointment.update({
       where: { id },
       data: {
@@ -169,6 +178,7 @@ export async function PATCH(
       timeZone: BUSINESS_TIMEZONE,
     });
 
+    // Best-effort email
     const emailResult = await sendRescheduleEmail({
       toEmail: existing.customerEmail,
       customerName: existing.customerName,
@@ -202,7 +212,8 @@ export async function PATCH(
   }
 }
 
-// ─── DELETE: Cancel ─────────────────────────────────────────────────────────
+// ─── DELETE: Cancel an appointment ───────────────────────────────────────────
+
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -221,11 +232,13 @@ export async function DELETE(
       );
     }
 
+    // Delete from Google Calendar
     if (existing.calendarEventId) {
       try {
         await deleteCalendarEvent(existing.calendarEventId);
       } catch (err) {
         console.error("[/api/appointments/:id] failed to delete calendar event:", err);
+        // Continue — we still want to mark it cancelled in our DB
       }
     }
 
@@ -238,6 +251,7 @@ export async function DELETE(
       timeZone: BUSINESS_TIMEZONE,
     });
 
+    // Best-effort email
     const emailResult = await sendCancellationEmail({
       toEmail: existing.customerEmail,
       customerName: existing.customerName,

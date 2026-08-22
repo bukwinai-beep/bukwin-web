@@ -1,12 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -57,30 +60,9 @@ model NewsletterSubscriber {
 model ChatSession {
   id        String   @id @default(cuid())
   scenario  String?
-  mode      String   @default("live")
-  messages  String
+  mode      String   @default("live") // "live" | "scripted"
+  messages  String   // JSON-encoded array of {role, content}
   createdAt DateTime @default(now())
 
   @@index([createdAt])
-}
-
-model Appointment {
-  id              String   @id @default(cuid())
-  customerName    String
-  customerEmail   String
-  customerPhone   String?
-  service         String
-  startTime       DateTime
-  endTime         DateTime
-  timezone        String   @default("Asia/Karachi")
-  status          String   @default("PENDING")
-  notes           String?
-  calendarEventId String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([status])
-  @@index([customerEmail])
-  @@index([startTime])
-  @@index([calendarEventId])
 }
