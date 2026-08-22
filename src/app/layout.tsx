@@ -3,8 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/bukwin/shared/theme-provider";
-import { ChatKitScript } from "@/components/bukwin/shared/chatkit-script";
-import { FloatingChatKit } from "@/components/bukwin/chat/floating-chatkit";
+import { FloatingChat } from "@/components/bukwin/chat/floating-chat";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -76,7 +75,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ChatKitScript />
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans`}
       >
@@ -84,7 +82,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
-        <FloatingChatKit />
+        <FloatingChat />
       </body>
     </html>
   );

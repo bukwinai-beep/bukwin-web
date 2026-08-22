@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ChatInterface } from "@/components/bukwin/chat/chat-interface";
+import { ChatUI } from "@/components/bukwin/chat/chat-ui";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -31,7 +31,7 @@ export default function ChatPage() {
       {/* Chat area */}
       <main className="flex-1 flex flex-col max-w-3xl mx-auto w-full p-4">
         <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden min-h-[600px]">
-          <ChatInterface className="w-full h-full" />
+          <ChatUI className="w-full h-full" showPrompts={true} />
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-4">
