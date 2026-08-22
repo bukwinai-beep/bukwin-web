@@ -58,13 +58,15 @@ export function FloatingChatKit() {
             },
           },
           // This is the piece that actually connects the agent's
-          // check_availability / book_appointment tool calls (defined in
+          // check_availability / book_appointment / reschedule_appointment /
+          // cancel_appointment / lookup_appointment tool calls (defined in
           // Agent Builder) to our real backend routes. Agent Builder only
           // defines the *shape* of these tools — it can't call our API by
           // itself. ChatKit intercepts the tool call in the browser here,
           // we run the fetch, and whatever we return goes back to the agent
           // as the tool's result.
           onClientTool: async (toolCall: { name: string; params: Record<string, any> }) => {
+            console.log("[ChatKit onClientTool]", toolCall.name, toolCall.params);
             try {
               if (toolCall.name === "check_availability") {
                 const qs = new URLSearchParams({
@@ -72,7 +74,11 @@ export function FloatingChatKit() {
                   service: String(toolCall.params.service ?? ""),
                 });
                 const res = await fetch(`/api/appointments/availability?${qs.toString()}`);
-                return await res.json();
+                const data = await res.json();
+                if (!res.ok) {
+                  return { error: data.error || `Availability check failed (${res.status})` };
+                }
+                return data;
               }
 
               if (toolCall.name === "book_appointment") {
@@ -81,7 +87,62 @@ export function FloatingChatKit() {
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify(toolCall.params),
                 });
-                return await res.json();
+                const data = await res.json();
+                if (!res.ok) {
+                  return { error: data.error || `Booking failed (${res.status})` };
+                }
+                return data;
+              }
+
+              if (toolCall.name === "lookup_appointment") {
+                const email = String(toolCall.params.email ?? "");
+                if (!email) {
+                  return { error: "Email is required to look up appointments." };
+                }
+                const qs = new URLSearchParams({ email });
+                const res = await fetch(`/api/appointments/lookup?${qs.toString()}`);
+                const data = await res.json();
+                if (!res.ok) {
+                  return { error: data.error || `Lookup failed (${res.status})` };
+                }
+                return data;
+              }
+
+              if (toolCall.name === "reschedule_appointment") {
+                const id = String(toolCall.params.id ?? "");
+                const start = String(toolCall.params.start ?? "");
+                if (!id || !start) {
+                  return { error: "Appointment ID and new start time are required." };
+                }
+                const res = await fetch(`/api/appointments/${id}`, {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    start,
+                    service: toolCall.params.service ?? undefined,
+                    notes: toolCall.params.notes ?? undefined,
+                  }),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                  return { error: data.error || `Reschedule failed (${res.status})` };
+                }
+                return data;
+              }
+
+              if (toolCall.name === "cancel_appointment") {
+                const id = String(toolCall.params.id ?? "");
+                if (!id) {
+                  return { error: "Appointment ID is required to cancel." };
+                }
+                const res = await fetch(`/api/appointments/${id}`, {
+                  method: "DELETE",
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                  return { error: data.error || `Cancellation failed (${res.status})` };
+                }
+                return data;
               }
 
               return { error: `Unknown tool: ${toolCall.name}` };
@@ -119,6 +180,11 @@ export function FloatingChatKit() {
                 label: "Reschedule",
                 prompt: "I need to reschedule my appointment",
                 icon: "reload",
+              },
+              {
+                label: "Cancel appointment",
+                prompt: "I want to cancel my appointment",
+                icon: "x",
               },
             ],
           },
