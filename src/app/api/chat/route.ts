@@ -226,7 +226,59 @@ async function executeTool(
   }
 }
 
-// ─── POST Handler (Streaming) ───────────────────────────────────────────────
+// ─── One round of streaming chat completion, collected into a plain object ──
+async function runOneCompletion(
+  history: OpenAI.Chat.ChatCompletionMessageParam[]
+): Promise<{
+  content: string;
+  toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[];
+  finishReason: string | null;
+}> {
+  const stream = await openai.chat.completions.create({
+    model: MODEL,
+    messages: history,
+    tools,
+    tool_choice: "auto",
+    stream: true,
+    temperature: 0.7,
+    max_tokens: 512,
+  });
+
+  let content = "";
+  const toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[] = [];
+  let finishReason: string | null = null;
+
+  for await (const chunk of stream) {
+    const delta = chunk.choices[0]?.delta;
+    finishReason = chunk.choices[0]?.finish_reason ?? finishReason;
+
+    if (delta?.content) {
+      content += delta.content;
+    }
+
+    if (delta?.tool_calls) {
+      for (const tc of delta.tool_calls) {
+        const existing = toolCalls[tc.index];
+        if (existing) {
+          existing.function.arguments += tc.function?.arguments || "";
+        } else {
+          toolCalls[tc.index] = {
+            id: tc.id || `call_${Date.now()}_${tc.index}`,
+            type: "function",
+            function: {
+              name: tc.function?.name || "",
+              arguments: tc.function?.arguments || "",
+            },
+          };
+        }
+      }
+    }
+  }
+
+  return { content, toolCalls, finishReason };
+}
+
+// ─── POST Handler (Streaming, with a real tool-call loop) ──────────────────
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -243,125 +295,75 @@ export async function POST(req: NextRequest) {
     // Cap history to last 20 messages
     const trimmed = messages.slice(-20);
 
-    const stream = await openai.chat.completions.create({
-      model: MODEL,
-      messages: [
-        { role: "system", content: buildSystemPrompt() },
-        ...trimmed,
-      ],
-      tools,
-      tool_choice: "auto",
-      stream: true,
-      temperature: 0.7,
-      max_tokens: 512,
-    });
+    const history: OpenAI.Chat.ChatCompletionMessageParam[] = [
+      { role: "system", content: buildSystemPrompt() },
+      ...trimmed,
+    ];
 
-    // We need to handle tool calls in a loop for streaming
-    // Since streaming + tool calls is complex, we'll collect the stream,
-    // check for tool_calls, execute them, then stream the final response.
-
-    const encoder = new TextEncoder();
-    let assistantMessage = "";
-    let toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[] = [];
-    let finishReason: string | null = null;
-
-    for await (const chunk of stream) {
-      const delta = chunk.choices[0]?.delta;
-      finishReason = chunk.choices[0]?.finish_reason ?? finishReason;
-
-      if (delta?.content) {
-        assistantMessage += delta.content;
-      }
-
-      if (delta?.tool_calls) {
-        for (const tc of delta.tool_calls) {
-          const existing = toolCalls[tc.index];
-          if (existing) {
-            existing.function.arguments += tc.function?.arguments || "";
-          } else {
-            toolCalls[tc.index] = {
-              id: tc.id || `call_${Date.now()}_${tc.index}`,
-              type: "function",
-              function: {
-                name: tc.function?.name || "",
-                arguments: tc.function?.arguments || "",
-              },
-            };
-          }
-        }
-      }
-    }
-
-    // If no tool calls, return the simple text response
-    if (toolCalls.length === 0 || finishReason !== "tool_calls") {
-      return NextResponse.json({
-        reply: assistantMessage,
-        messages: [
-          ...trimmed,
-          { role: "assistant", content: assistantMessage },
-        ],
-      });
-    }
-
-    // ─── Execute tool calls ────────────────────────────────────────────────
-    const toolResults: OpenAI.Chat.ChatCompletionToolMessageParam[] = [];
-
-    for (const tc of toolCalls) {
-      if (!tc.function?.name) continue;
-      let args: Record<string, any> = {};
-      try {
-        args = JSON.parse(tc.function.arguments);
-      } catch {
-        // malformed args
-      }
-
-      console.log("[chat] tool call:", tc.function.name, args);
-      const result = await executeTool(tc.function.name, args);
-      toolResults.push({
-        role: "tool",
-        tool_call_id: tc.id,
-        content: JSON.stringify(result),
-      });
-    }
-
-    // ─── Second call with tool results ─────────────────────────────────────
-    const secondStream = await openai.chat.completions.create({
-      model: MODEL,
-      messages: [
-        { role: "system", content: buildSystemPrompt() },
-        ...trimmed,
-        {
-          role: "assistant",
-          content: assistantMessage,
-          tool_calls: toolCalls.map((tc) => ({
-            id: tc.id,
-            type: "function" as const,
-            function: {
-              name: tc.function.name,
-              arguments: tc.function.arguments,
-            },
-          })),
-        },
-        ...toolResults,
-      ],
-      tools,
-      tool_choice: "auto",
-      stream: true,
-      temperature: 0.7,
-      max_tokens: 512,
-    });
-
+    // The model can chain several tool calls in a row (e.g. check_availability
+    // then book_appointment). Keep going until it stops calling tools or we
+    // hit a safety cap, instead of assuming there's only ever one round.
+    const MAX_ROUNDS = 5;
     let finalReply = "";
-    for await (const chunk of secondStream) {
-      finalReply += chunk.choices[0]?.delta?.content || "";
+
+    for (let round = 0; round < MAX_ROUNDS; round++) {
+      const { content, toolCalls, finishReason } = await runOneCompletion(history);
+
+      // No tool calls this round → the model gave its real answer, we're done.
+      if (toolCalls.length === 0 || finishReason !== "tool_calls") {
+        finalReply = content;
+        break;
+      }
+
+      // Record the assistant's tool-call turn in history
+      history.push({
+        role: "assistant",
+        content: content || null,
+        tool_calls: toolCalls.map((tc) => ({
+          id: tc.id,
+          type: "function" as const,
+          function: {
+            name: tc.function.name,
+            arguments: tc.function.arguments,
+          },
+        })),
+      });
+
+      // Execute every tool call requested this round
+      for (const tc of toolCalls) {
+        if (!tc.function?.name) continue;
+        let args: Record<string, any> = {};
+        try {
+          args = JSON.parse(tc.function.arguments);
+        } catch {
+          // malformed args — let the tool executor / model deal with it
+        }
+
+        console.log("[chat] tool call:", tc.function.name, args);
+        const result = await executeTool(tc.function.name, args);
+        history.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: JSON.stringify(result),
+        });
+      }
+
+      // Loop again so the model can react to the tool result(s) — it might
+      // reply in text now, or chain into another tool call.
+      if (round === MAX_ROUNDS - 1) {
+        // Safety net: force one last plain-text-only completion so the user
+        // never sees a blank reply if we hit the round cap.
+        const { content: lastContent } = await runOneCompletion(history);
+        finalReply =
+          lastContent ||
+          "Sorry, that's taking longer than expected — could you try again?";
+      }
     }
 
     return NextResponse.json({
       reply: finalReply,
       messages: [
         ...trimmed,
-        { role: "assistant", content: assistantMessage },
-        ...toolResults,
         { role: "assistant", content: finalReply },
       ],
     });
