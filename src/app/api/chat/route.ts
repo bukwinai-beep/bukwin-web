@@ -167,15 +167,35 @@ const tools: OpenAI.Chat.ChatCompletionTool[] = [
   },
 ];
 
+// Safely parse a fetch Response as JSON. If the server ever returns
+// something that isn't JSON (an HTML error/auth page, a proxy error, etc.)
+// this returns a normal error object instead of throwing — which previously
+// crashed the whole /api/chat request with "Unexpected token '<'".
+async function safeJson(res: Response): Promise<any> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    console.error(
+      `[chat] non-JSON response (status ${res.status}) from internal API:`,
+      text.slice(0, 300)
+    );
+    return {
+      error:
+        "The booking system returned an unexpected response. Please try again in a moment.",
+    };
+  }
+}
+
 // ─── Tool Executor ──────────────────────────────────────────────────────────
+// baseUrl is derived from the incoming request itself (not VERCEL_URL), so
+// internal calls always hit the exact same domain the user is on — avoiding
+// mismatches with preview URLs / deployment protection on the .vercel.app host.
 async function executeTool(
   name: string,
-  args: Record<string, any>
+  args: Record<string, any>,
+  baseUrl: string
 ): Promise<any> {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
   switch (name) {
     case "check_availability": {
       const qs = new URLSearchParams({
@@ -183,7 +203,7 @@ async function executeTool(
         service: String(args.service ?? ""),
       });
       const res = await fetch(`${baseUrl}/api/appointments/availability?${qs}`);
-      return res.json();
+      return safeJson(res);
     }
 
     case "book_appointment": {
@@ -192,13 +212,13 @@ async function executeTool(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(args),
       });
-      return res.json();
+      return safeJson(res);
     }
 
     case "lookup_appointment": {
       const qs = new URLSearchParams({ email: String(args.email ?? "") });
       const res = await fetch(`${baseUrl}/api/appointments/lookup?${qs}`);
-      return res.json();
+      return safeJson(res);
     }
 
     case "reschedule_appointment": {
@@ -211,14 +231,14 @@ async function executeTool(
           notes: args.notes,
         }),
       });
-      return res.json();
+      return safeJson(res);
     }
 
     case "cancel_appointment": {
       const res = await fetch(`${baseUrl}/api/appointments/${args.id}`, {
         method: "DELETE",
       });
-      return res.json();
+      return safeJson(res);
     }
 
     default:
@@ -292,6 +312,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "messages[] is required" }, { status: 400 });
     }
 
+    // Build internal API base URL from the actual incoming request (same
+    // domain the user is on), not VERCEL_URL — avoids hitting the wrong
+    // host or a deployment-protection page for the .vercel.app domain.
+    const forwardedProto = req.headers.get("x-forwarded-proto") ?? "https";
+    const host = req.headers.get("host") ?? process.env.VERCEL_URL ?? "localhost:3000";
+    const baseUrl = `${forwardedProto}://${host}`;
+
     // Cap history to last 20 messages
     const trimmed = messages.slice(-20);
 
@@ -340,7 +367,7 @@ export async function POST(req: NextRequest) {
         }
 
         console.log("[chat] tool call:", tc.function.name, args);
-        const result = await executeTool(tc.function.name, args);
+        const result = await executeTool(tc.function.name, args, baseUrl);
         history.push({
           role: "tool",
           tool_call_id: tc.id,
