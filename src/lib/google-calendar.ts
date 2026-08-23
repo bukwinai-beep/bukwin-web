@@ -122,18 +122,32 @@ export async function createCalendarEvent(
   const calendar = getCalendarClient();
   const calendarId = getCalendarId();
 
+  // NOTE: Google does not allow service accounts to invite attendees
+  // (send calendar invite emails) unless the account has Domain-Wide
+  // Delegation of Authority set up under a paid Google Workspace domain —
+  // that's not available for a personal Gmail calendar. So instead of
+  // using the `attendees` field (which 403s with
+  // "forbiddenForServiceAccounts"), we fold the customer's name/email into
+  // the event description so it's still visible on the event.
+  const descriptionWithAttendee = [
+    input.description,
+    input.attendeeName || input.attendeeEmail
+      ? `Customer: ${[input.attendeeName, input.attendeeEmail]
+          .filter(Boolean)
+          .join(" — ")}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
   const res = await calendar.events.insert({
     calendarId,
     requestBody: {
       summary: input.summary,
-      description: input.description,
+      description: descriptionWithAttendee,
       start: { dateTime: input.startISO, timeZone: input.timeZone },
       end: { dateTime: input.endISO, timeZone: input.timeZone },
-      attendees: input.attendeeEmail
-        ? [{ email: input.attendeeEmail, displayName: input.attendeeName }]
-        : undefined,
     },
-    sendUpdates: input.attendeeEmail ? "all" : "none",
   });
 
   if (!res.data.id) {
