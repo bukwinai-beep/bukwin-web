@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { format } from "date-fns-tz";
+import { db } from "@/lib/db";
 import {
   BUSINESS_NAME,
   BUSINESS_TIMEZONE,
@@ -246,12 +247,25 @@ async function executeTool(
   }
 }
 
+// Fully-accumulated tool call (after streaming deltas are merged). Unlike
+// the raw `ChatCompletionChunk.Choice.Delta.ToolCall` type, every field here
+// is guaranteed present once accumulation is done, which is what the rest
+// of this file (history.push / executeTool) actually assumes.
+type AccumulatedToolCall = {
+  id: string;
+  type: "function";
+  function: {
+    name: string;
+    arguments: string;
+  };
+};
+
 // ─── One round of streaming chat completion, collected into a plain object ──
 async function runOneCompletion(
   history: OpenAI.Chat.ChatCompletionMessageParam[]
 ): Promise<{
   content: string;
-  toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[];
+  toolCalls: AccumulatedToolCall[];
   finishReason: string | null;
 }> {
   const stream = await openai.chat.completions.create({
@@ -265,7 +279,7 @@ async function runOneCompletion(
   });
 
   let content = "";
-  const toolCalls: OpenAI.Chat.ChatCompletionChunk.Choice.Delta.ToolCall[] = [];
+  const toolCalls: AccumulatedToolCall[] = [];
   let finishReason: string | null = null;
 
   for await (const chunk of stream) {
@@ -387,12 +401,24 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    const fullConversation = [...trimmed, { role: "assistant", content: finalReply }];
+
+    // Best-effort persistence — logging the conversation must never fail
+    // the user-facing chat response.
+    db.chatSession
+      .create({
+        data: {
+          mode: "live",
+          messages: JSON.stringify(fullConversation),
+        },
+      })
+      .catch((err) => {
+        console.error("[/api/chat] failed to persist chat session:", err);
+      });
+
     return NextResponse.json({
       reply: finalReply,
-      messages: [
-        ...trimmed,
-        { role: "assistant", content: finalReply },
-      ],
+      messages: fullConversation,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

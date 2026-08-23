@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Bukwin AI" }],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
   openGraph: {
     title: "Bukwin AI — Never Miss a Call. Never Lose a Customer.",

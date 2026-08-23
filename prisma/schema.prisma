@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -65,4 +65,30 @@ model ChatSession {
   createdAt DateTime @default(now())
 
   @@index([createdAt])
+}
+
+// Matches the "Appointment" table already present in the Supabase database
+// (see migrations/0001_fix_supabase_security.sql for the accompanying DB
+// hardening migration). Do not rename fields without a matching @map, since
+// the live table uses camelCase column names.
+model Appointment {
+  id              String   @id @default(cuid())
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  service         String
+  startTime       DateTime
+  endTime         DateTime
+  timezone        String   @default("Asia/Karachi")
+  // PENDING | CONFIRMED | CANCELLED | RESCHEDULED
+  status          String   @default("PENDING")
+  notes           String?
+  calendarEventId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+  @@index([customerEmail])
+  @@index([startTime])
+  @@index([calendarEventId])
 }
