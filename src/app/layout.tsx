@@ -3,7 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/bukwin/shared/theme-provider";
-import { FloatingChat } from "@/components/bukwin/chat/floating-chat";
+import { ConditionalFloatingChat } from "@/components/bukwin/chat/conditional-floating-chat";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -82,7 +82,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
-        <FloatingChat />
+        <ConditionalFloatingChat />
       </body>
     </html>
   );
