@@ -346,6 +346,7 @@ export async function POST(req: NextRequest) {
     // hit a safety cap, instead of assuming there's only ever one round.
     const MAX_ROUNDS = 5;
     let finalReply = "";
+    let confirmedBooking: any = null;
 
     for (let round = 0; round < MAX_ROUNDS; round++) {
       const { content, toolCalls, finishReason } = await runOneCompletion(history);
@@ -382,6 +383,13 @@ export async function POST(req: NextRequest) {
 
         console.log("[chat] tool call:", tc.function.name, args);
         const result = await executeTool(tc.function.name, args, baseUrl);
+
+        // Surface a successful booking to the client so the UI can show a
+        // real confirmation instead of guessing from the reply text.
+        if (tc.function.name === "book_appointment" && result?.success) {
+          confirmedBooking = result.appointment;
+        }
+
         history.push({
           role: "tool",
           tool_call_id: tc.id,
@@ -419,6 +427,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       reply: finalReply,
       messages: fullConversation,
+      booking: confirmedBooking,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
