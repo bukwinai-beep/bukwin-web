@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { verifyToolKey } from "@/lib/verify-tool-key";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,6 +13,9 @@ const QuerySchema = z.object({
 
 export async function GET(req: NextRequest) {
   try {
+    const authError = verifyToolKey(req);
+    if (authError) return authError;
+
     const { searchParams } = new URL(req.url);
     const parsed = QuerySchema.safeParse({
       email: searchParams.get("email") ?? "",
