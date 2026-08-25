@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PhoneCall, Send, Calendar, Check, Sparkles, Phone, Loader2 } from "lucide-react";
+import { PhoneCall, Send, Calendar, Check, Phone, Loader2 } from "lucide-react";
 import { Container, Eyebrow, Section } from "../shared/container";
 import { FadeIn } from "../shared/fade-in";
 import { TextReveal } from "../shared/text-reveal";
-import { BukwinButton } from "../shared/button";
 import { LivePulse } from "../shared/live-pulse";
 import { cn } from "@/lib/utils";
 import { SERVICES } from "@/lib/business-config";
@@ -80,6 +79,7 @@ function ChatPanel({ onBooked }: { onBooked: (b: ConfirmedBooking) => void }) {
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -137,133 +137,136 @@ function ChatPanel({ onBooked }: { onBooked: (b: ConfirmedBooking) => void }) {
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-surface shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between border-b border-border bg-secondary/30 px-5 py-3">
+    <div className="rounded-3xl border border-border bg-background overflow-hidden flex flex-col h-[560px]">
+      {/* Minimal top bar — just the chat/voice switch and a status dot */}
+      <div className="flex items-center justify-between px-4 py-3 shrink-0">
         <div className="flex gap-1">
           {(["chat", "voice"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={cn(
-                "rounded-md px-3 py-1.5 text-sm font-medium capitalize transition",
+                "rounded-full px-3 py-1.5 text-xs font-medium transition",
                 tab === t
-                  ? "bg-primary text-primary-foreground"
-                  : "text-text-secondary hover:bg-secondary"
+                  ? "bg-secondary text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {t === "chat" ? "Website Chat" : "Voice Call"}
+              {t === "chat" ? "Chat" : "Voice"}
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/5 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.1em] text-accent">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Live AI
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-success">
-            <LivePulse color="bg-success" />
-            {tab === "chat" ? "Online" : "Ready"}
-          </span>
-        </div>
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+          Live
+        </span>
       </div>
 
-      {tab === "voice" && (
-        <div className="p-6 border-b border-border bg-navy text-white noise-overlay">
-          <div className="flex items-center gap-4">
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/15 border border-accent/40">
-              <PhoneCall className="h-6 w-6 text-accent" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs uppercase tracking-[0.15em] text-accent">Try a real call</p>
-              <p className="font-display text-2xl font-medium">(555) 019-2834</p>
-            </div>
-            <BukwinButton asChild size="md">
-              <a href="tel:5550192834">
-                <Phone className="h-4 w-4" />
-                Call now
-              </a>
-            </BukwinButton>
+      {tab === "voice" ? (
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-6 gap-4">
+          <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
+            <PhoneCall className="h-6 w-6 text-accent" />
           </div>
-          <p className="mt-4 text-xs text-white/60">
-            Or keep chatting below — the agent handles voice and chat with the same brain.
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Try a real call</p>
+            <p className="mt-1 font-display text-2xl font-medium text-foreground">(555) 019-2834</p>
+          </div>
+          
+            href="tel:5550192834"
+            className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity"
+          >
+            <Phone className="h-4 w-4" />
+            Call now
+          </a>
+          <p className="text-xs text-muted-foreground max-w-xs">
+            Or switch to chat — same agent, same brain, same real booking system.
           </p>
         </div>
-      )}
-
-      <div className="px-5 pt-4 pb-2 flex flex-wrap gap-2 border-b border-border">
-        {STARTERS.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => send(s.message)}
-            disabled={typing}
-            className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-text-secondary transition hover:border-accent/40 hover:text-primary disabled:opacity-50"
-          >
-            {s.label}
-          </button>
-        ))}
-      </div>
-
-      <div ref={scrollRef} className="scroll-bukwin h-[360px] overflow-y-auto p-5 space-y-3 bg-background/40">
-        <AnimatePresence>
-          {messages.map((m, i) => (
-            <motion.div
-              key={i}
-              layout
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className={cn("flex items-end gap-2", m.role === "user" ? "justify-end" : "justify-start")}
-            >
-              {m.role === "agent" && (
-                <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent/15 border border-accent/30 shrink-0">
-                  <Sparkles className="h-3.5 w-3.5 text-accent" />
-                </div>
-              )}
-              <div
-                className={cn(
-                  "max-w-[75%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
-                  m.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-md"
-                    : "bg-surface border border-border text-primary rounded-bl-md"
-                )}
+      ) : (
+        <>
+          <div className="px-4 pb-2 flex flex-wrap gap-2 shrink-0">
+            {STARTERS.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => send(s.message)}
+                disabled={typing}
+                className="rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground transition hover:border-accent/40 hover:text-foreground disabled:opacity-50"
               >
-                {m.text}
-              </div>
-            </motion.div>
-          ))}
-          {typing && (
-            <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-end gap-2">
-              <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent/15 border border-accent/30 shrink-0">
-                <Sparkles className="h-3.5 w-3.5 text-accent" />
-              </div>
-              <div className="rounded-2xl rounded-bl-md bg-surface border border-border px-4 py-3 inline-flex gap-1">
-                {[0, 1, 2].map((i) => (
-                  <span
-                    key={i}
-                    className="typing-dot h-1.5 w-1.5 rounded-full bg-accent"
-                    style={{ animationDelay: `${i * 0.16}s` }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                {s.label}
+              </button>
+            ))}
+          </div>
 
-      <form onSubmit={onSend} className="border-t border-border bg-secondary/30 p-3 flex items-center gap-2">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={typing ? "Bukwin is thinking…" : "Type a message…"}
-          disabled={typing}
-          className="flex-1 h-10 rounded-md border border-border bg-surface px-3 text-sm focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
-        />
-        <BukwinButton type="submit" size="icon" variant="solid" disabled={typing || !input.trim()}>
-          {typing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-        </BukwinButton>
-      </form>
-      {error && (
-        <div className="border-t border-error/20 bg-error/5 px-4 py-2 text-[11px] text-error">{error}</div>
+          <div ref={scrollRef} className="scroll-bukwin flex-1 overflow-y-auto px-4 py-2 space-y-3">
+            <AnimatePresence>
+              {messages.map((m, i) => (
+                <motion.div
+                  key={i}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}
+                >
+                  <div
+                    className={cn(
+                      "max-w-[82%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+                      m.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-br-md"
+                        : "bg-secondary text-foreground rounded-bl-md"
+                    )}
+                  >
+                    {m.text}
+                  </div>
+                </motion.div>
+              ))}
+              {typing && (
+                <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+                  <div className="bg-secondary rounded-2xl rounded-bl-md px-4 py-3 inline-flex gap-1.5">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="w-1.5 h-1.5 bg-muted-foreground rounded-full"
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="px-3 pb-3 pt-1 shrink-0">
+            <form onSubmit={onSend} className="flex items-end gap-2">
+              <div className="flex-1 rounded-3xl border border-border bg-secondary/60 px-4 py-2.5 focus-within:border-accent/50 transition-colors">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      onSend(e as unknown as React.FormEvent);
+                    }
+                  }}
+                  placeholder={typing ? "Bukwin is thinking…" : "Message Bukwin…"}
+                  rows={1}
+                  disabled={typing}
+                  className="w-full resize-none bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50 min-h-[20px] max-h-[100px]"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={typing || !input.trim()}
+                className="h-10 w-10 rounded-full flex items-center justify-center shrink-0 bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-30"
+              >
+                {typing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              </button>
+            </form>
+            {error && <p className="mt-2 text-[11px] text-destructive px-1">{error}</p>}
+          </div>
+        </>
       )}
     </div>
   );
