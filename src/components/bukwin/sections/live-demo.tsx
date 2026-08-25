@@ -171,7 +171,7 @@ function ChatPanel({ onBooked }: { onBooked: (b: ConfirmedBooking) => void }) {
             <p className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Try a real call</p>
             <p className="mt-1 font-display text-2xl font-medium text-foreground">(555) 019-2834</p>
           </div>
-          
+          <a
             href="tel:5550192834"
             className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity"
           >
