@@ -197,20 +197,27 @@ async function executeTool(
   args: Record<string, any>,
   baseUrl: string
 ): Promise<any> {
+  const toolHeaders: Record<string, string> = { "Content-Type": "application/json" };
+  if (process.env.TOOL_API_KEY) {
+    toolHeaders["x-bukwin-tool-key"] = process.env.TOOL_API_KEY;
+  }
+
   switch (name) {
     case "check_availability": {
       const qs = new URLSearchParams({
         date: String(args.date ?? ""),
         service: String(args.service ?? ""),
       });
-      const res = await fetch(`${baseUrl}/api/appointments/availability?${qs}`);
+      const res = await fetch(`${baseUrl}/api/appointments/availability?${qs}`, {
+        headers: toolHeaders,
+      });
       return safeJson(res);
     }
 
     case "book_appointment": {
       const res = await fetch(`${baseUrl}/api/appointments`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: toolHeaders,
         body: JSON.stringify(args),
       });
       return safeJson(res);
@@ -218,14 +225,16 @@ async function executeTool(
 
     case "lookup_appointment": {
       const qs = new URLSearchParams({ email: String(args.email ?? "") });
-      const res = await fetch(`${baseUrl}/api/appointments/lookup?${qs}`);
+      const res = await fetch(`${baseUrl}/api/appointments/lookup?${qs}`, {
+        headers: toolHeaders,
+      });
       return safeJson(res);
     }
 
     case "reschedule_appointment": {
       const res = await fetch(`${baseUrl}/api/appointments/${args.id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: toolHeaders,
         body: JSON.stringify({
           start: args.start,
           service: args.service,
@@ -238,6 +247,7 @@ async function executeTool(
     case "cancel_appointment": {
       const res = await fetch(`${baseUrl}/api/appointments/${args.id}`, {
         method: "DELETE",
+        headers: toolHeaders,
       });
       return safeJson(res);
     }
