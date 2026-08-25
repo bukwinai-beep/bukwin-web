@@ -62,8 +62,8 @@ export function FloatingChat() {
             className={cn(
               "fixed bottom-24 right-6 z-[9998] w-[420px] max-w-[calc(100vw-48px)]",
               "h-[650px] max-h-[calc(100vh-140px)]",
-              "rounded-3xl shadow-2xl shadow-black/10 overflow-hidden bg-white",
-              "border border-gray-100"
+              "rounded-3xl shadow-2xl shadow-black/10 overflow-hidden bg-background",
+              "border border-border"
             )}
           >
             <ChatProvider>
