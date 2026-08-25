@@ -13,7 +13,7 @@ import {
   MIN_BOOKING_NOTICE_MINUTES,
   getServiceById,
 } from "@/lib/business-config";
-
+import { verifyToolKey } from "@/lib/verify-tool-key";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -29,6 +29,9 @@ function parseHHMM(hhmm: string): { h: number; m: number } {
 
 export async function GET(req: NextRequest) {
   try {
+    const authError = verifyToolKey(req);
+    if (authError) return authError;
+
     const { searchParams } = new URL(req.url);
     const parsed = QuerySchema.safeParse({
       date: searchParams.get("date") ?? "",
