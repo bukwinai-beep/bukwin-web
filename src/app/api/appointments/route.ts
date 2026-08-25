@@ -12,7 +12,7 @@ import {
   MIN_BOOKING_NOTICE_MINUTES,
   getServiceById,
 } from "@/lib/business-config";
-
+import { verifyToolKey } from "@/lib/verify-tool-key";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -29,6 +29,9 @@ const BookingSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    const authError = verifyToolKey(req);
+    if (authError) return authError;
+
     const body = await req.json().catch(() => ({}));
     const parsed = BookingSchema.safeParse(body);
 
