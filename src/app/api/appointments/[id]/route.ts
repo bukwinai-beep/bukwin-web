@@ -20,7 +20,7 @@ import {
   MIN_BOOKING_NOTICE_MINUTES,
   getServiceById,
 } from "@/lib/business-config";
-
+import { verifyToolKey } from "@/lib/verify-tool-key";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -37,6 +37,9 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const authError = verifyToolKey(req);
+    if (authError) return authError;
+
     const { id } = await params;
     const body = await req.json().catch(() => ({}));
     const parsed = RescheduleSchema.safeParse(body);
@@ -219,6 +222,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const authError = verifyToolKey(req);
+    if (authError) return authError;
+
     const { id } = await params;
 
     const existing = await db.appointment.findUnique({ where: { id } });
