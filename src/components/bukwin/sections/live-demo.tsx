@@ -324,17 +324,33 @@ function CalendarPanel({ booking }: { booking: ConfirmedBooking | null }) {
 }
 
 function CalendarMini() {
-  const [monthDate, setMonthDate] = useState(() => {
-    const d = new Date();
-    d.setDate(1);
-    return d;
-  });
+  // Computing "today" directly in render (or as a useState initializer)
+  // gets baked into the statically-generated HTML at build/deploy time on
+  // Vercel, then never updates until the next deploy — so it silently goes
+  // stale for real visitors days later. Instead, start with `null` and set
+  // the real date inside useEffect, which only ever runs in the visitor's
+  // actual browser, at the actual moment they load the page.
+  const [today, setToday] = useState<Date | null>(null);
+  const [monthDate, setMonthDate] = useState<Date | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [slots, setSlots] = useState<Slot[] | null>(null);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  useEffect(() => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    setToday(now);
+    setMonthDate(new Date(now.getFullYear(), now.getMonth(), 1));
+  }, []);
+
+  if (!today || !monthDate) {
+    // Brief loading state on first paint, before the client clock kicks in.
+    return (
+      <div className="rounded-xl border border-border bg-background p-3 h-[280px] flex items-center justify-center">
+        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
   const year = monthDate.getFullYear();
   const month = monthDate.getMonth();
@@ -346,7 +362,10 @@ function CalendarMini() {
   const monthLabel = monthDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   const changeMonth = (delta: number) => {
-    setMonthDate((d) => new Date(d.getFullYear(), d.getMonth() + delta, 1));
+    setMonthDate((d) => {
+      const base = d ?? new Date();
+      return new Date(base.getFullYear(), base.getMonth() + delta, 1);
+    });
     setSelectedDate(null);
     setSlots(null);
   };
