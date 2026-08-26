@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { format } from "date-fns-tz";
+import { format, fromZonedTime } from "date-fns-tz";
 import { db } from "@/lib/db";
 import {
   isSlotFree,
@@ -21,13 +21,30 @@ import {
   getServiceById,
 } from "@/lib/business-config";
 import { verifyToolKey } from "@/lib/verify-tool-key";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// See src/app/api/appointments/route.ts for the full explanation — same
+// normalization, kept in sync so reschedule behaves identically to booking.
+function normalizeStartToUTC(raw: string): Date | null {
+  const hasOffset = /Z$|[+-]\d{2}:?\d{2}$/.test(raw.trim());
+  if (hasOffset) {
+    const d = new Date(raw);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  try {
+    const d = fromZonedTime(raw, BUSINESS_TIMEZONE);
+    return Number.isNaN(d.getTime()) ? null : d;
+  } catch {
+    return null;
+  }
+}
 
 // ─── PATCH: Reschedule an existing appointment ───────────────────────────────
 
 const RescheduleSchema = z.object({
-  start: z.string().datetime({ offset: true }),
+  start: z.string().min(1),
   service: z.string().optional(),
   notes: z.string().max(1000).optional().nullable(),
 });
@@ -52,8 +69,8 @@ export async function PATCH(
     }
 
     const { start, service, notes } = parsed.data;
-    const startDate = new Date(start);
-    if (Number.isNaN(startDate.getTime())) {
+    const startDate = normalizeStartToUTC(start);
+    if (!startDate) {
       return NextResponse.json({ error: "Invalid start time." }, { status: 400 });
     }
 
