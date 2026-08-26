@@ -14,6 +14,7 @@ import {
   getServiceById,
 } from "@/lib/business-config";
 import { verifyToolKey } from "@/lib/verify-tool-key";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,15 @@ export async function GET(req: NextRequest) {
   try {
     const authError = verifyToolKey(req);
     if (authError) return authError;
+
+    console.log(
+      "[/api/appointments/availability] config in use — TIMEZONE:",
+      BUSINESS_TIMEZONE,
+      "HOURS:",
+      BUSINESS_HOURS_START,
+      "to",
+      BUSINESS_HOURS_END
+    );
 
     const { searchParams } = new URL(req.url);
     const parsed = QuerySchema.safeParse({
