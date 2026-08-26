@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { format } from "date-fns-tz";
+import { format, fromZonedTime } from "date-fns-tz";
 import { db } from "@/lib/db";
 import { isSlotFree, createCalendarEvent } from "@/lib/google-calendar";
 import { sendBookingConfirmationEmail } from "@/lib/email";
+import { verifyToolKey } from "@/lib/verify-tool-key";
 import {
   BUSINESS_TIMEZONE,
   BUSINESS_NAME,
@@ -12,7 +13,7 @@ import {
   MIN_BOOKING_NOTICE_MINUTES,
   getServiceById,
 } from "@/lib/business-config";
-import { verifyToolKey } from "@/lib/verify-tool-key";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -21,11 +22,44 @@ const BookingSchema = z.object({
   customerEmail: z.string().email(),
   customerPhone: z.string().max(40).optional().nullable(),
   service: z.string().min(1),
-  // Must be an exact ISO instant, ideally one previously returned by
-  // /api/appointments/availability. We do not trust it blindly — see checks below.
-  start: z.string().datetime({ offset: true }),
+  // Ideally an exact instant (with Z/offset) previously returned by
+  // /api/appointments/availability. We do NOT hard-require the offset here
+  // anymore — AI agents occasionally strip it despite instructions — and
+  // instead normalize it ourselves below. See normalizeStartToUTC().
+  start: z.string().min(1),
   notes: z.string().max(1000).optional().nullable(),
 });
+
+/**
+ * Converts a caller-supplied `start` string into a real UTC Date, no
+ * matter whether it arrived as a fully-qualified instant (with Z or a
+ * numeric offset, e.g. "2026-08-28T06:00:00.000Z") or — due to an AI
+ * agent occasionally dropping the offset despite instructions — as a
+ * naive local-looking string with no offset (e.g. "2026-08-28T11:00:00").
+ *
+ * A naive string is assumed to represent business-local time
+ * (BUSINESS_TIMEZONE) and is converted to the correct UTC instant
+ * accordingly, rather than being misread as UTC (which previously
+ * caused bookings to land 5 hours off for Asia/Karachi).
+ *
+ * Returns null if the string can't be parsed as a valid date at all.
+ */
+function normalizeStartToUTC(raw: string): Date | null {
+  const hasOffset = /Z$|[+-]\d{2}:?\d{2}$/.test(raw.trim());
+
+  if (hasOffset) {
+    const d = new Date(raw);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  // No offset present — treat as business-local wall-clock time.
+  try {
+    const d = fromZonedTime(raw, BUSINESS_TIMEZONE);
+    return Number.isNaN(d.getTime()) ? null : d;
+  } catch {
+    return null;
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,6 +70,12 @@ export async function POST(req: NextRequest) {
     const parsed = BookingSchema.safeParse(body);
 
     if (!parsed.success) {
+      console.error(
+        "[/api/appointments] validation failed. Body received:",
+        JSON.stringify(body),
+        "Issues:",
+        JSON.stringify(parsed.error.issues)
+      );
       return NextResponse.json(
         { error: parsed.error.issues[0]?.message ?? "Invalid booking request" },
         { status: 400 }
@@ -50,8 +90,8 @@ export async function POST(req: NextRequest) {
       serviceDef?.durationMinutes ?? DEFAULT_APPOINTMENT_DURATION_MINUTES;
     const serviceName = serviceDef?.name ?? service;
 
-    const startDate = new Date(start);
-    if (Number.isNaN(startDate.getTime())) {
+    const startDate = normalizeStartToUTC(start);
+    if (!startDate) {
       return NextResponse.json({ error: "Invalid start time." }, { status: 400 });
     }
     const endDate = new Date(startDate.getTime() + durationMinutes * 60000);
