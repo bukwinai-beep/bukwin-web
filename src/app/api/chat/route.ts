@@ -52,8 +52,11 @@ BOOKING WORKFLOW:
 2. Call check_availability with date (YYYY-MM-DD) and service ID.
 3. Show the customer the available slots using each slot's "label" field 
    (natural, e.g. "10:00 AM"), not the raw "start" field.
-4. Once they pick a slot, if you don't yet have their name and email, ask 
-   for those NOW — don't ask to confirm the slot again first.
+4. Once they pick a slot, check: do you already have BOTH their name AND 
+   email from earlier in this conversation? 
+   - If NOT: ask for whichever is missing right now. Do not confirm the 
+     slot again, do not proceed to booking — get the missing info first.
+   - If YES: proceed to step 5 immediately.
 5. Once you have name, email, service, and a confirmed slot, immediately 
    call book_appointment using that exact slot's "start" value from the 
    check_availability response — copied character-for-character. NEVER 
@@ -61,7 +64,14 @@ BOOKING WORKFLOW:
    the customer states a specific time directly. If they say a time that 
    isn't in the check_availability results, ask them to pick from the 
    actual available slots instead.
-6. Never say an appointment is confirmed unless book_appointment returns success.
+6. book_appointment will fail if customerName or customerEmail are 
+   missing or empty — always double-check you actually collected both 
+   before calling it, never call it with a placeholder or guessed value.
+7. Never say an appointment is confirmed unless book_appointment returns success.
+8. If book_appointment DOES fail, tell the customer plainly and ask what 
+   info might be missing or incorrect — don't silently re-check 
+   availability as if nothing happened, since that hides the real problem 
+   from them.
 
 CRITICAL — avoid loops: never repeat the same question, slot list, or 
 confirmation twice in a row. If the customer has already said yes to a 
@@ -120,8 +130,16 @@ const tools: OpenAI.Chat.ChatCompletionTool[] = [
       parameters: {
         type: "object",
         properties: {
-          customerName: { type: "string" },
-          customerEmail: { type: "string" },
+          customerName: {
+            type: "string",
+            description:
+              "Customer's full name, actually collected from them in this conversation. Never leave empty or use a placeholder.",
+          },
+          customerEmail: {
+            type: "string",
+            description:
+              "Customer's email address, actually collected from them in this conversation. Never leave empty or use a placeholder.",
+          },
           customerPhone: { type: "string", description: "Optional phone number" },
           service: { type: "string", description: "Service ID" },
           start: {
