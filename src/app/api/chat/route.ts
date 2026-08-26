@@ -50,8 +50,14 @@ ${servicesList}
 BOOKING WORKFLOW:
 1. To book: collect name, email, phone (optional), service, and preferred date.
 2. Call check_availability with date (YYYY-MM-DD) and service ID.
-3. Show the customer the available slots.
-4. Once they pick a slot, confirm details out loud, then call book_appointment.
+3. Show the customer the available slots using each slot's "label" field 
+   (natural, e.g. "10:00 AM"), not the raw "start" field.
+4. Once they pick a slot, confirm details out loud, then call book_appointment
+   using that exact slot's "start" value from the check_availability response —
+   copied character-for-character. NEVER construct, calculate, or retype a
+   datetime string yourself, even if the customer states a specific time
+   directly. If they say a time that isn't in the check_availability results,
+   ask them to pick from the actual available slots instead.
 5. Never say an appointment is confirmed unless book_appointment returns success.
 
 RESCHEDULE WORKFLOW:
@@ -60,7 +66,8 @@ RESCHEDULE WORKFLOW:
 3. Show their upcoming appointments.
 4. Ask which one to reschedule and to what new date.
 5. Call check_availability for the new date.
-6. Call reschedule_appointment with the appointment id and new start time.
+6. Call reschedule_appointment with the appointment id and the exact "start"
+   value from a check_availability result — never a self-constructed time.
 
 CANCEL WORKFLOW:
 1. Ask for their email.
@@ -110,7 +117,8 @@ const tools: OpenAI.Chat.ChatCompletionTool[] = [
           service: { type: "string", description: "Service ID" },
           start: {
             type: "string",
-            description: "Exact ISO 8601 timestamp from check_availability",
+            description:
+              "The exact 'start' string from a check_availability result, copied character-for-character. Never construct, calculate, or retype this value — always take it directly from the tool's response.",
           },
           notes: { type: "string", description: "Optional notes" },
         },
@@ -143,7 +151,8 @@ const tools: OpenAI.Chat.ChatCompletionTool[] = [
           id: { type: "string", description: "Appointment ID from lookup_appointment" },
           start: {
             type: "string",
-            description: "New ISO 8601 timestamp from check_availability",
+            description:
+              "The exact 'start' string from a check_availability result for the new time, copied character-for-character. Never construct, calculate, or retype this value.",
           },
           service: { type: "string", description: "Optional new service ID" },
           notes: { type: "string", description: "Optional updated notes" },
@@ -197,6 +206,8 @@ async function executeTool(
   args: Record<string, any>,
   baseUrl: string
 ): Promise<any> {
+  // Internal server-to-server calls also need the shared secret once
+  // TOOL_API_KEY is set (same key ElevenLabs uses).
   const toolHeaders: Record<string, string> = { "Content-Type": "application/json" };
   if (process.env.TOOL_API_KEY) {
     toolHeaders["x-bukwin-tool-key"] = process.env.TOOL_API_KEY;
