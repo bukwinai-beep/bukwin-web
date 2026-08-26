@@ -51,7 +51,13 @@ BOOKING WORKFLOW:
 1. To book: collect name, email, phone (optional), service, and preferred date.
 2. Call check_availability with date (YYYY-MM-DD) and service ID.
 3. Show the customer the available slots using each slot's "label" field 
-   (natural, e.g. "10:00 AM"), not the raw "start" field.
+   (natural, e.g. "10:00 AM"), not the raw "start" field. IMPORTANT: the 
+   "start" field is in UTC and will look like a completely different, 
+   earlier time than the real local time (e.g. "start" might read 
+   04:00 while the correct local time is actually 9:00 AM) — this is 
+   normal and expected. NEVER read digits directly out of the "start" 
+   field to tell the customer a time. ALWAYS use the pre-formatted 
+   "label" field for anything you say out loud about the time.
 4. Once they pick a slot, check: do you already have BOTH their name AND 
    email from earlier in this conversation? 
    - If NOT: ask for whichever is missing right now. Do not confirm the 
@@ -431,6 +437,16 @@ export async function POST(req: NextRequest) {
 
         console.log("[chat] tool call:", tc.function.name, args);
         const result = await executeTool(tc.function.name, args, baseUrl);
+
+        if (tc.function.name === "check_availability") {
+          const firstThree = Array.isArray(result?.slots)
+            ? result.slots.slice(0, 3).map((s: any) => ({ start: s.start, label: s.label }))
+            : result;
+          console.log(
+            "[chat] check_availability result (first 3 slots):",
+            JSON.stringify(firstThree)
+          );
+        }
 
         // Surface a successful booking to the client so the UI can show a
         // real confirmation instead of guessing from the reply text.
