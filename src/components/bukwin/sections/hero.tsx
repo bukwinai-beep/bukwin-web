@@ -2,25 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Mic, PhoneOff } from "lucide-react";
+import { ArrowRight, PhoneCall, CalendarCheck } from "lucide-react";
 import { Container } from "../shared/container";
-import { FadeIn } from "../shared/fade-in";
-import { TextReveal } from "../shared/text-reveal";
-import { LivePulse } from "../shared/live-pulse";
 
-// "Quiet Ledger" hero, v2 — headline + subcopy + two CTAs, then a real
-// interactive-looking call card as the hero visual (per the brief: a
-// live product mockup sells this far better than an abstract graphic).
-// Fonts loaded in layout.tsx as --font-fraunces / --font-plex-sans /
-// --font-plex-mono, applied here via inline style.
+// Bold "floating card + glowing orb" hero — indigo/violet gradient,
+// concentric rings, floating icon chips, stat row. Full-color redesign
+// replacing the previous minimal ink/ivory direction.
 
-const serif = { fontFamily: "var(--font-fraunces), Georgia, serif" };
-const mono = { fontFamily: "var(--font-plex-mono), monospace" };
-const sans = { fontFamily: "var(--font-plex-sans), sans-serif" };
+const STATS = [
+  { value: "60", suffix: "s", label: "Avg. response time" },
+  { value: "24", suffix: "/7", label: "Always answering" },
+  { value: "3,048", suffix: "+", label: "Calls handled" },
+];
 
-const GREETING = "Hi, thanks for calling Bukwin. How can I help you today?";
-
-// ─── Count-up number, triggers once when scrolled into view ────────────────
 function CountUp({ to, duration = 1.4 }: { to: number; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
@@ -41,169 +35,156 @@ function CountUp({ to, duration = 1.4 }: { to: number; duration?: number }) {
     return () => cancelAnimationFrame(frame);
   }, [inView, to, duration]);
 
-  return (
-    <span ref={ref} style={mono}>
-      {value.toLocaleString()}
-    </span>
-  );
+  return <span ref={ref}>{value.toLocaleString()}</span>;
 }
 
-// ─── Typewriter reveal for the greeting line ────────────────────────────────
-function Typewriter({ text, startDelay = 0 }: { text: string; startDelay?: number }) {
-  const [shown, setShown] = useState("");
-
-  useEffect(() => {
-    let i = 0;
-    let interval: ReturnType<typeof setInterval>;
-    const timeout = setTimeout(() => {
-      interval = setInterval(() => {
-        i += 1;
-        setShown(text.slice(0, i));
-        if (i >= text.length) clearInterval(interval);
-      }, 22);
-    }, startDelay);
-    return () => {
-      clearTimeout(timeout);
-      clearInterval(interval);
-    };
-  }, [text, startDelay]);
-
-  return <>{shown}</>;
-}
-
-// ─── The hero's visual centerpiece: a real, live-looking call card ─────────
-function CallCard() {
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const ss = String(seconds % 60).padStart(2, "0");
-
+function GlowOrb() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      className="w-full max-w-[440px] rounded-xl border border-border bg-card shadow-sm"
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 pt-5 pb-4">
-        <span style={mono} className="text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
-          AI Receptionist
-        </span>
-        <span style={mono} className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.08em] text-accent">
-          <LivePulse color="bg-accent" />
-          Live
-        </span>
-      </div>
+    <div className="relative flex items-center justify-center h-full min-h-[340px]">
+      {/* Concentric rings */}
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full border border-indigo-500/10"
+          style={{ width: `${220 + i * 100}px`, height: `${220 + i * 100}px` }}
+          animate={{ scale: [1, 1.03, 1] }}
+          transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
 
-      <div className="border-t border-border" />
+      {/* Glow behind the orb */}
+      <div
+        className="absolute h-56 w-56 rounded-full blur-3xl opacity-40"
+        style={{ background: "linear-gradient(135deg, #4F46E5, #7C3AED)" }}
+      />
 
-      {/* Body */}
-      <div className="px-6 pt-5 pb-6">
-        <p style={serif} className="text-lg font-medium text-foreground mb-3">
-          Sarah
-        </p>
-        <p style={sans} className="text-[15px] leading-relaxed text-muted-foreground min-h-[48px]">
-          "<Typewriter text={GREETING} startDelay={900} />"
-        </p>
+      {/* The gradient orb itself */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="relative h-40 w-40 rounded-3xl shadow-2xl"
+        style={{
+          background: "linear-gradient(135deg, #4F46E5 0%, #7C3AED 60%, #4338CA 100%)",
+        }}
+      >
+        <div
+          className="absolute inset-0 rounded-3xl opacity-60"
+          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.25), transparent 50%)" }}
+        />
+      </motion.div>
 
-        <div className="mt-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent/10">
-              <Mic className="h-4 w-4 text-accent" />
-            </div>
-            <div className="flex items-end gap-[3px] h-6">
-              {Array.from({ length: 14 }).map((_, i) => (
-                <span
-                  key={i}
-                  className="wave-bar w-[2.5px] rounded-full bg-accent/50"
-                  style={{
-                    height: `${25 + Math.abs(Math.sin(i * 0.8)) * 70}%`,
-                    animationDelay: `${i * 0.07}s`,
-                  }}
-                />
-              ))}
-            </div>
-            <span style={mono} className="text-[13px] text-muted-foreground tabular-nums">
-              {mm}:{ss}
-            </span>
-          </div>
-
-          <button
-            style={sans}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-[13px] text-muted-foreground hover:border-destructive/40 hover:text-destructive transition-colors"
-          >
-            <PhoneOff className="h-3.5 w-3.5" />
-            End call
-          </button>
-        </div>
-      </div>
-    </motion.div>
+      {/* Floating icon chips */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.7 }}
+        className="absolute top-[26%] right-[22%] h-11 w-11 rounded-full bg-white shadow-lg border border-black/5 flex items-center justify-center"
+      >
+        <PhoneCall className="h-4.5 w-4.5 text-indigo-600" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
+        className="absolute bottom-[24%] left-[24%] h-11 w-11 rounded-2xl bg-white shadow-lg border border-black/5 flex items-center justify-center"
+      >
+        <CalendarCheck className="h-4.5 w-4.5 text-violet-600" />
+      </motion.div>
+    </div>
   );
 }
 
 export function HeroSection() {
   return (
-    <section className="bg-background text-foreground">
-      <Container size="lg">
-        <div className="max-w-[640px] mx-auto text-center pt-28 pb-14 lg:pt-32">
-          <FadeIn delay={0.1} y={14}>
-            <p
-              style={mono}
-              className="flex items-center justify-center gap-2.5 text-[12px] uppercase tracking-[0.14em] text-accent mb-6"
-            >
-              <LivePulse color="bg-accent" />
-              <CountUp to={3048} /> calls answered so far
-            </p>
-          </FadeIn>
-
-          <TextReveal
-            as="h1"
-            text="Your business, always answered."
-            className="text-[clamp(2.25rem,5.5vw,4rem)] font-medium leading-[1.08] tracking-[-0.015em] text-foreground"
-          />
-
-          <FadeIn delay={0.5} y={16}>
-            <p style={sans} className="mt-6 mx-auto max-w-[480px] text-[17px] leading-[1.65] text-muted-foreground">
-              An AI receptionist that answers calls, books appointments,
-              answers questions, and follows up — 24/7.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.65} y={16}>
-            <div className="mt-8 flex items-center justify-center gap-8">
-              <motion.a
-                href="/demo"
-                style={sans}
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-primary text-primary-foreground text-sm px-7 py-3.5 transition-shadow hover:shadow-lg"
+    <section className="bg-[#F1F2F4] dark:bg-background py-14 lg:py-20">
+      <Container size="xl">
+        <div className="relative rounded-[32px] bg-white dark:bg-card shadow-xl border border-black/5 dark:border-border overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-10 items-center p-8 sm:p-12 lg:p-16">
+            {/* Left: copy */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.08em] text-indigo-600"
               >
-                Try the AI Receptionist
-              </motion.a>
-              <a
-                href="/how-it-works"
-                style={sans}
-                className="group inline-flex items-center gap-1.5 text-sm text-foreground pb-0.5"
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                AI RECEPTIONIST PLATFORM
+              </motion.span>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mt-6 font-display text-[clamp(2.1rem,4.4vw,3.4rem)] font-bold leading-[1.1] tracking-[-0.02em] text-[#0B0E14] dark:text-foreground"
               >
-                <span className="relative">
-                  Watch how it works
-                  <span className="absolute left-0 -bottom-0.5 h-px w-full bg-border group-hover:bg-foreground transition-colors" />
+                Your business,
+                <br />
+                always{" "}
+                <span
+                  style={{
+                    background: "linear-gradient(135deg, #4F46E5, #7C3AED)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  answered.
                 </span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
-          </FadeIn>
-        </div>
+              </motion.h1>
 
-        {/* Hero visual: a real, live-looking call card — not an abstract graphic */}
-        <div className="flex justify-center pb-28">
-          <CallCard />
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-5 max-w-md text-[16px] leading-relaxed text-slate-500 dark:text-muted-foreground"
+              >
+                An AI receptionist that answers calls, books appointments,
+                answers questions, and follows up — 24/7.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-8 flex flex-wrap items-center gap-3"
+              >
+                <a
+                  href="/demo"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-[#0B0E14] px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-opacity"
+                >
+                  Try the AI Receptionist
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="/how-it-works"
+                  className="inline-flex items-center rounded-lg border border-black/10 dark:border-border px-6 py-3 text-sm font-medium text-[#0B0E14] dark:text-foreground hover:bg-black/[0.03] dark:hover:bg-secondary transition-colors"
+                >
+                  See how it works
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-12 grid grid-cols-3 gap-6 max-w-md"
+              >
+                {STATS.map((s) => (
+                  <div key={s.label}>
+                    <p className="font-display text-2xl font-bold text-[#0B0E14] dark:text-foreground">
+                      <CountUp to={parseInt(s.value.replace(/,/g, ""), 10)} />
+                      {s.suffix}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-muted-foreground">{s.label}</p>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right: glowing orb visual */}
+            <GlowOrb />
+          </div>
         </div>
       </Container>
     </section>
