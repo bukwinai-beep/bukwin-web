@@ -153,9 +153,7 @@ export async function GET(req: NextRequest) {
       .map((c) => ({
         start: c.startUTC.toISOString(),
         end: c.endUTC.toISOString(),
-        label: format(c.startUTC, "EEE MMM d, h:mm a", {
-          timeZone: BUSINESS_TIMEZONE,
-        }),
+        label: format(toZonedTime(c.startUTC, BUSINESS_TIMEZONE), "EEE MMM d, h:mm a"),
       }));
 
     return NextResponse.json({
