@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { format, fromZonedTime } from "date-fns-tz";
+import { format, fromZonedTime, toZonedTime } from "date-fns-tz";
 import { db } from "@/lib/db";
 import {
   isSlotFree,
@@ -194,9 +194,10 @@ export async function PATCH(
       },
     });
 
-    const localLabel = format(startDate, "EEEE, MMM d 'at' h:mm a", {
-      timeZone: BUSINESS_TIMEZONE,
-    });
+    const localLabel = format(
+      toZonedTime(startDate, BUSINESS_TIMEZONE),
+      "EEEE, MMM d 'at' h:mm a"
+    );
 
     // Best-effort email
     const emailResult = await sendRescheduleEmail({
@@ -270,9 +271,10 @@ export async function DELETE(
       data: { status: "CANCELLED", calendarEventId: null },
     });
 
-    const localLabel = format(existing.startTime, "EEEE, MMM d 'at' h:mm a", {
-      timeZone: BUSINESS_TIMEZONE,
-    });
+    const localLabel = format(
+      toZonedTime(existing.startTime, BUSINESS_TIMEZONE),
+      "EEEE, MMM d 'at' h:mm a"
+    );
 
     // Best-effort email
     const emailResult = await sendCancellationEmail({
