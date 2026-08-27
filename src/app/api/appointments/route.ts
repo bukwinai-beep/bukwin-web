@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { format, fromZonedTime } from "date-fns-tz";
+import { format, fromZonedTime, toZonedTime } from "date-fns-tz";
 import { db } from "@/lib/db";
 import { isSlotFree, createCalendarEvent } from "@/lib/google-calendar";
 import { sendBookingConfirmationEmail } from "@/lib/email";
@@ -221,9 +221,10 @@ export async function POST(req: NextRequest) {
       data: { status: "CONFIRMED", calendarEventId },
     });
 
-    const localLabel = format(startDate, "EEEE, MMM d 'at' h:mm a", {
-      timeZone: BUSINESS_TIMEZONE,
-    });
+    const localLabel = format(
+      toZonedTime(startDate, BUSINESS_TIMEZONE),
+      "EEEE, MMM d 'at' h:mm a"
+    );
 
     // Best-effort — never fails the booking response.
     const emailResult = await sendBookingConfirmationEmail({
