@@ -82,7 +82,7 @@ export function FeaturesSection() {
       <Container size="xl">
         <div className="max-w-3xl">
           <FadeIn>
-            <Eyebrow>Features</Eyebrow>
+            <Eyebrow tone="light">Features</Eyebrow>
           </FadeIn>
           <TextReveal
             as="h2"
@@ -131,11 +131,11 @@ function FeatureCard({
   return (
     <article
       className={cn(
-        "group h-full rounded-xl border border-white/10 bg-white/[0.03] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.05]",
-        accent && "border-accent/20 bg-accent/[0.06]"
+        "group h-full rounded-xl border border-white/10 bg-white/[0.03] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:bg-white/[0.05]",
+        accent && "border-indigo-400/20 bg-indigo-400/[0.06]"
       )}
     >
-      <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent/20">
+      <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-400/10 text-indigo-400 transition-colors group-hover:bg-indigo-400/20">
         <Icon className="h-6 w-6" strokeWidth={1.5} />
       </div>
       <h3
@@ -151,8 +151,8 @@ function FeatureCard({
       {visual && (
         <div className="mt-6 rounded-lg border border-white/10 bg-primary/40 p-5">
           <div className="flex items-center justify-between mb-3">
-            <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-accent">
-              <LivePulse color="bg-accent" />
+            <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-indigo-400">
+              <LivePulse color="bg-indigo-400" />
               Answering now
             </span>
             <span className="font-mono text-xs text-white/40">00:42</span>
@@ -161,7 +161,7 @@ function FeatureCard({
             {Array.from({ length: 32 }).map((_, i) => (
               <span
                 key={i}
-                className="wave-bar w-1 rounded-full bg-accent/70"
+                className="wave-bar w-1 rounded-full bg-indigo-400/70"
                 style={{
                   height: `${15 + Math.abs(Math.sin(i * 0.5)) * 80}%`,
                   animationDelay: `${i * 0.05}s`,
@@ -179,7 +179,7 @@ function FeatureCard({
               <p className="text-[10px] text-white/50">Answered today</p>
             </div>
             <div className="rounded-md bg-white/5 p-2">
-              <p className="font-mono text-lg text-accent">100%</p>
+              <p className="font-mono text-lg text-indigo-400">100%</p>
               <p className="text-[10px] text-white/50">Pickup rate</p>
             </div>
           </div>
