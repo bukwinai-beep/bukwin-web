@@ -86,7 +86,7 @@ export function CaseStudiesSection() {
                 <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-8">
                   <div>
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy text-accent font-display text-lg font-semibold">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy text-indigo-400 font-display text-lg font-semibold">
                         {c.initials[0]}
                       </span>
                       <div>
