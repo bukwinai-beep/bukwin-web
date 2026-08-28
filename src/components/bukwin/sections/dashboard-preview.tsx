@@ -46,8 +46,8 @@ const CALL_VOLUME = [
 ];
 
 const LANGUAGE_BREAKDOWN = [
-  { lang: "English", count: 184, color: "#0F172A" },
-  { lang: "Spanish", count: 42, color: "#D4A853" },
+  { lang: "English", count: 184, color: "#0B0E14" },
+  { lang: "Spanish", count: 42, color: "#4F46E5" },
   { lang: "Mandarin", count: 18, color: "#64748B" },
   { lang: "Arabic", count: 11, color: "#10B981" },
   { lang: "Other", count: 8, color: "#94A3B8" },
@@ -399,15 +399,15 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
             <AreaChart data={CALL_VOLUME} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
               <defs>
                 <linearGradient id="g-calls" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0F172A" stopOpacity={0.25} />
-                  <stop offset="100%" stopColor="#0F172A" stopOpacity={0} />
+                  <stop offset="0%" stopColor="#0B0E14" stopOpacity={0.25} />
+                  <stop offset="100%" stopColor="#0B0E14" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="g-booked" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#D4A853" stopOpacity={0.35} />
-                  <stop offset="100%" stopColor="#D4A853" stopOpacity={0} />
+                  <stop offset="0%" stopColor="#4F46E5" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="#4F46E5" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
               <XAxis
                 dataKey="day"
                 tickLine={false}
@@ -422,23 +422,23 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
               <Tooltip
                 contentStyle={{
                   background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
+                  border: "1px solid #E5E7EB",
                   borderRadius: 8,
                   fontSize: 12,
-                  color: "#0F172A",
+                  color: "#0B0E14",
                 }}
               />
               <Area
                 type="monotone"
                 dataKey="calls"
-                stroke="#0F172A"
+                stroke="#0B0E14"
                 strokeWidth={2}
                 fill="url(#g-calls)"
               />
               <Area
                 type="monotone"
                 dataKey="booked"
-                stroke="#D4A853"
+                stroke="#4F46E5"
                 strokeWidth={2}
                 fill="url(#g-booked)"
               />
@@ -463,7 +463,7 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
           </p>
           <ResponsiveContainer width="100%" height={140}>
             <BarChart data={LANGUAGE_BREAKDOWN} margin={{ top: 0, right: 0, bottom: 0, left: -28 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
               <XAxis
                 dataKey="lang"
                 tickLine={false}
@@ -477,10 +477,10 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
                 tick={{ fontSize: 10, fill: "#94A3B8" }}
               />
               <Tooltip
-                cursor={{ fill: "rgba(15,23,42,0.04)" }}
+                cursor={{ fill: "rgba(11,14,20,0.04)" }}
                 contentStyle={{
                   background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
+                  border: "1px solid #E5E7EB",
                   borderRadius: 8,
                   fontSize: 12,
                 }}
@@ -696,19 +696,19 @@ function AnalyticsPanel() {
             ]}
             margin={{ top: 5, right: 5, bottom: 0, left: -25 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
             <XAxis dataKey="h" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "#94A3B8" }} />
             <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "#94A3B8" }} />
             <Tooltip
-              cursor={{ fill: "rgba(212,168,83,0.05)" }}
+              cursor={{ fill: "rgba(79,70,229,0.05)" }}
               contentStyle={{
                 background: "#FFFFFF",
-                border: "1px solid #E2E8F0",
+                border: "1px solid #E5E7EB",
                 borderRadius: 8,
                 fontSize: 12,
               }}
             />
-            <Bar dataKey="c" radius={[4, 4, 0, 0]} fill="#D4A853" />
+            <Bar dataKey="c" radius={[4, 4, 0, 0]} fill="#4F46E5" />
           </BarChart>
         </ResponsiveContainer>
         <p className="mt-2 text-xs text-text-secondary">
