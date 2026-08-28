@@ -81,10 +81,10 @@ export function Footer() {
           <div className="space-y-5">
             <div className="flex items-center gap-2.5">
               <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-md bg-white/5 border border-white/10">
-                <span className="font-display text-xl font-semibold text-accent leading-none">B</span>
+                <span className="font-display text-xl font-semibold text-indigo-400 leading-none">B</span>
               </span>
               <span className="font-display text-lg font-semibold">
-                Bukwin <span className="text-accent">AI</span>
+                Bukwin <span className="text-indigo-400">AI</span>
               </span>
             </div>
             <p className="text-sm leading-relaxed text-white/60 max-w-sm">
@@ -103,7 +103,7 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@business.com"
-                  className="h-11 flex-1 rounded-md border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-white/30 focus:border-accent/60 focus:bg-white/10 focus:outline-none transition"
+                  className="h-11 flex-1 rounded-md border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-white/30 focus:border-indigo-400/60 focus:bg-white/10 focus:outline-none transition"
                 />
                 <BukwinButton type="submit" size="md" className="shrink-0" disabled={status === "loading"}>
                   {status === "loading" ? (
@@ -114,7 +114,7 @@ export function Footer() {
                 </BukwinButton>
               </form>
               {status === "success" && (
-                <p className="mt-2 text-xs text-accent inline-flex items-center gap-1.5">
+                <p className="mt-2 text-xs text-indigo-400 inline-flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   You&apos;re on the list.
                 </p>
@@ -137,7 +137,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/70 hover:text-accent transition-colors link-underline"
+                      className="text-sm text-white/70 hover:text-indigo-400 transition-colors link-underline"
                     >
                       {link.label}
                     </Link>
@@ -158,7 +158,7 @@ export function Footer() {
                 key={i}
                 href="#"
                 aria-label="social link"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/50 hover:text-accent hover:border-accent/40 transition"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/50 hover:text-indigo-400 hover:border-indigo-400/40 transition"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -166,7 +166,7 @@ export function Footer() {
           </div>
           <div className="flex items-center md:justify-end gap-2 order-3 text-xs text-white/40">
             <Phone className="h-3.5 w-3.5" />
-            <a href="tel:5550192834" className="font-mono hover:text-accent transition">
+            <a href="tel:5550192834" className="font-mono hover:text-indigo-400 transition">
               (555) 019-2834
             </a>
           </div>
