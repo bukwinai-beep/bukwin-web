@@ -109,7 +109,7 @@ export function PricingSection() {
                 Annual
                 <span className={cn(
                   "rounded-full px-1.5 py-0.5 text-[10px] uppercase tracking-wide",
-                  annual ? "bg-accent text-primary" : "bg-accent/15 text-accent"
+                  annual ? "bg-accent text-accent-foreground" : "bg-accent/15 text-accent"
                 )}>
                   Save 20%
                 </span>
@@ -159,10 +159,10 @@ function PricingCard({ tier, annual }: { tier: Tier; annual: boolean }) {
           <div
             className="absolute -inset-px -z-10 rounded-2xl opacity-30 blur-md"
             style={{
-              background: "linear-gradient(135deg, rgba(212, 168, 83, 0.3), transparent)",
+              background: "linear-gradient(135deg, rgba(79, 70, 229, 0.3), transparent)",
             }}
           />
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary">
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-accent-foreground">
             Recommended
           </span>
         </>
