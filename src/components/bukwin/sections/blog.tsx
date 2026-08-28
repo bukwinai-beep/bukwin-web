@@ -77,10 +77,10 @@ export function BlogSection() {
                     style={{
                       background:
                         i === 0
-                          ? "radial-gradient(circle at 30% 30%, rgba(212,168,83,0.25), transparent 60%), linear-gradient(135deg, #0F172A 0%, #1E293B 100%)"
+                          ? "radial-gradient(circle at 30% 30%, rgba(79,70,229,0.25), transparent 60%), linear-gradient(135deg, #0B0E14 0%, #1E293B 100%)"
                           : i === 1
-                          ? "radial-gradient(circle at 70% 40%, rgba(16,185,129,0.18), transparent 60%), linear-gradient(135deg, #FAF9F6 0%, #F1F0EB 100%)"
-                          : "linear-gradient(135deg, #0F172A 0%, #D4A853 130%)",
+                          ? "radial-gradient(circle at 70% 40%, rgba(16,185,129,0.18), transparent 60%), linear-gradient(135deg, #F1F2F4 0%, #EEF0F3 100%)"
+                          : "linear-gradient(135deg, #0B0E14 0%, #4F46E5 130%)",
                     }}
                   />
                   <div className="absolute inset-0 grid-bg opacity-30" />
