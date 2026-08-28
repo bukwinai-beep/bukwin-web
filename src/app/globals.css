@@ -74,29 +74,29 @@
 :root {
   --radius: 0.625rem;
 
-  /* Core palette */
-  --background: #FAF9F6;       /* warm off-white */
-  --foreground: #0F172A;       /* deep navy text */
+  /* Core palette — white / black / blue, matching the hero section */
+  --background: #F1F2F4;       /* cool off-white, same as hero page bg */
+  --foreground: #0B0E14;       /* near-black ink */
   --card: #FFFFFF;
-  --card-foreground: #0F172A;
+  --card-foreground: #0B0E14;
   --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
-  --primary: #0F172A;          /* deep navy */
-  --primary-foreground: #FAF9F6;
-  --secondary: #F1F0EB;
-  --secondary-foreground: #0F172A;
-  --muted: #F1F0EB;
+  --popover-foreground: #0B0E14;
+  --primary: #0B0E14;          /* near-black */
+  --primary-foreground: #FFFFFF;
+  --secondary: #EEF0F3;
+  --secondary-foreground: #0B0E14;
+  --muted: #EEF0F3;
   --muted-foreground: #64748B;
-  --accent: #D4A853;           /* warm gold */
-  --accent-foreground: #0F172A;
+  --accent: #4F46E5;           /* indigo blue, matches hero accent */
+  --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #D4A853;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #4F46E5;
 
   /* Brand aliases */
-  --navy: #0F172A;
-  --gold: #D4A853;
+  --navy: #0B0E14;
+  --gold: #4F46E5;
   --surface: #FFFFFF;
   --success: #10B981;
   --error: #EF4444;
@@ -104,25 +104,25 @@
   --text-muted: #94A3B8;
 
   /* Charts */
-  --chart-1: #0F172A;
-  --chart-2: #D4A853;
+  --chart-1: #4F46E5;
+  --chart-2: #0B0E14;
   --chart-3: #64748B;
   --chart-4: #10B981;
   --chart-5: #EF4444;
 
   /* Sidebar (dashboard) */
-  --sidebar: #0F172A;
-  --sidebar-foreground: #FAF9F6;
-  --sidebar-primary: #D4A853;
-  --sidebar-primary-foreground: #0F172A;
+  --sidebar: #0B0E14;
+  --sidebar-foreground: #F8FAFC;
+  --sidebar-primary: #4F46E5;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #1E293B;
-  --sidebar-accent-foreground: #FAF9F6;
+  --sidebar-accent-foreground: #F8FAFC;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #D4A853;
+  --sidebar-ring: #4F46E5;
 
   /* Custom scrollbar colors (used by scroll-bukwin utility) */
-  --scrollbar-thumb: rgba(15, 23, 42, 0.18);
-  --scrollbar-thumb-hover: rgba(15, 23, 42, 0.32);
+  --scrollbar-thumb: rgba(11, 14, 20, 0.18);
+  --scrollbar-thumb-hover: rgba(11, 14, 20, 0.32);
 
   color-scheme: light;
 }
@@ -144,22 +144,22 @@
   --secondary-foreground: #F8FAFC;
   --muted: #1E293B;
   --muted-foreground: #94A3B8;
-  --accent: #F0C674;
+  --accent: #818CF8;
   --accent-foreground: #0A0F1C;
   --destructive: #EF4444;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
-  --ring: #F0C674;
+  --ring: #818CF8;
 
   --navy: #0A0F1C;
-  --gold: #F0C674;
+  --gold: #818CF8;
   --surface: #111827;
   --success: #34D399;
   --error: #F87171;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
 
-  --chart-1: #F0C674;
+  --chart-1: #818CF8;
   --chart-2: #F8FAFC;
   --chart-3: #94A3B8;
   --chart-4: #34D399;
@@ -167,12 +167,12 @@
 
   --sidebar: #111827;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #F0C674;
+  --sidebar-primary: #818CF8;
   --sidebar-primary-foreground: #0A0F1C;
   --sidebar-accent: #1E293B;
   --sidebar-accent-foreground: #F8FAFC;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #F0C674;
+  --sidebar-ring: #818CF8;
 
   --scrollbar-thumb: rgba(248, 250, 252, 0.18);
   --scrollbar-thumb-hover: rgba(248, 250, 252, 0.32);
@@ -308,7 +308,7 @@
   100% { background-position: 1000px 0; }
 }
 .shimmer {
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.08), transparent);
   background-size: 1000px 100%;
   animation: shimmer 2.5s infinite linear;
 }
