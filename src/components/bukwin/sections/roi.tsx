@@ -28,7 +28,7 @@ export function RoiSection() {
       <Container size="xl">
         <div className="max-w-3xl">
           <FadeIn>
-            <Eyebrow>ROI Calculator</Eyebrow>
+            <Eyebrow tone="light">ROI Calculator</Eyebrow>
           </FadeIn>
           <TextReveal
             as="h2"
@@ -85,10 +85,10 @@ export function RoiSection() {
                     <label className="text-sm font-medium text-white/80">
                       Bukwin answer rate
                     </label>
-                    <span className="font-mono text-sm text-accent">98%</span>
+                    <span className="font-mono text-sm text-indigo-400">98%</span>
                   </div>
-                  <div className="flex items-center gap-3 rounded-lg border border-accent/20 bg-accent/5 px-4 py-3">
-                    <TrendingUp className="h-4 w-4 text-accent shrink-0" />
+                  <div className="flex items-center gap-3 rounded-lg border border-indigo-400/20 bg-indigo-400/5 px-4 py-3">
+                    <TrendingUp className="h-4 w-4 text-indigo-400 shrink-0" />
                     <p className="text-xs text-white/60">
                       We answer every call that connects — no voicemail, no hold music.
                     </p>
@@ -98,7 +98,7 @@ export function RoiSection() {
             </div>
 
             {/* Results */}
-            <div className="rounded-2xl border border-accent/30 bg-accent/[0.06] p-6 md:p-8">
+            <div className="rounded-2xl border border-indigo-400/30 bg-indigo-400/[0.06] p-6 md:p-8">
               <h3 className="font-display text-xl font-medium text-white mb-6">
                 With Bukwin
               </h3>
@@ -126,10 +126,10 @@ export function RoiSection() {
                   tone="accent"
                   large
                 />
-                <div className="rounded-lg border border-accent/20 bg-accent/5 p-4">
+                <div className="rounded-lg border border-indigo-400/20 bg-indigo-400/5 p-4">
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-white/70">Return on investment</span>
-                    <span className="font-display text-3xl font-medium text-accent">
+                    <span className="font-display text-3xl font-medium text-indigo-400">
                       {roi}×
                     </span>
                   </div>
@@ -178,7 +178,7 @@ function SliderRow({
     <div>
       <div className="flex items-center justify-between mb-3">
         <label className="text-sm font-medium text-white/80">{label}</label>
-        <span className="font-mono text-sm text-accent">{format(value)}</span>
+        <span className="font-mono text-sm text-indigo-400">{format(value)}</span>
       </div>
       <Slider
         value={[value]}
@@ -186,7 +186,7 @@ function SliderRow({
         max={max}
         step={step}
         onValueChange={(v) => onChange(v[0])}
-        className="[&_[role=slider]]:bg-accent [&_[role=slider]]:border-accent [&_[role=slider]]:shadow-lg [&_[role=slider]]:shadow-accent/30 [&_.bg-primary]:bg-accent/30"
+        className="[&_[role=slider]]:bg-indigo-400 [&_[role=slider]]:border-indigo-400 [&_[role=slider]]:shadow-lg [&_[role=slider]]:shadow-indigo-400/30 [&_.bg-primary]:bg-indigo-400/30"
       />
       <div className="mt-1.5 flex justify-between text-[10px] text-white/30 font-mono">
         <span>{format(min)}</span>
@@ -224,7 +224,7 @@ function ResultRow({
         className={`font-mono ${
           large ? "text-3xl md:text-4xl" : "text-xl"
         } ${
-          tone === "accent" ? "text-accent font-semibold" : "text-white"
+          tone === "accent" ? "text-indigo-400 font-semibold" : "text-white"
         }`}
       >
         {value}
