@@ -79,7 +79,7 @@ function Logo({ onDark, size = "md" }: { onDark: boolean; size?: "sm" | "md" }) 
           size === "md" ? "h-9 w-9" : "h-8 w-8"
         )}
       >
-        <span className="font-display text-xl font-bold text-primary leading-none">B</span>
+        <span className="font-display text-xl font-bold text-accent-foreground leading-none">B</span>
       </span>
       <span className="flex flex-col leading-none">
         <span
@@ -125,10 +125,10 @@ export function Navigation() {
     };
   }, [open]);
 
-  // On the homepage, the hero is dark navy at the top — so we use white text.
-  // On all other routes, the first section is light — use theme colors.
-  // After scrolling past 24px on the homepage, switch to theme colors.
-  const onDark = isHome && !scrolled;
+  // The homepage hero is a light card on a light page background (matching
+  // the white/black/blue theme), so the nav always uses theme colors —
+  // no dark-hero special case needed anymore.
+  const onDark = false;
 
   return (
     <header
