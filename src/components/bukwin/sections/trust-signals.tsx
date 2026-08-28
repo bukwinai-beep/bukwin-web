@@ -68,7 +68,7 @@ export function TrustSignalsSection() {
             <FadeIn delay={0.3}>
               <div className="mt-8 grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
-                  <p className="font-display text-3xl font-medium text-accent">
+                  <p className="font-display text-3xl font-medium text-indigo-400">
                     <CountUp to={200} suffix="+" />
                   </p>
                   <p className="mt-1 text-[11px] text-white/60 leading-tight">
@@ -76,7 +76,7 @@ export function TrustSignalsSection() {
                   </p>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
-                  <p className="font-display text-3xl font-medium text-accent">
+                  <p className="font-display text-3xl font-medium text-indigo-400">
                     <CountUp to={1} suffix="M+" />
                   </p>
                   <p className="mt-1 text-[11px] text-white/60 leading-tight">
@@ -90,16 +90,16 @@ export function TrustSignalsSection() {
           <StaggerContainer className="grid sm:grid-cols-2 gap-3" stagger={0.08}>
             {ITEMS.map((it) => (
               <StaggerItem key={it.label}>
-                <article className="group h-full rounded-xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-accent/30 hover:bg-white/[0.05]">
+                <article className="group h-full rounded-xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.05]">
                   <div className="flex items-start gap-3">
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent transition-transform group-hover:scale-110">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-indigo-400/10 text-indigo-400 transition-transform group-hover:scale-110">
                       <it.icon className="h-5 w-5" strokeWidth={1.5} />
                     </span>
                     <div>
                       <p className="font-display text-2xl md:text-3xl font-medium text-white leading-none">
                         {it.stat}
                       </p>
-                      <p className="mt-1.5 text-sm font-medium text-accent">
+                      <p className="mt-1.5 text-sm font-medium text-indigo-400">
                         {it.label}
                       </p>
                       <p className="mt-1 text-[12px] leading-relaxed text-white/60">
