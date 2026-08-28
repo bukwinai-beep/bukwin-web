@@ -11,7 +11,7 @@ const bukwinButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-accent text-primary hover:bg-[#BF9547] hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02]",
+          "bg-accent text-accent-foreground hover:bg-[#4338CA] hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02]",
         secondary:
           "bg-transparent border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
         ghost:
@@ -20,7 +20,7 @@ const bukwinButtonVariants = cva(
           "bg-transparent border border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40",
         solid:
           "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20",
-        link: "bg-transparent text-accent hover:text-[#BF9547] hover:underline underline-offset-4 p-0 h-auto",
+        link: "bg-transparent text-accent hover:text-[#4338CA] hover:underline underline-offset-4 p-0 h-auto",
       },
       size: {
         sm: "text-[13px] px-4 py-2 rounded-md",
