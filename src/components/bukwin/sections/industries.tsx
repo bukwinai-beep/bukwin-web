@@ -241,7 +241,7 @@ export function IndustriesSection() {
                       className={cn(
                         "inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-all",
                         isOpen
-                          ? "bg-accent text-primary scale-110"
+                          ? "bg-accent text-accent-foreground scale-110"
                           : "bg-accent/10 text-accent"
                       )}
                     >
