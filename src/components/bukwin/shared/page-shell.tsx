@@ -68,10 +68,10 @@ export function PageHero({
         <span
           className={cn(
             "inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] font-sans",
-            "text-accent"
+            isDark ? "text-indigo-400" : "text-accent"
           )}
         >
-          <span className="h-px w-6 bg-accent/60" aria-hidden />
+          <span className={cn("h-px w-6", isDark ? "bg-indigo-400/60" : "bg-accent/60")} aria-hidden />
           {eyebrow}
         </span>
         <h1
