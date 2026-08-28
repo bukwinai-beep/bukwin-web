@@ -187,7 +187,7 @@ export function ComparisonSection() {
                           {col.price}
                         </span>
                         {col.highlight && (
-                          <span className="mt-1 inline-flex rounded-full bg-accent px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-primary">
+                          <span className="mt-1 inline-flex rounded-full bg-accent px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-accent-foreground">
                             Best
                           </span>
                         )}
