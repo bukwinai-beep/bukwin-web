@@ -31,17 +31,17 @@ export async function sendBookingConfirmationEmail(
 
     const html = `
       <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto;">
-        <h2 style="color:#0F172A;">Your appointment is confirmed</h2>
+        <h2 style="color:#0B0E14;">Your appointment is confirmed</h2>
         <p>Hi ${escapeHtml(input.customerName)},</p>
         <p>Your <strong>${escapeHtml(input.service)}</strong> with ${escapeHtml(
       BUSINESS_NAME
     )} is confirmed for:</p>
-        <p style="font-size:18px; font-weight:600; color:#0F172A;">
+        <p style="font-size:18px; font-weight:600; color:#0B0E14;">
           ${escapeHtml(input.startLabel)} (${escapeHtml(input.timezone)})
         </p>
         ${
           input.calendarLink
-            ? `<p><a href="${input.calendarLink}" style="color:#D4A853;">View in Google Calendar</a></p>`
+            ? `<p><a href="${input.calendarLink}" style="color:#4F46E5;">View in Google Calendar</a></p>`
             : ""
         }
         <p>If you need to reschedule or cancel, just reply to this email.</p>
@@ -97,17 +97,17 @@ export async function sendRescheduleEmail(
 
     const html = `
       <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto;">
-        <h2 style="color:#0F172A;">Your appointment has been rescheduled</h2>
+        <h2 style="color:#0B0E14;">Your appointment has been rescheduled</h2>
         <p>Hi ${escapeHtml(input.customerName)},</p>
         <p>Your <strong>${escapeHtml(input.service)}</strong> with ${escapeHtml(
       BUSINESS_NAME
     )} has been moved to:</p>
-        <p style="font-size:18px; font-weight:600; color:#0F172A;">
+        <p style="font-size:18px; font-weight:600; color:#0B0E14;">
           ${escapeHtml(input.startLabel)} (${escapeHtml(input.timezone)})
         </p>
         ${
           input.calendarLink
-            ? `<p><a href="${input.calendarLink}" style="color:#D4A853;">View in Google Calendar</a></p>`
+            ? `<p><a href="${input.calendarLink}" style="color:#4F46E5;">View in Google Calendar</a></p>`
             : ""
         }
         <p>If this doesn't work for you, just reply to this email.</p>
@@ -162,12 +162,12 @@ export async function sendCancellationEmail(
 
     const html = `
       <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto;">
-        <h2 style="color:#0F172A;">Your appointment has been cancelled</h2>
+        <h2 style="color:#0B0E14;">Your appointment has been cancelled</h2>
         <p>Hi ${escapeHtml(input.customerName)},</p>
         <p>Your <strong>${escapeHtml(input.service)}</strong> with ${escapeHtml(
       BUSINESS_NAME
     )} originally scheduled for:</p>
-        <p style="font-size:18px; font-weight:600; color:#0F172A;">
+        <p style="font-size:18px; font-weight:600; color:#0B0E14;">
           ${escapeHtml(input.startLabel)} (${escapeHtml(input.timezone)})
         </p>
         <p>has been cancelled. If this wasn't you, or you'd like to rebook, just reply to this email.</p>
