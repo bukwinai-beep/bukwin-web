@@ -11,9 +11,9 @@ export async function GET(req: NextRequest) {
     "Never miss a call. Never lose a customer.";
   const theme = url.searchParams.get("theme") === "dark" ? "dark" : "light";
 
-  const bg = theme === "dark" ? "#0A0F1C" : "#0F172A";
-  const fg = theme === "dark" ? "#F8FAFC" : "#FAF9F6";
-  const accent = theme === "dark" ? "#F0C674" : "#D4A853";
+  const bg = theme === "dark" ? "#0A0F1C" : "#0B0E14";
+  const fg = theme === "dark" ? "#F8FAFC" : "#FFFFFF";
+  const accent = theme === "dark" ? "#818CF8" : "#4F46E5";
 
   return new ImageResponse(
     (
