@@ -61,15 +61,17 @@ export function Eyebrow({
   className?: string;
   tone?: "dark" | "light";
 }) {
+  const accentClass = tone === "light" ? "text-indigo-400" : "text-accent";
+  const barClass = tone === "light" ? "bg-indigo-400/60" : "bg-accent/60";
   return (
     <span
       className={cn(
         "inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] font-sans",
-        tone === "dark" ? "text-accent" : "text-accent",
+        accentClass,
         className
       )}
     >
-      <span className="h-px w-6 bg-accent/60" aria-hidden />
+      <span className={cn("h-px w-6", barClass)} aria-hidden />
       {children}
     </span>
   );
