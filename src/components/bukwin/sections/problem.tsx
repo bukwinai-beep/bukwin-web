@@ -80,7 +80,7 @@ export function ProblemSection() {
                 delay={i * 0.15}
                 className="py-12 md:py-16 md:px-8 text-center md:text-left"
               >
-                <p className="font-display text-6xl md:text-7xl font-medium text-accent leading-none">
+                <p className="font-display text-6xl md:text-7xl font-medium text-indigo-400 leading-none">
                   <CountUp to={s.value} suffix={s.suffix} duration={2.2} />
                 </p>
                 <p className="mt-4 text-base text-white/70 max-w-xs mx-auto md:mx-0 leading-relaxed">
