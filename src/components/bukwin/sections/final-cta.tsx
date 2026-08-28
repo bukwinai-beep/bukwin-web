@@ -111,8 +111,8 @@ export function FinalCtaSection() {
           {/* Left: pitch */}
           <div className="lg:sticky lg:top-28">
             <FadeIn>
-              <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-accent">
-                <LivePulse color="bg-accent" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-400/5 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-indigo-400">
+                <LivePulse color="bg-indigo-400" />
                 Book a free demo
               </span>
             </FadeIn>
@@ -141,8 +141,8 @@ export function FinalCtaSection() {
                     key={item.label}
                     className="flex items-center gap-3 text-sm text-white/80"
                   >
-                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-accent/15 border border-accent/30">
-                      <item.icon className="h-4 w-4 text-accent" />
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-indigo-400/15 border border-indigo-400/30">
+                      <item.icon className="h-4 w-4 text-indigo-400" />
                     </span>
                     {item.label}
                   </div>
@@ -158,7 +158,7 @@ export function FinalCtaSection() {
                 <span className="hidden md:inline">·</span>
                 <a
                   href="tel:5550192834"
-                  className="inline-flex items-center gap-1.5 text-white/60 hover:text-accent transition"
+                  className="inline-flex items-center gap-1.5 text-white/60 hover:text-indigo-400 transition"
                 >
                   <Phone className="h-3 w-3" />
                   <span className="font-mono normal-case tracking-normal">
@@ -377,7 +377,7 @@ export function FinalCtaSection() {
 }
 
 const inputCls =
-  "w-full h-10 rounded-md border border-white/15 bg-white/5 px-3 text-sm text-white placeholder:text-white/30 focus:border-accent/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent/20 transition";
+  "w-full h-10 rounded-md border border-white/15 bg-white/5 px-3 text-sm text-white placeholder:text-white/30 focus:border-indigo-400/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400/20 transition";
 
 function Field({
   label,
@@ -392,7 +392,7 @@ function Field({
     <label className="block">
       <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-[0.12em] text-white/60">
         {label}
-        {required && <span className="text-accent ml-0.5">*</span>}
+        {required && <span className="text-indigo-400 ml-0.5">*</span>}
       </span>
       {children}
     </label>
