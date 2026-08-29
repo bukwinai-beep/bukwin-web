@@ -281,7 +281,7 @@ function Dropdown({
             transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
             className="absolute left-0 top-full pt-2 w-[320px]"
           >
-            <div className="rounded-xl border border-border bg-surface shadow-xl overflow-hidden">
+            <div className="rounded-2xl border border-border bg-surface shadow-xl overflow-hidden">
               <div className="px-4 pt-3 pb-2 border-b border-border">
                 <p className="text-[10px] uppercase tracking-[0.18em] font-semibold text-text-muted">
                   {group.label}
