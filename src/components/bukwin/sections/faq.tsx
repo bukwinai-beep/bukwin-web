@@ -56,7 +56,7 @@ export function FaqSection() {
           <TextReveal
             as="h2"
             text="Good questions. Honest answers."
-            className="mt-5 font-display text-4xl md:text-5xl font-medium leading-[1.15] tracking-[-0.01em] text-primary"
+            className="mt-5 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
           />
         </div>
 
@@ -70,7 +70,7 @@ export function FaqSection() {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="rounded-xl border border-border bg-surface px-5 md:px-6 data-[state=open]:border-accent/40 data-[state=open]:shadow-sm transition-all"
+                className="rounded-2xl border border-border bg-surface px-5 md:px-6 data-[state=open]:border-accent/40 data-[state=open]:shadow-sm transition-all"
               >
                 <AccordionTrigger className="text-left font-display text-lg md:text-xl font-medium text-primary hover:no-underline py-5">
                   {item.q}

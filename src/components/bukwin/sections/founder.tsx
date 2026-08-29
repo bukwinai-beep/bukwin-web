@@ -87,7 +87,7 @@ export function FounderSection() {
 
               {/* Mini-stats */}
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-border bg-background p-4 text-center">
+                <div className="rounded-2xl border border-border bg-background p-4 text-center">
                   <p className="font-display text-3xl font-medium text-accent">
                     <CountUp to={200} suffix="+" />
                   </p>
@@ -95,7 +95,7 @@ export function FounderSection() {
                     Businesses served
                   </p>
                 </div>
-                <div className="rounded-xl border border-border bg-background p-4 text-center">
+                <div className="rounded-2xl border border-border bg-background p-4 text-center">
                   <p className="font-display text-3xl font-medium text-accent">
                     <CountUp to={1} suffix="M+" />
                   </p>
@@ -114,7 +114,7 @@ export function FounderSection() {
               <TextReveal
                 as="h2"
                 text="Built on conviction, not vibes."
-                className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
+                className="mt-5 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
               />
               <p className="mt-5 text-lg text-text-secondary leading-relaxed">
                 Four principles guide every product decision we make. They
@@ -126,7 +126,7 @@ export function FounderSection() {
             <StaggerContainer className="mt-10 space-y-3" stagger={0.1}>
               {VALUES.map((v) => (
                 <StaggerItem key={v.title}>
-                  <article className="group flex gap-4 rounded-xl border border-border bg-background p-5 transition-all hover:border-accent/30 hover:shadow-sm">
+                  <article className="group flex gap-4 rounded-2xl border border-border bg-background p-5 transition-all hover:border-accent/30 hover:shadow-sm">
                     <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent transition-transform group-hover:scale-110">
                       <v.icon className="h-5 w-5" strokeWidth={1.5} />
                     </div>
@@ -144,7 +144,7 @@ export function FounderSection() {
             </StaggerContainer>
 
             <FadeIn delay={0.4}>
-              <div className="mt-8 rounded-xl border border-accent/30 bg-accent/5 p-5 md:p-6">
+              <div className="mt-8 rounded-2xl border border-accent/30 bg-accent/5 p-5 md:p-6">
                 <p className="font-display text-lg md:text-xl font-medium text-primary leading-snug">
                   &ldquo;I am willing to tell you not to build it.&rdquo;
                 </p>

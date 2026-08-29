@@ -71,7 +71,7 @@ export function ComplianceSection() {
               <TextReveal
                 as="h2"
                 text="Built for industries that take privacy seriously."
-                className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
+                className="mt-5 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
               />
               <p className="mt-5 text-lg text-text-secondary leading-relaxed">
                 Healthcare, legal, financial — if your business is regulated,
@@ -80,7 +80,7 @@ export function ComplianceSection() {
             </FadeIn>
 
             <FadeIn delay={0.3}>
-              <div className="mt-7 inline-flex items-center gap-3 rounded-xl border border-success/30 bg-success/5 px-4 py-3">
+              <div className="mt-7 inline-flex items-center gap-3 rounded-2xl border border-success/30 bg-success/5 px-4 py-3">
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-success/15 text-success">
                   <Shield className="h-5 w-5" strokeWidth={1.5} />
                 </span>
@@ -102,7 +102,7 @@ export function ComplianceSection() {
             <StaggerContainer className="grid sm:grid-cols-2 gap-3" stagger={0.1}>
               {COMPLIANCE.map((c) => (
                 <StaggerItem key={c.region}>
-                  <article className="group h-full rounded-xl border border-border bg-surface p-5 transition-all hover:-translate-y-1 hover:shadow-md hover:border-accent/30">
+                  <article className="group h-full rounded-2xl border border-border bg-surface p-5 transition-all hover:-translate-y-1 hover:shadow-md hover:border-accent/30">
                     <div className="flex items-center justify-between mb-3">
                       <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.1em] text-text-muted">
                         <Globe className="h-3.5 w-3.5" />
@@ -128,7 +128,7 @@ export function ComplianceSection() {
             >
               {SECURITY_FEATURES.map((s) => (
                 <StaggerItem key={s.title}>
-                  <article className="flex gap-3 rounded-xl border border-border bg-background p-4 hover:border-accent/30 transition-colors">
+                  <article className="flex gap-3 rounded-2xl border border-border bg-background p-4 hover:border-accent/30 transition-colors">
                     <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/5 text-primary">
                       <s.icon className="h-4 w-4" strokeWidth={1.5} />
                     </span>

@@ -69,7 +69,7 @@ export function BlogSection() {
         <StaggerContainer className="mt-12 grid md:grid-cols-3 gap-5" stagger={0.12}>
           {POSTS.map((post, i) => (
             <StaggerItem key={post.title} className="h-full">
-              <article className="group flex h-full flex-col rounded-xl border border-border bg-surface overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-accent/30">
+              <article className="group flex h-full flex-col rounded-2xl border border-border bg-surface overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-accent/30">
                 {/* Cover */}
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-secondary/30">
                   <div

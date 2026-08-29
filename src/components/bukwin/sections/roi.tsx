@@ -24,7 +24,7 @@ export function RoiSection() {
   const roi = monthlyInvest > 0 ? Math.round(monthlyGain / monthlyInvest) : 0;
 
   return (
-    <Section bg="navy" id="roi" className="noise-overlay">
+    <Section bg="navy" id="roi">
       <Container size="xl">
         <div className="max-w-3xl">
           <FadeIn>

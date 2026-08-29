@@ -98,12 +98,12 @@ export function FinalCtaSection() {
   };
 
   return (
-    <Section bg="navy" id="cta" className="noise-overlay relative overflow-hidden">
+    <Section bg="navy" id="cta" className="relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212, 168, 83, 0.12), transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(79, 70, 229, 0.15), transparent 70%)",
         }}
       />
       <Container size="xl" className="relative">

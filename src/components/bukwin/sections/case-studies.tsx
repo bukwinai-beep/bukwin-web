@@ -117,7 +117,7 @@ export function CaseStudiesSection() {
                     {c.stats.map((s) => (
                       <div
                         key={s.label}
-                        className="rounded-xl border border-border bg-background p-4"
+                        className="rounded-2xl border border-border bg-background p-4"
                       >
                         <s.icon className="h-4 w-4 text-accent mb-2" strokeWidth={1.5} />
                         <p className="font-display text-2xl md:text-3xl font-medium text-primary leading-none">

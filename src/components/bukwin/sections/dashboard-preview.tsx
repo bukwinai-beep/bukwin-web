@@ -316,7 +316,7 @@ function StatCard({
   icon: typeof Phone;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-4 md:p-5">
+    <div className="rounded-2xl border border-border bg-background p-4 md:p-5">
       <div className="flex items-start justify-between">
         <div className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-accent/10 text-accent">
           <Icon className="h-4 w-4" strokeWidth={1.5} />
@@ -380,7 +380,7 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
 
       {/* Chart */}
       <div className="grid lg:grid-cols-[1.6fr_1fr] gap-3">
-        <div className="rounded-xl border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-background p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-xs uppercase tracking-[0.15em] text-text-secondary">
@@ -454,7 +454,7 @@ function OverviewPanel({ liveStats }: { liveStats: LiveStats | null }) {
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-background p-4">
+        <div className="rounded-2xl border border-border bg-background p-4">
           <p className="text-xs uppercase tracking-[0.15em] text-text-secondary mb-1">
             Language mix · 30 days
           </p>
@@ -528,7 +528,7 @@ function RecentCallsTable({ liveStats }: { liveStats: LiveStats | null }) {
   const rows = [...realRows, ...sampleRows];
 
   return (
-    <div className="rounded-xl border border-border bg-background overflow-hidden">
+    <div className="rounded-2xl border border-border bg-background overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <p className="text-xs uppercase tracking-[0.15em] text-text-secondary">
           {realRows.length > 0 ? "Recent leads (live)" : "Recent calls"}
@@ -612,7 +612,7 @@ function RecentCallsTable({ liveStats }: { liveStats: LiveStats | null }) {
 function CallsPanel() {
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-border bg-background p-5">
+      <div className="rounded-2xl border border-border bg-background p-5">
         <p className="text-xs uppercase tracking-[0.15em] text-text-secondary mb-3">
           Live call transcript
         </p>
@@ -674,7 +674,7 @@ function AnalyticsPanel() {
         <StatCard label="Hours saved / mo" value="124h" delta="+18h" trend="up" icon={Clock} />
       </div>
 
-      <div className="rounded-xl border border-border bg-background p-4">
+      <div className="rounded-2xl border border-border bg-background p-4">
         <p className="text-xs uppercase tracking-[0.15em] text-text-secondary mb-3">
           Calls by hour · today
         </p>

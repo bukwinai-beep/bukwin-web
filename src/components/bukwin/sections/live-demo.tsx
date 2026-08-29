@@ -44,7 +44,7 @@ export function LiveDemoSection() {
           <TextReveal
             as="h2"
             text="Experience it yourself. No signup required."
-            className="mt-5 font-display text-4xl md:text-5xl font-medium leading-[1.15] tracking-[-0.01em] text-primary"
+            className="mt-5 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.12] tracking-[-0.01em] text-primary"
           />
           <FadeIn delay={0.3}>
             <p className="mt-5 text-lg text-text-secondary leading-relaxed">
@@ -346,7 +346,7 @@ function CalendarMini() {
   if (!today || !monthDate) {
     // Brief loading state on first paint, before the client clock kicks in.
     return (
-      <div className="rounded-xl border border-border bg-background p-3 h-[280px] flex items-center justify-center">
+      <div className="rounded-2xl border border-border bg-background p-3 h-[280px] flex items-center justify-center">
         <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
       </div>
     );

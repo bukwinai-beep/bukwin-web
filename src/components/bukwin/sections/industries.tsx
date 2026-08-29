@@ -227,7 +227,7 @@ export function IndustriesSection() {
                 <div
                   key={ind.id}
                   className={cn(
-                    "rounded-xl border bg-surface transition-all duration-300 overflow-hidden",
+                    "rounded-2xl border bg-surface transition-all duration-300 overflow-hidden",
                     isOpen ? "border-accent/40 shadow-md" : "border-border hover:border-accent/30"
                   )}
                 >

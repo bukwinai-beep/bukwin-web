@@ -77,7 +77,7 @@ export function TestimonialsSection() {
         >
           {TESTIMONIALS.map((t) => (
             <StaggerItem key={t.name}>
-              <article className="group h-full rounded-xl border border-border bg-surface p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-accent/30 border-l-[3px] !border-l-accent">
+              <article className="group h-full rounded-2xl border border-border bg-surface p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-accent/30 border-l-[3px] !border-l-accent">
                 <div className="relative">
                   <span
                     aria-hidden

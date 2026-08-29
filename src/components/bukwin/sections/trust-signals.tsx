@@ -47,7 +47,7 @@ const ITEMS = [
 
 export function TrustSignalsSection() {
   return (
-    <Section bg="navy" id="trust" className="noise-overlay">
+    <Section bg="navy" id="trust">
       <Container size="xl">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 items-start">
           <div className="lg:sticky lg:top-28">
@@ -67,7 +67,7 @@ export function TrustSignalsSection() {
 
             <FadeIn delay={0.3}>
               <div className="mt-8 grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center">
                   <p className="font-display text-3xl font-medium text-indigo-400">
                     <CountUp to={200} suffix="+" />
                   </p>
@@ -75,7 +75,7 @@ export function TrustSignalsSection() {
                     Businesses live today
                   </p>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center">
                   <p className="font-display text-3xl font-medium text-indigo-400">
                     <CountUp to={1} suffix="M+" />
                   </p>
@@ -90,7 +90,7 @@ export function TrustSignalsSection() {
           <StaggerContainer className="grid sm:grid-cols-2 gap-3" stagger={0.08}>
             {ITEMS.map((it) => (
               <StaggerItem key={it.label}>
-                <article className="group h-full rounded-xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.05]">
+                <article className="group h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.05]">
                   <div className="flex items-start gap-3">
                     <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-indigo-400/10 text-indigo-400 transition-transform group-hover:scale-110">
                       <it.icon className="h-5 w-5" strokeWidth={1.5} />

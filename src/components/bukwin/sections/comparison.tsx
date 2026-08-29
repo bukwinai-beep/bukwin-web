@@ -239,7 +239,7 @@ export function ComparisonSection() {
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-xl border border-accent/30 bg-accent/5 p-5 md:p-6">
+          <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl border border-accent/30 bg-accent/5 p-5 md:p-6">
             <div>
               <p className="font-display text-lg md:text-xl font-medium text-primary">
                 Still on the fence? Book a 15-min call.

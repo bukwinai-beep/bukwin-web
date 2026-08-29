@@ -78,7 +78,7 @@ const FEATURES = [
 
 export function FeaturesSection() {
   return (
-    <Section bg="navy" id="features" className="noise-overlay">
+    <Section bg="navy" id="features">
       <Container size="xl">
         <div className="max-w-3xl">
           <FadeIn>
@@ -131,7 +131,7 @@ function FeatureCard({
   return (
     <article
       className={cn(
-        "group h-full rounded-xl border border-white/10 bg-white/[0.03] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:bg-white/[0.05]",
+        "group h-full rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:bg-white/[0.05]",
         accent && "border-indigo-400/20 bg-indigo-400/[0.06]"
       )}
     >

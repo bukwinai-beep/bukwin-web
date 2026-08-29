@@ -54,7 +54,7 @@ export function ProblemSection() {
         <StaggerContainer className="mt-14 grid gap-6 md:grid-cols-3" stagger={0.12}>
           {PROBLEMS.map((p) => (
             <StaggerItem key={p.title}>
-              <article className="group h-full rounded-xl border border-border bg-surface p-7 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-accent/30">
+              <article className="group h-full rounded-2xl border border-border bg-surface p-7 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-accent/30">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent/20">
                   <p.icon className="h-6 w-6" strokeWidth={1.5} />
                 </div>
@@ -71,7 +71,7 @@ export function ProblemSection() {
       </Container>
 
       {/* Stat bar */}
-      <div className="mt-20 bg-navy text-white noise-overlay">
+      <div className="mt-20 bg-navy text-white">
         <Container size="xl">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
             {STATS.map((s, i) => (
