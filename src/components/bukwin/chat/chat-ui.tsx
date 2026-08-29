@@ -124,7 +124,7 @@ function HistorySidebar() {
                   createConversation();
                   setSidebarOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
               >
                 <Plus className="h-4 w-4" />
                 New chat
@@ -142,7 +142,7 @@ function HistorySidebar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className={cn(
-                    "group flex items-center gap-2 px-3 py-2.5 rounded-xl cursor-pointer transition-colors",
+                    "group flex items-center gap-2 px-3 py-2.5 rounded-2xl cursor-pointer transition-colors",
                     activeId === conv.id
                       ? "bg-accent/10 border border-accent/30"
                       : "hover:bg-secondary border border-transparent"
@@ -357,7 +357,7 @@ export function ChatUI({ className }: { className?: string }) {
                     onClick={() => sendMessage(p.prompt)}
                     disabled={isLoading}
                     className={cn(
-                      "flex items-center gap-2 px-4 py-3 rounded-xl border border-border bg-transparent",
+                      "flex items-center gap-2 px-4 py-3 rounded-2xl border border-border bg-transparent",
                       "text-sm text-left text-foreground hover:border-accent/50 hover:bg-secondary/50",
                       "transition-all disabled:opacity-50"
                     )}
@@ -382,7 +382,7 @@ export function ChatUI({ className }: { className?: string }) {
 
         {error && (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex justify-center">
-            <div className="bg-destructive/10 border border-destructive/20 text-destructive text-xs px-4 py-2.5 rounded-xl max-w-[90%] flex items-center gap-2">
+            <div className="bg-destructive/10 border border-destructive/20 text-destructive text-xs px-4 py-2.5 rounded-2xl max-w-[90%] flex items-center gap-2">
               <span>{error}</span>
               <button onClick={() => setError("")} className="underline hover:no-underline font-medium">
                 Dismiss
