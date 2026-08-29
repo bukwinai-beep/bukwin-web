@@ -61,18 +61,64 @@ export function Eyebrow({
   className?: string;
   tone?: "dark" | "light";
 }) {
-  const accentClass = tone === "light" ? "text-indigo-400" : "text-accent";
-  const barClass = tone === "light" ? "bg-indigo-400/60" : "bg-accent/60";
+  const wrapClass =
+    tone === "light"
+      ? "border-indigo-400/30 bg-indigo-400/10 text-indigo-400"
+      : "border-accent/20 bg-accent/5 text-accent";
+  const dotClass = tone === "light" ? "bg-indigo-400" : "bg-accent";
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] font-sans",
-        accentClass,
+        "inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[11px] font-medium tracking-[0.08em] uppercase",
+        wrapClass,
         className
       )}
     >
-      <span className={cn("h-px w-6", barClass)} aria-hidden />
+      <span className={cn("h-1.5 w-1.5 rounded-full", dotClass)} aria-hidden />
       {children}
     </span>
+  );
+}
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  tone = "dark",
+  align = "left",
+  className,
+}: {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
+  tone?: "dark" | "light";
+  align?: "left" | "center";
+  className?: string;
+}) {
+  const titleClass = tone === "light" ? "text-white" : "text-primary";
+  const descClass = tone === "light" ? "text-white/60" : "text-muted-foreground";
+  return (
+    <div
+      className={cn(
+        "max-w-2xl",
+        align === "center" && "mx-auto text-center",
+        className
+      )}
+    >
+      {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
+      <h2
+        className={cn(
+          "mt-5 font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.12] tracking-[-0.02em]",
+          titleClass
+        )}
+      >
+        {title}
+      </h2>
+      {description ? (
+        <p className={cn("mt-4 text-base md:text-lg leading-relaxed", descClass)}>
+          {description}
+        </p>
+      ) : null}
+    </div>
   );
 }

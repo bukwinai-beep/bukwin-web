@@ -4,6 +4,7 @@ import { Navigation } from "@/components/bukwin/navigation";
 import { Footer } from "@/components/bukwin/footer";
 import { ScrollProgress } from "@/components/bukwin/shared/scroll-progress";
 import { CookieConsent } from "@/components/bukwin/shared/cookie-consent";
+import { Eyebrow } from "@/components/bukwin/shared/container";
 
 /**
  * Standard page wrapper for all sub-routes.
@@ -41,7 +42,8 @@ export function PageShell({
 }
 
 /**
- * Compact page hero for sub-pages (smaller than homepage hero).
+ * Compact page hero for sub-pages — a floating white card on a light
+ * page background, mirroring the homepage hero's visual language.
  */
 export function PageHero({
   eyebrow,
@@ -54,44 +56,39 @@ export function PageHero({
   subtitle?: string;
   bg?: "default" | "navy" | "surface";
 }) {
-  const bgClass = {
-    default: "bg-background",
-    navy: "bg-navy text-white",
-    surface: "bg-surface border-y border-border",
-  }[bg];
-
   const isDark = bg === "navy";
 
   return (
-    <section className={cn("py-16 md:py-24 lg:py-28", bgClass)}>
+    <section className="bg-[#F1F2F4] dark:bg-background py-10 lg:py-14">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 xl:px-12">
-        <span
+        <div
           className={cn(
-            "inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] font-sans",
-            isDark ? "text-indigo-400" : "text-accent"
+            "rounded-[32px] shadow-xl border overflow-hidden px-6 py-14 sm:px-12 sm:py-16 lg:px-16 lg:py-20",
+            isDark
+              ? "bg-navy border-white/10"
+              : "bg-white dark:bg-card border-black/5 dark:border-border"
           )}
         >
-          <span className={cn("h-px w-6", isDark ? "bg-indigo-400/60" : "bg-accent/60")} aria-hidden />
-          {eyebrow}
-        </span>
-        <h1
-          className={cn(
-            "mt-5 font-display font-bold leading-[1.1] tracking-[-0.02em] text-4xl md:text-5xl lg:text-[3.5rem]",
-            isDark ? "text-white" : "text-primary"
-          )}
-        >
-          {title}
-        </h1>
-        {subtitle && (
-          <p
+          <Eyebrow tone={isDark ? "light" : "dark"}>{eyebrow}</Eyebrow>
+          <h1
             className={cn(
-              "mt-5 max-w-2xl text-lg md:text-xl leading-relaxed",
-              isDark ? "text-white/70" : "text-text-secondary"
+              "mt-5 font-display font-bold leading-[1.1] tracking-[-0.02em] text-4xl md:text-5xl lg:text-[3.5rem]",
+              isDark ? "text-white" : "text-[#0B0E14] dark:text-foreground"
             )}
           >
-            {subtitle}
-          </p>
-        )}
+            {title}
+          </h1>
+          {subtitle && (
+            <p
+              className={cn(
+                "mt-5 max-w-2xl text-lg md:text-xl leading-relaxed",
+                isDark ? "text-white/60" : "text-slate-500 dark:text-muted-foreground"
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );

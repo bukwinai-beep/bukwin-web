@@ -49,7 +49,7 @@ export function LiveCallFeed({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div className={cn("rounded-xl border border-border bg-background p-4", className)}>
+    <div className={cn("rounded-2xl border border-border bg-background p-4", className)}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <PhoneCall className="h-4 w-4 text-accent" />
@@ -84,7 +84,7 @@ export function LiveCallFeed({ className }: { className?: string }) {
               <motion.li
                 key={event.id}
                 layout
-                initial={{ opacity: 0, y: -10, backgroundColor: "rgba(212, 168, 83, 0.18)" }}
+                initial={{ opacity: 0, y: -10, backgroundColor: "rgba(79, 70, 229, 0.14)" }}
                 animate={{ opacity: 1, y: 0, backgroundColor: "rgba(0, 0, 0, 0)" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.6 }}
